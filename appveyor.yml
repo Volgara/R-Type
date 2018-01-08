@@ -54,7 +54,7 @@ before_build:
   - cmd: cmake -G "%CMAKE_GENERATOR_NAME%" -DCMAKE_BUILD_TYPE=%configuration% ..
 
 build:
-  project: C:\projects\dart\build\dart.sln # path to Visual Studio solution or project
+  project: C:\projects\rtype\build\dart.sln # path to Visual Studio solution or project
   parallel: true                           # enable MSBuild parallel builds
   verbosity: normal                         # MSBuild verbosity level (quiet|minimal|normal|detailed)
 
