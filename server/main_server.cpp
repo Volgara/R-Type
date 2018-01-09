@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "../engine/network/Socket.hpp"
+#include "network/Socket.hpp"
 
 int main() {
     RType::Socket *socket = new RType::Socket();

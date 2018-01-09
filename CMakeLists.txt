@@ -3,8 +3,6 @@ project(RType)
 
 set(CMAKE_CXX_STANDARD 17)
 
-INCLUDE_DIRECTORIES(server/include)
-
 # Core
 set(core_SOURCE_FILES )
 
@@ -43,6 +41,9 @@ set(client_SOURCE_FILES ${client_MODULES} client/main_client.cpp)
 
 # Software : Server
 set(server_SOURCE_FILES ${server_MODULES} server/main_server.cpp)
+
+# include dir
+include_directories(engine)
 
 add_executable(client ${client_SOURCE_FILES})
 add_executable(server ${server_SOURCE_FILES})
