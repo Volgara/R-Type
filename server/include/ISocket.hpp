@@ -25,8 +25,8 @@ namespace RType
     public:
         virtual void init_socket() = 0;
         virtual int connect_socket() = 0;
-        virtual int blind_Socket() = 0;
-        virtual int listen_Socket() = 0;
+        virtual void blind_Socket() = 0;
+        virtual void listen_Socket() = 0;
         virtual int get_fd() const = 0;
     };
 };

@@ -22,12 +22,11 @@ int RType::UnixSocket::connect_socket() {
     return 0;
 }
 
-int RType::UnixSocket::blind_Socket() {
-    return 0;
+void RType::UnixSocket::blind_Socket() {
+
 }
 
-int RType::UnixSocket::listen_Socket() {
-    return 0;
+void RType::UnixSocket::listen_Socket() {
 }
 
 int RType::UnixSocket::get_fd() const {

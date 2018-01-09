@@ -23,13 +23,6 @@ RType::Socket::Socket(SocketType type) {
     std::cout << "Runnin on Macos" << std::endl;
     std::cout << "Socket on macos not implemented yet" << std::endl;
 #endif
-
-    if (_socket == NULL)
-        std::cout << "Socket type error" << std::endl;
-    else
-        std::cout << "Socket created" << std::endl;
-
-
 }
 
 RType::Socket::~Socket() {
@@ -44,12 +37,12 @@ int RType::Socket::connect_socket() {
     return (_socket->connect_socket());
 }
 
-int RType::Socket::blind_Socket() {
-    return (_socket->blind_Socket());
+void RType::Socket::blind_Socket() {
+    _socket->blind_Socket();
 }
 
-int RType::Socket::listen_Socket() {
-    return (_socket->listen_Socket());
+void RType::Socket::listen_Socket() {
+    _socket->listen_Socket();
 }
 
 int RType::Socket::get_fd() const {

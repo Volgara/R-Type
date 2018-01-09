@@ -21,8 +21,8 @@ namespace RType
 
         void init_socket() override;
         int connect_socket() override;
-        int blind_Socket() override;
-        int listen_Socket() override;
+        void blind_Socket() override;
+        void listen_Socket() override;
         int get_fd() const override;
     };
 };

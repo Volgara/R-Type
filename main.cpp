@@ -8,6 +8,6 @@ int main() {
     socket->init_socket();
     socket->connect_socket();
     socket->blind_Socket();
-    socket->get_fd();
+    std::cout << "Sokcet fd: " << socket->get_fd() << std::endl;
     return(0);
 }
