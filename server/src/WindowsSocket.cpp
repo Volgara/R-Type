@@ -3,7 +3,9 @@
 // Contact: volgar.dev@gmail.com
 //
 
-#include "../include/WindowsSocket.hpp"
+#ifdef _WIN32
+
+#include "WindowsSocket.hpp"
 
 RType::WindowsSocket::WindowsSocket(SocketType type) {
     _socketType = type;
@@ -32,3 +34,5 @@ int RType::WindowsSocket::listen_Socket() {
 int RType::WindowsSocket::get_fd() const {
     return 0;
 }
+
+#endif

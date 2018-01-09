@@ -6,6 +6,8 @@
 #ifndef RTYPE_WINDOWSSOCKET_HPP
 #define RTYPE_WINDOWSSOCKET_HPP
 
+#ifdef _WIN32
+
 #include <winsock2.h>
 #include "Socket.hpp"
 
@@ -24,5 +26,7 @@ namespace RType
         int get_fd() const override;
     };
 };
+
+#endif
 
 #endif //RTYPE_WINDOWSSOCKET_HPP

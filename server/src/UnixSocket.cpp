@@ -3,7 +3,7 @@
 // Contact: volgar.dev@gmail.com
 //
 
-#include "../include/UnixSocket.hpp"
+#include "UnixSocket.hpp"
 
 RType::UnixSocket::UnixSocket(SocketType type) {
     _socketType = type;
