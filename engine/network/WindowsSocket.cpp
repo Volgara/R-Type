@@ -3,7 +3,7 @@
 // Contact: volgar.dev@gmail.com
 //
 
-#include "../include/WindowsSocket.hpp"
+#include "WindowsSocket.hpp"
 
 RType::WindowsSocket::WindowsSocket() {
 
