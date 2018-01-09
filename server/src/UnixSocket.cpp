@@ -24,7 +24,6 @@ void RType::UnixSocket::init_socket() {
     if (fd < 0) {
         std::cout << "Socket creation failed" << std::endl;
     }
-    bzero((char *) &serv_addr, sizeof(serv_addr));
     serv_addr.sin_family = AF_INET;
     serv_addr.sin_addr.s_addr = INADDR_ANY;
     serv_addr.sin_port = htons(4243);
