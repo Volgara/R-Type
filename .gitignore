@@ -82,6 +82,3 @@ fabric.properties
 *.exe
 *.out
 *.app
-
-.gitignore
-.idea/
