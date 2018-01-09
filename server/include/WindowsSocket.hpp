@@ -6,6 +6,7 @@
 #ifndef RTYPE_WINDOWSSOCKET_HPP
 #define RTYPE_WINDOWSSOCKET_HPP
 
+#include <winsock2.h>
 #include "Socket.hpp"
 
 namespace RType
