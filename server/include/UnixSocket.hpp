@@ -6,11 +6,19 @@
 #ifndef RTYPE_UNIXSOCKET_HPP
 #define RTYPE_UNIXSOCKET_HPP
 
+#ifdef linux
+
 #include "ISocket.hpp"
+#include <stdio.h>
+#include <stdlib.h>
+#include <netdb.h>
+#include <netinet/in.h>
 
 namespace RType
 {
     class UnixSocket : public ISocket{
+    private:
+        struct sockaddr_in serv_addr;
     public:
         UnixSocket(SocketType);
 
@@ -24,6 +32,6 @@ namespace RType
     };
 };
 
-
+#endif
 
 #endif //RTYPE_UNIXSOCKET_HPP
