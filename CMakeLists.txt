@@ -5,6 +5,19 @@ set(CMAKE_CXX_STANDARD 17)
 
 INCLUDE_DIRECTORIES(server/include)
 
+# Game Engine
+include(core/core.cmake)
+include(engine/game/game.cmake)
+include(engine/graphics/graphics.cmake)
+include(engine/network/network.cmake)
+include(engine/physics/physics.cmake)
+
+# Software : Client
+include(client/client.cmake)
+
+# Sofware : Server
+include(server/server.cmake)
+
 set(SOURCE_FILES
         main.cpp
         server/src/Socket.cpp
