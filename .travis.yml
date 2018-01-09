@@ -5,9 +5,19 @@ before_install:
 # Enable C++ support
 language: cpp
 
+os:
+  - linux
+  - mac
+  
+addons:
+  apt:
+     packages:
+      - lcov
+
 # Compiler selection
 compiler:
   - gcc
+  - clang
   
 install:
   - DEPS_DIR="${TRAVIS_BUILD_DIR}/deps"
@@ -28,3 +38,12 @@ script:
   - mkdir build
   - cd build
   - ${DEPS_DIR}/cmake/bin/cmake .. && make
+
+after_success:
+    # Creating report
+  - cd ${TRAVIS_BUILD_DIR}
+  - lcov --directory . --capture --output-file coverage.info # capture coverage info
+  - lcov --remove coverage.info '/usr/*' --output-file coverage.info # filter out system
+  - lcov --list coverage.info #debug info
+  # Uploading report to CodeCov
+  - bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
