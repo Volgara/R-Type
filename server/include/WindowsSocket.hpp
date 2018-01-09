@@ -12,15 +12,15 @@ namespace RType
 {
     class WindowsSocket : public ISocket {
     public:
-        WindowsSocket();
+        WindowsSocket(SocketType);
 
         ~WindowsSocket() override;
 
-        void init_socket();
-        int connect_socket();
-        int blind_Socket();
-        int listen_Socket();
-        int get_fd() const;
+        void init_socket() override;
+        int connect_socket() override;
+        int blind_Socket() override;
+        int listen_Socket() override;
+        int get_fd() const override;
     };
 };
 

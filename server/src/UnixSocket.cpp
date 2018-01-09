@@ -5,8 +5,8 @@
 
 #include "../include/UnixSocket.hpp"
 
-RType::UnixSocket::UnixSocket() {
-
+RType::UnixSocket::UnixSocket(SocketType type) {
+    _socketType = type;
 }
 
 

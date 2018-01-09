@@ -10,10 +10,13 @@
 
 namespace RType
 {
+    enum SocketType {Tcp, Udp};
+
     class ISocket {
 
     protected:
         int         fd;
+        SocketType  _socketType;
 
     public:
         enum OsType {Windows, Linux};

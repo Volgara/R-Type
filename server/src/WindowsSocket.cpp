@@ -5,8 +5,8 @@
 
 #include "../include/WindowsSocket.hpp"
 
-RType::WindowsSocket::WindowsSocket() {
-
+RType::WindowsSocket::WindowsSocket(SocketType type) {
+    _socketType = type;
 }
 
 RType::WindowsSocket::~WindowsSocket() {

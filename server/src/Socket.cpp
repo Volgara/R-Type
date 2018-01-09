@@ -7,16 +7,16 @@
 #include "../include/WindowsSocket.hpp"
 #include "../include/UnixSocket.hpp"
 
-RType::Socket::Socket() {
+RType::Socket::Socket(SocketType type) {
     _socket = NULL;
 #ifdef _WIN32
     std::cout << "Running on windows" << std::endl;
-    _socket = (ISocket *) new WindowsSocket();
+    _socket = (ISocket *) new WindowsSocket(type);
 #endif
 
 #ifdef linux
     std::cout << "Running on linux" << std::endl;
-    _socket = (ISocket *) new UnixSocket();
+    _socket = (ISocket *) new UnixSocket(type);
 #endif
 
 #ifdef __APPLE__

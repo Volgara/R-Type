@@ -3,7 +3,7 @@
 #include "Socket.hpp"
 
 int main() {
-    RType::Socket *socket = new RType::Socket();
+    RType::Socket *socket = new RType::Socket(RType::SocketType::Tcp);
 
     socket->init_socket();
     socket->connect_socket();
