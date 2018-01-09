@@ -1,14 +1,13 @@
 #include <iostream>
 
+#include "Socket.hpp"
+
 int main() {
-#ifdef _WIN32
-    std::cout << "Hello, World windows!" << std::endl;
-    return 0;
-#elif linux
-    std::cout << "Hello, World linux!" << std::endl;
-    return 0;
-#elif __APPLE__
-    std::cout << "Hello, World Mac!" << std::endl;
-    return 0;
-#endif
+    RType::Socket *socket = new RType::Socket();
+
+    socket->init_socket();
+    socket->connect_socket();
+    socket->blind_Socket();
+    socket->get_fd();
+    return(0);
 }
