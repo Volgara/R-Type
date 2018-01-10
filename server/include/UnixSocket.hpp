@@ -6,8 +6,6 @@
 #ifndef RTYPE_UNIXSOCKET_HPP
 #define RTYPE_UNIXSOCKET_HPP
 
-#ifdef linux
-
 #include "ISocket.hpp"
 #include <stdio.h>
 #include <stdlib.h>
@@ -31,7 +29,5 @@ namespace RType
         int get_fd() const override;
     };
 };
-
-#endif
 
 #endif //RTYPE_UNIXSOCKET_HPP
