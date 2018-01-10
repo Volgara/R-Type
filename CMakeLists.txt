@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.8)
 project(RType)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 14)
 
 include(GTest.cmake)
 
@@ -73,7 +73,7 @@ add_executable(engine_core_unit ${core_SOURCE_FILES} ${core_unit_SOURCE_FILES})
 set(GOOGLE_TESTS_LIBS gtest gmock ${CMAKE_THREAD_LIBS_INIT})
 
 if (MSVC)
-    target_compile_options(tests PRIVATE /std:c++17 /W4 /WX)
+    target_compile_options(tests PRIVATE /std:c++14 /W4 /WX)
 
     set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /Ox")
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /Od")
@@ -81,7 +81,7 @@ if (MSVC)
     # VS 2017 removed tr1
     add_definitions(-DGTEST_HAS_TR1_TUPLE=0)
 else()
-    target_compile_options(engine_core_unit PRIVATE -std=c++17 -g -Wall -Werror -Wextra -Wpedantic -Wconversion -Wswitch-default -Wswitch-enum -Wunreachable-code -Wwrite-strings -Wcast-align -Wshadow -Wundef)
+    target_compile_options(engine_core_unit PRIVATE -std=c++14 -g -Wall -Werror -Wextra -Wpedantic -Wconversion -Wswitch-default -Wswitch-enum -Wunreachable-code -Wwrite-strings -Wcast-align -Wshadow -Wundef)
 
     if (COVERAGE)
         target_compile_options(engine_core_unit PRIVATE --coverage)
