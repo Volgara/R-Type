@@ -54,7 +54,7 @@ set(server_MODULES
         ${network_SOURCE_FILES})
 
 # Software : Client
-set(client_SOURCE_FILES ${client_MODULES} client/main_client.cpp unit/engine/core/GameObjectUnit.cpp)
+set(client_SOURCE_FILES ${client_MODULES} client/main_client.cpp)
 
 # Software : Server
 set(server_SOURCE_FILES ${server_MODULES} server/main_server.cpp)
