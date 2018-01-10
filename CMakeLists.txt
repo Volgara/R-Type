@@ -12,10 +12,14 @@ set(core_SOURCE_FILES
         engine/core/NonCopyable.hpp
         engine/core/ISystem.hpp
         engine/core/GameObjectManager.hpp
+        engine/core/EngineMsg.cpp
+        engine/core/EngineMsg.hpp
         engine/core/GameObject.cpp
         engine/core/GameObject.hpp)
 
-set(core_unit_SOURCE_FILES unit/engine/core/GameObjectUnit.cpp engine/core/EngineMsg.cpp engine/core/EngineMsg.hpp unit/engine/core/GameObjectManagerUnit.cpp)
+set(core_unit_SOURCE_FILES
+        unit/engine/core/GameObjectUnit.cpp
+        unit/engine/core/GameObjectManagerUnit.cpp)
 
 # Engine : Game
 set(game_SOURCE_FILES )

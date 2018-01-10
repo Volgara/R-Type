@@ -41,7 +41,8 @@ before_install:
 
 # Build steps
 script:
-  - ${DEPS_DIR}/cmake/bin/cmake -DCOVERAGE=1 .
+  - mkdir build && cd build
+  - ${DEPS_DIR}/cmake/bin/cmake -DCOVERAGE=1 ..
   - ${DEPS_DIR}/cmake/bin/cmake --build .
   - ./engine_core_unit
 
