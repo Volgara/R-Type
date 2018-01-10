@@ -3,17 +3,31 @@ project(RType)
 
 set(CMAKE_CXX_STANDARD 17)
 
-# Core
-set(core_SOURCE_FILES )
+include(GTest.cmake)
+
+# Engine
+set(core_SOURCE_FILES
+        engine/core/Engine.cpp
+        engine/core/Engine.hpp
+        engine/core/NonCopyable.hpp
+        engine/core/ISystem.hpp
+        engine/core/GameObjectManager.hpp
+        engine/core/GameObject.cpp
+        engine/core/GameObject.hpp)
+
+set(core_unit_SOURCE_FILES unit/engine/core/GameObjectUnit.cpp engine/core/EngineMsg.cpp engine/core/EngineMsg.hpp unit/engine/core/GameObjectManagerUnit.cpp)
 
 # Engine : Game
 set(game_SOURCE_FILES )
+set(game_unit_SOURCE_FILES )
 
 # Engine : Graphics
 set(graphics_SOURCE_FILES )
+set(graphics_unit_SOURCE_FILES )
 
 # Engine : Physics
 set(physics_SOURCE_FILES )
+set(physics_unit_SOURCE_FILES )
 
 # Engine : Network
 set(network_SOURCE_FILES engine/network/Socket.cpp
@@ -23,21 +37,24 @@ set(network_SOURCE_FILES engine/network/Socket.cpp
         engine/network/UnixSocket.cpp
         engine/network/UnixSocket.hpp
         engine/network/ISocket.hpp)
+set(network_unit_SOURCE_FILES )
 
 # Link Module
 
-set(client_MODULES ${core_SOURCE_FILES}
+set(client_MODULES
+        ${core_SOURCE_FILES}
         ${game_SOURCE_FILES}
         ${graphics_SOURCE_FILES}
         ${network_SOURCE_FILES})
 
-set(server_MODULES ${core_SOURCE_FILES}
+set(server_MODULES
+        ${core_SOURCE_FILES}
         ${game_SOURCE_FILES}
         ${physics_SOURCE_FILES}
         ${network_SOURCE_FILES})
 
 # Software : Client
-set(client_SOURCE_FILES ${client_MODULES} client/main_client.cpp)
+set(client_SOURCE_FILES ${client_MODULES} client/main_client.cpp unit/engine/core/GameObjectUnit.cpp)
 
 # Software : Server
 set(server_SOURCE_FILES ${server_MODULES} server/main_server.cpp)
@@ -47,3 +64,29 @@ include_directories(engine)
 
 add_executable(client ${client_SOURCE_FILES})
 add_executable(server ${server_SOURCE_FILES})
+
+find_package (Threads)
+
+# unit test
+add_executable(engine_core_unit ${core_SOURCE_FILES} ${core_unit_SOURCE_FILES})
+
+set(GOOGLE_TESTS_LIBS gtest gmock ${CMAKE_THREAD_LIBS_INIT})
+
+if (MSVC)
+    target_compile_options(tests PRIVATE /std:c++17 /W4 /WX)
+
+    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /Ox")
+    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /Od")
+    target_link_libraries(tests ${GOOGLE_TESTS_LIBS})
+    # VS 2017 removed tr1
+    add_definitions(-DGTEST_HAS_TR1_TUPLE=0)
+else()
+    target_compile_options(engine_core_unit PRIVATE -std=c++17 -g -Wall -Werror -Wextra -Wpedantic -Wconversion -Wswitch-default -Wswitch-enum -Wunreachable-code -Wwrite-strings -Wcast-align -Wshadow -Wundef)
+
+    if (COVERAGE)
+        target_compile_options(engine_core_unit PRIVATE --coverage)
+        target_link_libraries(engine_core_unit PRIVATE --coverage ${LIBS})
+    else()
+        target_link_libraries(engine_core_unit ${GOOGLE_TESTS_LIBS})
+    endif()
+endif()

@@ -34,9 +34,9 @@ install:
 
 # Build steps
 script:
-  - mkdir build
-  - cd build
-  - ${DEPS_DIR}/cmake/bin/cmake .. && make
+  - ${DEPS_DIR}/cmake/bin/cmake cmake -DCOVERAGE=1 .
+  - ${DEPS_DIR}/cmake/bin/cmake cmake --build .
+  - ./engine_core_unit
 
 after_success:
     # Creating report
