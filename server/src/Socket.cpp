@@ -21,7 +21,7 @@ RType::Socket::Socket(SocketType type) {
 
 #ifdef __APPLE__
     std::cout << "Runnin on Macos" << std::endl;
-    std::cout << "Socket on macos not implemented yet" << std::endl;
+    _socket = (ISocket *) new UnixSocket(type);
 #endif
 }
 

@@ -5,8 +5,6 @@
 
 #include "UnixSocket.hpp"
 
-#ifdef linux
-
 RType::UnixSocket::UnixSocket(SocketType type) {
     _socketType = type;
 }
@@ -50,5 +48,3 @@ void RType::UnixSocket::listen_Socket() {
 int RType::UnixSocket::get_fd() const {
     return fd;
 }
-
-#endif
