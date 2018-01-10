@@ -85,7 +85,7 @@ else()
 
     if (COVERAGE)
         target_compile_options(engine_core_unit PRIVATE --coverage)
-        target_link_libraries(engine_core_unit PRIVATE --coverage ${LIBS})
+        target_link_libraries(engine_core_unit PRIVATE --coverage ${GOOGLE_TESTS_LIBS})
     else()
         target_link_libraries(engine_core_unit ${GOOGLE_TESTS_LIBS})
     endif()
