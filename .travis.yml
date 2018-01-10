@@ -17,7 +17,10 @@ addons:
 compiler:
   - gcc
   - clang
-  
+
+git:
+  submodules: false
+
 install:
   - DEPS_DIR="${TRAVIS_BUILD_DIR}/deps"
   - mkdir ${DEPS_DIR} && cd ${DEPS_DIR}
@@ -31,6 +34,10 @@ install:
   
   # Go to the Root directory  
   - cd ..
+
+before_install:
+  - sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
+  - git submodule update --init --recursive
 
 # Build steps
 script:
