@@ -1,31 +1,96 @@
 cmake_minimum_required(VERSION 3.8)
 project(RType)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 14)
 
-INCLUDE_DIRECTORIES(server/include)
+include(GTest.cmake)
 
-# Game Engine
-include(core/core.cmake)
-include(engine/game/game.cmake)
-include(engine/graphics/graphics.cmake)
-include(engine/network/network.cmake)
-include(engine/physics/physics.cmake)
+# Engine
+set(core_SOURCE_FILES
+        engine/core/Engine.cpp
+        engine/core/Engine.hpp
+        engine/core/NonCopyable.hpp
+        engine/core/ISystem.hpp
+        engine/core/GameObjectManager.hpp
+        engine/core/EngineMsg.cpp
+        engine/core/EngineMsg.hpp
+        engine/core/GameObject.cpp
+        engine/core/GameObject.hpp)
+
+set(core_unit_SOURCE_FILES
+        unit/engine/core/GameObjectUnit.cpp
+        unit/engine/core/GameObjectManagerUnit.cpp)
+
+# Engine : Game
+set(game_SOURCE_FILES )
+set(game_unit_SOURCE_FILES )
+
+# Engine : Graphics
+set(graphics_SOURCE_FILES )
+set(graphics_unit_SOURCE_FILES )
+
+# Engine : Physics
+set(physics_SOURCE_FILES )
+set(physics_unit_SOURCE_FILES )
+
+# Engine : Network
+set(network_SOURCE_FILES engine/network/Socket.cpp
+        engine/network/Socket.hpp
+        engine/network/WindowsSocket.cpp
+        engine/network/WindowsSocket.hpp
+        engine/network/UnixSocket.cpp
+        engine/network/UnixSocket.hpp
+        engine/network/ISocket.hpp)
+set(network_unit_SOURCE_FILES )
+
+# Link Module
+
+set(client_MODULES
+        ${core_SOURCE_FILES}
+        ${game_SOURCE_FILES}
+        ${graphics_SOURCE_FILES}
+        ${network_SOURCE_FILES})
+
+set(server_MODULES
+        ${core_SOURCE_FILES}
+        ${game_SOURCE_FILES}
+        ${physics_SOURCE_FILES}
+        ${network_SOURCE_FILES})
 
 # Software : Client
-include(client/client.cmake)
+set(client_SOURCE_FILES ${client_MODULES} client/main_client.cpp)
 
-# Sofware : Server
-include(server/server.cmake)
+# Software : Server
+set(server_SOURCE_FILES ${server_MODULES} server/main_server.cpp)
 
-set(SOURCE_FILES
-        main.cpp
-        server/src/Socket.cpp
-        server/include/Socket.hpp
-        server/src/WindowsSocket.cpp
-        server/include/WindowsSocket.hpp
-        server/src/UnixSocket.cpp
-        server/include/UnixSocket.hpp
-        server/include/ISocket.hpp)
+# include dir
+include_directories(engine)
 
-add_executable(RType ${SOURCE_FILES})
+add_executable(client ${client_SOURCE_FILES})
+add_executable(server ${server_SOURCE_FILES})
+
+find_package (Threads)
+
+# unit test
+add_executable(engine_core_unit ${core_SOURCE_FILES} ${core_unit_SOURCE_FILES})
+
+set(GOOGLE_TESTS_LIBS gtest gmock ${CMAKE_THREAD_LIBS_INIT})
+
+if (MSVC)
+    target_compile_options(tests PRIVATE /std:c++14 /W4 /WX)
+
+    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /Ox")
+    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /Od")
+    target_link_libraries(tests ${GOOGLE_TESTS_LIBS})
+    # VS 2017 removed tr1
+    add_definitions(-DGTEST_HAS_TR1_TUPLE=0)
+else()
+    target_compile_options(engine_core_unit PRIVATE -g -Wall -Werror -Wextra -Wpedantic -Wconversion -Wswitch-default -Wswitch-enum -Wunreachable-code -Wwrite-strings -Wcast-align -Wshadow -Wundef)
+
+    if (COVERAGE)
+        target_compile_options(engine_core_unit PRIVATE --coverage)
+        target_link_libraries(engine_core_unit PRIVATE --coverage ${GOOGLE_TESTS_LIBS})
+    else()
+        target_link_libraries(engine_core_unit ${GOOGLE_TESTS_LIBS})
+    endif()
+endif()
