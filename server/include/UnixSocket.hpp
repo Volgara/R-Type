@@ -6,6 +6,8 @@
 #ifndef RTYPE_UNIXSOCKET_HPP
 #define RTYPE_UNIXSOCKET_HPP
 
+#if defined(linux) || defined(__APPLE__)
+
 #include "ISocket.hpp"
 #include <stdio.h>
 #include <stdlib.h>
@@ -29,5 +31,7 @@ namespace RType
         int get_fd() const override;
     };
 };
+
+#endif // linux or apple
 
 #endif //RTYPE_UNIXSOCKET_HPP

@@ -3,6 +3,8 @@
 // Contact: volgar.dev@gmail.com
 //
 
+#if defined(linux) || defined(__APPLE__)
+
 #include "UnixSocket.hpp"
 
 RType::UnixSocket::UnixSocket(SocketType type) {
@@ -48,3 +50,5 @@ void RType::UnixSocket::listen_Socket() {
 int RType::UnixSocket::get_fd() const {
     return fd;
 }
+
+#endif // linux and apple
