@@ -81,7 +81,7 @@ if (MSVC)
     # VS 2017 removed tr1
     add_definitions(-DGTEST_HAS_TR1_TUPLE=0)
 else()
-    target_compile_options(engine_core_unit PRIVATE -std=c++14 -g -Wall -Werror -Wextra -Wpedantic -Wconversion -Wswitch-default -Wswitch-enum -Wunreachable-code -Wwrite-strings -Wcast-align -Wshadow -Wundef)
+    target_compile_options(engine_core_unit PRIVATE -g -Wall -Werror -Wextra -Wpedantic -Wconversion -Wswitch-default -Wswitch-enum -Wunreachable-code -Wwrite-strings -Wcast-align -Wshadow -Wundef)
 
     if (COVERAGE)
         target_compile_options(engine_core_unit PRIVATE --coverage)
