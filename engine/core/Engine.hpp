@@ -21,7 +21,8 @@ namespace engine {
         class Engine : private NonCopyable {
         private:
             std::map<std::string, ISystem *> _systems;
-            std::deque<EngineMsg *> _messages;
+            std::deque<Message *> _messages;
+            bool _gameRunning;
 
         public:
             Engine();

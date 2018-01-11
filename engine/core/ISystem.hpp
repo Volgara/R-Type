@@ -12,7 +12,7 @@
 
 
 #include "NonCopyable.hpp"
-#include "EngineMsg.hpp"
+#include "Message.hpp"
 
 namespace engine {
     namespace core {
@@ -26,7 +26,7 @@ namespace engine {
             virtual void Init(void) = 0;
 
             // This recieves any messages sent to the core engine in Engine.cpp
-            virtual void SendMessage(EngineMsg *msg) = 0;
+            virtual void SendMessage(Message *msg) = 0;
 
             // All systems need a virtual destructor to have their destructor called
             virtual ~ISystem() = default;

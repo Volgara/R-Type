@@ -19,8 +19,7 @@ namespace engine {
         class GameObjectManager {
         private:
             unsigned int _count;
-            std::map<unsigned int, GameObject *> _objectsMap;
-            std::vector<GameObject *> _objects;
+            std::map<GameObjectID, GameObject *> _objects;
 
         public:
             GameObjectManager() = default;
@@ -31,14 +30,12 @@ namespace engine {
                 }
             }
 
-            GameObject *getObjectId(unsigned int id) {
-                return _objectsMap[id];
+            GameObject *getObjectId(GameObjectID id) {
+                return _objects[id];
             }
 
-            void addObject(GameObject *obj) {
-                obj->setId(_count);
-                _objectsMap[_count++] = obj;
-                _objects.push_back(obj);
+            void addObject(GameObjectID id, GameObject *obj) {
+                _objects[id] = obj;
             }
         };
     }

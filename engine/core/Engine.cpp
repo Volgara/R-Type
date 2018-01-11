@@ -9,7 +9,9 @@
 
 #include "Engine.hpp"
 
-engine::core::Engine::Engine() = default;
+engine::core::Engine::Engine() : _gameRunning(false) {
+
+};
 
 void engine::core::Engine::addSystem(const std::string &systemId, engine::core::ISystem *system) {
     _systems[systemId] = system;
@@ -20,7 +22,9 @@ engine::core::ISystem *engine::core::Engine::getSystem(const std::string &system
 }
 
 void engine::core::Engine::Update(float dt) {
-    (void) dt;
+    for (auto system : _systems) {
+        system.second->Update(dt);
+    }
 }
 
 void engine::core::Engine::MainLoop(void) {
