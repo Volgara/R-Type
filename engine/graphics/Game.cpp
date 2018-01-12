@@ -40,7 +40,7 @@ RType::Engine::Game::~Game() {
 }
 
 RType::Engine::Game::Game(unsigned int width, unsigned int height, std::string title) {
-    window.create(sf::VideoMode(800, 600), "a");
+
 }
 
 

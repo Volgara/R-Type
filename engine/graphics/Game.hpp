@@ -29,9 +29,6 @@ namespace RType {
             void clear();
             void loadScene();
             void addScene(RType::Engine::Scene scene);
-
-        private:
-            Window &window;
         };
     }
 

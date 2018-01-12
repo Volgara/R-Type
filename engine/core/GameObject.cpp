@@ -70,6 +70,10 @@ void engine::core::GameObject::SendMessage(Message *msg) {
     }
 }
 
+/**
+ * Get's the GameObject state
+ * @return true if active
+ */
 bool engine::core::GameObject::active(void) const {
-    return false;
+    return _active;
 }

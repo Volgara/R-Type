@@ -28,20 +28,22 @@ set(game_unit_SOURCE_FILES)
 # Engine : Graphics
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/find/") #add FindSFML file
 
-add_executable(testGraphics
-        engine/graphics/testMain.cpp engine/graphics/GameObject.cpp engine/graphics/GameObject.hpp engine/graphics/Position.cpp engine/graphics/Position.hpp engine/graphics/Orientation.cpp engine/graphics/Orientation.hpp engine/graphics/Animation.cpp engine/graphics/Animation.hpp engine/graphics/RTypeGraphics.hpp engine/graphics/SpriteSheet.cpp engine/graphics/SpriteSheet.hpp engine/graphics/Game.cpp engine/graphics/Game.hpp engine/graphics/Scene.cpp engine/graphics/Scene.hpp engine/graphics/Event.cpp engine/graphics/Event.hpp engine/graphics/Window.cpp engine/graphics/Window.hpp) # add test executable
-
-set(SFML_STATIC_LIBRARIES False)
-find_package(SFML 2 REQUIRED network audio graphics window system) # find SFML
-
-if (SFML_FOUND)
-    message(${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
-    #include_directories(${SFML_INCLUDE_DIR})
-    include_directories("D://SFML//include")
-    target_link_libraries(testGraphics ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
-endif ()
-
-set(graphics_SOURCE_FILES)
+set(graphics_SOURCE_FILES
+        engine/graphics/Position.cpp
+        engine/graphics/Position.hpp
+        engine/graphics/Orientation.cpp
+        engine/graphics/Orientation.hpp
+        engine/graphics/Animation.cpp
+        engine/graphics/Animation.hpp
+        engine/graphics/RTypeGraphics.hpp
+        engine/graphics/SpriteSheet.cpp
+        engine/graphics/SpriteSheet.hpp
+        engine/graphics/Scene.cpp
+        engine/graphics/Scene.hpp
+        engine/graphics/Event.cpp
+        engine/graphics/Event.hpp
+        engine/graphics/Window.cpp
+        engine/graphics/Window.hpp)
 set(graphics_unit_SOURCE_FILES)
 
 # Engine : Physics
@@ -81,10 +83,28 @@ set(server_SOURCE_FILES ${server_MODULES} server/main_server.cpp)
 # include dir
 include_directories(engine)
 
+
 add_executable(client ${client_SOURCE_FILES})
 add_executable(server ${server_SOURCE_FILES})
+#add_executable(testGraphics ${graphics_SOURCE_FILES})
 
+# init linkage variable
+set(SFML_STATIC_LIBRARIES False)
+
+# search libs
 find_package(Threads)
+find_package(SFML 2.4 REQUIRED audio graphics window system) # find SFML
+
+message("SFML LIBS: " ${SFML_LIBRARIES})
+message("SFML INCLUDES: " ${SFML_INCLUDE_DIR})
+
+# link libs
+target_link_libraries(client ${SFML_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries(server ${SFML_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
+#target_link_libraries(testGraphics ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
+
+# includes dir libs
+include_directories(${SFML_INCLUDE_DIR})
 
 # unit test
 add_executable(engine_core_unit ${core_SOURCE_FILES} ${core_unit_SOURCE_FILES})

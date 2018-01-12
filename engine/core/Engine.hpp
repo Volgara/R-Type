@@ -13,6 +13,8 @@
 #include <string>
 #include <map>
 #include <deque>
+#include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Window/Event.hpp>
 #include "NonCopyable.hpp"
 #include "ISystem.hpp"
 
@@ -22,10 +24,15 @@ namespace engine {
         private:
             std::map<std::string, ISystem *> _systems;
             std::deque<Message *> _messages;
+            sf::RenderWindow _window;
             bool _gameRunning;
 
         public:
             Engine();
+
+            ~Engine();
+
+            void Init(void);
 
             void Update(float dt);
 
@@ -34,6 +41,8 @@ namespace engine {
             void addSystem(const std::string &systemId, ISystem *);
 
             ISystem *getSystem(const std::string &systemId);
+
+            sf::RenderWindow &getWindow();
         };
     }
 }

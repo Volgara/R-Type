@@ -18,7 +18,6 @@ namespace engine {
     namespace core {
         class GameObjectManager {
         private:
-            unsigned int _count;
             std::map<GameObjectID, GameObject *> _objects;
 
         public:

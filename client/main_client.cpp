@@ -7,6 +7,12 @@
 //-----------------------------------------------------------------------------
 //
 
+#include <core/Engine.hpp>
+
 int main(int argc, char *argv[]) {
+    engine::core::Engine engine;
+
+    engine.MainLoop();
+
     return (0);
 }
