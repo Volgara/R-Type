@@ -1,10 +1,14 @@
 //
 //-----------------------------------------------------------------------------
-//Filename:    EngineMsg.cpp
+//Filename:    Component.cpp
 //-----------------------------------------------------------------------------
 //
-// Created by bonett_w on 1/10/18.
+// Created by bonett_w on 1/11/18.
 //-----------------------------------------------------------------------------
 //
 
-#include "EngineMsg.hpp"
+#include "Component.hpp"
+
+bool engine::core::Component::Active(void) const {
+    return _isActive;
+}

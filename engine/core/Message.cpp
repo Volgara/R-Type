@@ -1,18 +1,10 @@
 //
 //-----------------------------------------------------------------------------
-//Filename:    main_client.cpp
+//Filename:    Message.cpp
 //-----------------------------------------------------------------------------
 //
-// Created by bonett_w on 1/9/18.
+// Created by bonett_w on 1/10/18.
 //-----------------------------------------------------------------------------
 //
 
-#include <core/Engine.hpp>
-
-int main(int argc, char *argv[]) {
-    engine::core::Engine engine;
-
-    engine.MainLoop();
-
-    return (0);
-}
+#include "Message.hpp"

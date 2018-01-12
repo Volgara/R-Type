@@ -13,18 +13,46 @@
 
 namespace engine {
     namespace core {
+        class GameObject;
+        typedef unsigned int GameObjectID;
+    }
+}
+
+#include <vector>
+#include "Message.hpp"
+#include "Component.hpp"
+
+
+namespace engine {
+    namespace core {
+
         class GameObject {
         protected:
-            unsigned int _id;
+            GameObjectID _id;
+            bool _active;
+            std::vector<Component *> _components;
+
+            // only used by the factory
+            GameObject();
+            ~GameObject();
 
         public:
-            GameObject();
 
-            virtual ~GameObject();
+            void SendMessage(Message *msg);
 
-            unsigned int getId() const;
+            bool active(void) const;
 
-            void setId(unsigned int id);
+            GameObjectID getId() const;
+
+            void setId(GameObjectID id);
+
+            bool hasComponent(ComponentID id) const;
+
+            Component* getComponent(ComponentID id);
+
+            void addComponent(ComponentID id, Component*);
+
+            void Update(float dt);
         };
     }
 }
