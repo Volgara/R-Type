@@ -29,9 +29,9 @@ set(game_unit_SOURCE_FILES)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/find/") #add FindSFML file
 
 add_executable(testGraphics
-        engine/graphics/testMain.cpp) # add test executable
+        engine/graphics/testMain.cpp engine/graphics/GameObject.cpp engine/graphics/GameObject.hpp engine/graphics/Position.cpp engine/graphics/Position.hpp engine/graphics/Orientation.cpp engine/graphics/Orientation.hpp engine/graphics/Animation.cpp engine/graphics/Animation.hpp engine/graphics/RTypeGraphics.hpp engine/graphics/SpriteSheet.cpp engine/graphics/SpriteSheet.hpp engine/graphics/Game.cpp engine/graphics/Game.hpp engine/graphics/Scene.cpp engine/graphics/Scene.hpp engine/graphics/Event.cpp engine/graphics/Event.hpp engine/graphics/Window.cpp engine/graphics/Window.hpp) # add test executable
 
-set(SFML_STATIC_LIBRARIES FALSE)
+set(SFML_STATIC_LIBRARIES False)
 find_package(SFML 2 REQUIRED network audio graphics window system) # find SFML
 
 if (SFML_FOUND)
