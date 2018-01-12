@@ -3,26 +3,72 @@
 ** Copyright (c) 2018 Armaldio - All rights reserved.            *
 *****************************************************************/
 
-#include <SFML/Graphics.hpp>
+#include <iostream>
+#include "RTypeGraphics.hpp"
 
-int main()
-{
-    sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
+/**
+ * How to add frames
+ *
+ * shipAnimIdle.setAnimationFrames(0, 5);
+    // - or -
+    shipAnimIdle.addFrame(0, 0, 0);
+    shipAnimIdle.addFrame(1, 0, 1);
+    shipAnimIdle.addFrame(2, 0, 2);
+    shipAnimIdle.addFrame(3, 0, 3);
+    shipAnimIdle.addFrame(4, 0, 4);
+ */
 
-    while (window.isOpen())
-    {
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-                window.close();
+int main() {
+    // World
+    //RType::Engine::Game game = RType::Engine::Game(800, 600, "t");
+    RType::Engine::Game game = RType::Engine::Game(RType::Engine::Window(800, 600, "RType Engine"));
+
+    // Create a level
+    RType::Engine::Scene level1 = RType::Engine::Scene("scene1");
+    game.addScene(level1);
+
+    // Load a spritesheet
+    RType::SpriteSheet shipSheet = RType::SpriteSheet("./ship.png", 192, 16, 6, 1);
+
+    // Create an animation based on the spritesheet
+    RType::Animation shipAnimIdle = RType::Animation("idle", shipSheet);
+    shipAnimIdle.addFrame(0, 0, 2); // image in the middle
+
+    RType::Animation shipAnimGoDown = RType::Animation("down", shipSheet);
+    shipAnimGoDown.addFrame(0, 0, 1);
+    shipAnimGoDown.addFrame(1, 0, 0);
+
+    RType::Animation shipAnimGoUp = RType::Animation("up", shipSheet);
+    shipAnimGoUp.addFrame(0, 0, 2);
+    shipAnimGoUp.addFrame(0, 0, 3);
+
+
+    // Create a Game object and add to it the animation
+    RType::GameObject ship;
+    ship.addAnimation(shipAnimIdle);
+    ship.addAnimation(shipAnimGoDown);
+    ship.addAnimation(shipAnimGoUp);
+
+    game.loadScene();
+    while (game.isRunning()) {
+        RType::Engine::Event event;
+        while (game.getEvent(event)) {
+            if (event.type == RType::Engine::Event::Closed)
+                game.close();
+            if (event.type == RType::Engine::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
+                game.close();
         }
 
-        window.clear();
-        window.draw(shape);
-        window.display();
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+            ship.play("up", true);
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+            ship.play("down", true);
+        }
+
+        game.clear();
+        ship.play("idle", false);
+        game.render();
     }
 
     return 0;
