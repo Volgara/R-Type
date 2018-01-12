@@ -7,8 +7,9 @@
 #endif
 
 #include <thread>
-
+#if defined(linux) || defined(__APPLE__)
 #include <sys/socket.h>
+#endif
 #include <cstring>
 #include "Server.hpp"
 
@@ -75,6 +76,7 @@ DWORD RType::Server::ThreadFunc() {
 }
 #endif
 
+#if defined(linux) || defined(__APPLE__)
 void threadLinux(void *data)
 {
     if(!data)
@@ -106,6 +108,7 @@ void RType::Server::ThreadFunct() {
 
     }
 }
+#endif
 
 void RType::Server::run() {
     int fd;
