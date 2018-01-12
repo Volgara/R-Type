@@ -29,6 +29,9 @@ namespace RType{
         #ifdef _WIN32
         DWORD ThreadFunc();
         #endif
+        #if defined(linux) || defined(__APPLE__)
+        void ThreadFunct();
+        #endif
     };
 };
 

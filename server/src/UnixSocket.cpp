@@ -26,7 +26,7 @@ void RType::UnixSocket::init_socket() {
     }
     serv_addr.sin_family = AF_INET;
     serv_addr.sin_addr.s_addr = INADDR_ANY;
-    serv_addr.sin_port = htons(4243);
+    serv_addr.sin_port = htons(4242);
 }
 
 int RType::UnixSocket::connect_socket() {

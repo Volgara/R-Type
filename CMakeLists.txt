@@ -4,6 +4,9 @@ project(RType)
 set(CMAKE_CXX_STANDARD 17)
 
 INCLUDE_DIRECTORIES(server/include)
+SET(GCC_COVERAGE_LINK_FLAGS    "-pthread")
+
+SET( CMAKE_EXE_LINKER_FLAGS  "${GCC_COVERAGE_LINK_FLAGS}" )
 
 set(SOURCE_FILES
         main.cpp

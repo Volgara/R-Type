@@ -6,7 +6,10 @@
 #include <WinSock2.h>
 #endif
 
+#include <thread>
+
 #include <sys/socket.h>
+#include <cstring>
 #include "Server.hpp"
 
 // Need to link with Ws2_32.lib
@@ -72,6 +75,38 @@ DWORD RType::Server::ThreadFunc() {
 }
 #endif
 
+void threadLinux(void *data)
+{
+    if(!data)
+        return;
+    RType::Server *yc_ptr = (RType::Server*)data;
+    yc_ptr->ThreadFunct();
+    return;
+}
+
+void RType::Server::ThreadFunct() {
+    Player* player = _connectedUser.back();
+    std::cout << "New player connected with id: " << player->getId() << std::endl;
+    int a = 1;
+    char buffer[256];
+
+    while (a > 0)
+    {
+        memset(&buffer, 0, 256);
+        a = recv(player->getFd(), buffer, 256, 0);
+        if (a <= 0)
+            std::cout << "[" << player->getId() << "]: Disconnected" << std::endl;
+        else
+            std::cout << "[" << player->getId() << "]: " << buffer << std::endl;
+        if (strncmp(buffer, "list", 4) == 0)
+            _gameManager->listRoom();
+        if (strncmp(buffer, "join", 4) == 0)
+            if (!_gameManager->join(player, buffer))
+                std::cout << "Failed to " << buffer << std::endl;
+
+    }
+}
+
 void RType::Server::run() {
     int fd;
     Player *newPlayer;
@@ -90,7 +125,12 @@ void RType::Server::run() {
             #ifdef _WIN32
             CreateThread(NULL, 0, startMethodInThread, this, 0, NULL);
             #endif
+            #if defined(linux) || defined(__APPLE__)
+            std::thread t1 = std::thread(threadLinux, this);
+            t1.detach();
+            #endif
         }
     }
 }
+
 
