@@ -2,8 +2,11 @@
 // Created by Volgar on 11/01/2018.
 // Contact: volgar.dev@gmail.com
 //
-
+#ifdef _WIN32
 #include <WinSock2.h>
+#endif
+
+#include <sys/socket.h>
 #include "Server.hpp"
 
 // Need to link with Ws2_32.lib
@@ -34,6 +37,7 @@ void RType::Server::configure() {
     _gameManager = new GameManager();
 }
 
+#ifdef _WIN32
 DWORD __stdcall startMethodInThread( LPVOID arg )
 {
     if(!arg)
@@ -66,6 +70,7 @@ DWORD RType::Server::ThreadFunc() {
     }
     return(1);
 }
+#endif
 
 void RType::Server::run() {
     int fd;
@@ -82,7 +87,9 @@ void RType::Server::run() {
             newPlayer = new Player(fd, _nbrPlayer);
             _connectedUser.push_back(newPlayer);
             _nbrPlayer += 1;
+            #ifdef _WIN32
             CreateThread(NULL, 0, startMethodInThread, this, 0, NULL);
+            #endif
         }
     }
 }

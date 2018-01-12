@@ -8,7 +8,9 @@
 
 #include <Socket.hpp>
 #include "GameManager.hpp"
+#ifdef _WIN32
 #include <Windows.h>
+#endif
 #include <iostream>
 
 
@@ -24,7 +26,9 @@ namespace RType{
         ~Server();
         void configure();
         void run();
+        #ifdef _WIN32
         DWORD ThreadFunc();
+        #endif
     };
 };
 

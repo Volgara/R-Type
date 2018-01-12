@@ -4,6 +4,7 @@
 //
 
 #include <iostream>
+#include <cstring>
 #include "GameManager.hpp"
 
 GameManager::GameManager() {
