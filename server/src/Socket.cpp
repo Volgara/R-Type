@@ -45,6 +45,6 @@ void RType::Socket::listen_Socket() {
     _socket->listen_Socket();
 }
 
-int RType::Socket::get_fd() const {
+unsigned int RType::Socket::get_fd() const {
     return (_socket->get_fd());
 }

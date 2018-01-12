@@ -8,22 +8,20 @@
 
 #include "ISocket.hpp"
 
+
 namespace RType
 {
-
     class Socket : public ISocket {
     public:
         ISocket *_socket;
-
     public:
         Socket(SocketType);
         ~Socket() override;
-
         void init_socket() override;
         int connect_socket() override;
         void blind_Socket() override;
         void listen_Socket() override;
-        int get_fd() const override;
+        unsigned int get_fd() const override;
     };
 };
 

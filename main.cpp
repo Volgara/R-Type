@@ -1,14 +1,13 @@
 #include <iostream>
+#include <Server.hpp>
 
-#include "Socket.hpp"
+#include "Server.hpp"
 
-int main() {
-    RType::Socket *socket = new RType::Socket(RType::SocketType::Tcp);
+int main()
+{
+    RType::Server *serv = new RType::Server();
 
-    socket->init_socket();
-    socket->connect_socket();
-    socket->blind_Socket();
-    std::cout << "Sokcet fd: " << socket->get_fd() << std::endl;
-    delete socket;
+    serv->configure();
+    serv->run();
     return(0);
 }

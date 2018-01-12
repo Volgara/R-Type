@@ -47,7 +47,7 @@ void RType::UnixSocket::listen_Socket() {
     }
 }
 
-int RType::UnixSocket::get_fd() const {
+unsigned int RType::UnixSocket::get_fd() const {
     return fd;
 }
 

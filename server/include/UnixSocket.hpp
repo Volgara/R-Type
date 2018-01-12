@@ -14,6 +14,7 @@
 #include <netdb.h>
 #include <netinet/in.h>
 
+
 namespace RType
 {
     class UnixSocket : public ISocket{
@@ -28,7 +29,7 @@ namespace RType
         int connect_socket() override;
         void blind_Socket() override;
         void listen_Socket() override;
-        int get_fd() const override;
+        unsigned int get_fd() const override;
     };
 };
 

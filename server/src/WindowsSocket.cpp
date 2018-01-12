@@ -6,6 +6,7 @@
 #ifdef _WIN32
 
 #include "WindowsSocket.hpp"
+#include "Exception.hpp"
 
 RType::WindowsSocket::WindowsSocket(SocketType type) {
     _socketType = type;
@@ -16,19 +17,30 @@ RType::WindowsSocket::~WindowsSocket() {
 }
 
 void RType::WindowsSocket::init_socket() {
-    int wsaret = WSAStartup(0x101, &wsaData);
-    if (wsaret != 0)
-        std::cout << "WSAStartup failed" << std::endl;
-    local.sin_family = AF_INET;
-    local.sin_addr.s_addr = INADDR_ANY;
-    local.sin_port = htons(4242);
+    if (WSAStartup(MAKEWORD(2,2), &wsaData) != 0)
+        throw NetworkException("WSAStartup failed");
 
+    // init socket
+    ZeroMemory(&local, sizeof(local));
+    local.ai_family = AF_INET;
     if (_socketType == Tcp)
-        fd = socket(AF_INET, SOCK_STREAM, 0);
+        local.ai_socktype = SOCK_STREAM;
     else if (_socketType == Udp)
-        fd = socket(AF_INET, SOCK_DGRAM, 0);
-    if (fd == INVALID_SOCKET)
-        std::cout << "Socket creation failed" << std::endl;
+        local.ai_socktype = SOCK_DGRAM;
+    local.ai_protocol = IPPROTO_TCP;
+    local.ai_flags = AI_PASSIVE;
+
+    // Resolve the server address and port
+    if (getaddrinfo(NULL, "4242", &local, &result) != 0)
+        throw NetworkException("getaddrinfo failed");
+
+    // Create socket
+    fd = socket(result->ai_family, result->ai_socktype, result->ai_protocol);
+    if (fd  == INVALID_SOCKET) {
+        freeaddrinfo(result);
+        WSACleanup();
+        throw NetworkException("Socket creation failed");
+    }
 }
 
 int RType::WindowsSocket::connect_socket() {
@@ -36,19 +48,26 @@ int RType::WindowsSocket::connect_socket() {
 }
 
 void RType::WindowsSocket::blind_Socket() {
-    if (bind(fd,(sockaddr*)&local, sizeof(local)) != 0)
-        std::cout << "Bind failed" << std::endl;
+    if (bind(fd, result->ai_addr, (int)result->ai_addrlen) == SOCKET_ERROR) {
+        freeaddrinfo(result);
+        closesocket(fd);
+        WSACleanup();
+        throw NetworkException("Bind failed");
+    }
 }
 
 void RType::WindowsSocket::listen_Socket() {
     if (_socketType == Tcp)
     {
-        if (listen(fd, 10) != 0)
-            std::cout << "Liston failed" << std::endl;
+        if (listen(fd, 100) == SOCKET_ERROR) {
+            closesocket(fd);
+            WSACleanup();
+            throw NetworkException("listen failed");
+        }
     }
 }
 
-int RType::WindowsSocket::get_fd() const {
+unsigned int RType::WindowsSocket::get_fd() const {
     return fd;
 }
 

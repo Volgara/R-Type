@@ -13,6 +13,12 @@ set(SOURCE_FILES
         server/include/WindowsSocket.hpp
         server/src/UnixSocket.cpp
         server/include/UnixSocket.hpp
-        server/include/ISocket.hpp)
+        server/include/ISocket.hpp
+        server/include/Server.hpp
+        server/include/GameManager.hpp
+        server/src/Player.cpp
+        server/include/Player.hpp
+        server/src/Server.cpp
+        server/src/GameManager.cpp server/include/Exception.hpp server/src/Room.cpp server/include/Room.hpp)
 
 add_executable(RType ${SOURCE_FILES})

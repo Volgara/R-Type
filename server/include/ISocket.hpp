@@ -15,7 +15,7 @@ namespace RType
     class ISocket {
 
     protected:
-        int         fd;
+        unsigned int         fd;
         SocketType  _socketType;
 
     public:
@@ -27,7 +27,7 @@ namespace RType
         virtual int connect_socket() = 0;
         virtual void blind_Socket() = 0;
         virtual void listen_Socket() = 0;
-        virtual int get_fd() const = 0;
+        virtual unsigned int get_fd() const = 0;
     };
 };
 

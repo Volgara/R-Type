@@ -10,6 +10,11 @@
 
 #include <winsock2.h>
 #include "Socket.hpp"
+#include <windows.h>
+#include <ws2tcpip.h>
+#include <stdlib.h>
+#include <stdio.h>
+
 
 #pragma comment (lib, "Ws2_32.lib")
 
@@ -18,7 +23,8 @@ namespace RType
     class WindowsSocket : public ISocket {
     private:
         WSADATA wsaData;
-        sockaddr_in local;
+        struct addrinfo local;
+        struct addrinfo *result = NULL;
 
     public:
         WindowsSocket(SocketType);
@@ -29,7 +35,7 @@ namespace RType
         int connect_socket() override;
         void blind_Socket() override;
         void listen_Socket() override;
-        int get_fd() const override;
+        unsigned int get_fd() const override;
     };
 };
 
