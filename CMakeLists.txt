@@ -47,7 +47,12 @@ set(graphics_SOURCE_FILES
 set(graphics_unit_SOURCE_FILES)
 
 # Engine : Physics
-set(physics_SOURCE_FILES)
+set(physics_SOURCE_FILES engine/physics/RigidBodyComponent.cpp
+        engine/physics/RigidBodyComponent.hpp
+        engine/physics/Vector2D.cpp
+        engine/physics/Vector2D.hpp
+        engine/physics/Box.cpp
+        engine/physics/Box.hpp)
 set(physics_unit_SOURCE_FILES)
 
 # Engine : Network
@@ -89,7 +94,7 @@ add_executable(server ${server_SOURCE_FILES})
 #add_executable(testGraphics ${graphics_SOURCE_FILES})
 
 # init linkage variable
-set(SFML_STATIC_LIBRARIES False)
+#[[set(SFML_STATIC_LIBRARIES False)
 
 # search libs
 find_package(Threads)
@@ -105,6 +110,7 @@ target_link_libraries(server ${SFML_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
 
 # includes dir libs
 include_directories(${SFML_INCLUDE_DIR})
+]]
 
 # unit test
 add_executable(engine_core_unit ${core_SOURCE_FILES} ${core_unit_SOURCE_FILES})
