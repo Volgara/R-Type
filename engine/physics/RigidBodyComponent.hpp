@@ -33,6 +33,8 @@ namespace engine {
 
             void move();
 
+            bool checkIntersect(const RigidBodyComponent &body);
+
             const Vector2d &getPosition() const;
 
             void setPosition(const Vector2d &_position);
@@ -44,6 +46,8 @@ namespace engine {
             const Vector2d &getSize() const;
 
             void setSize(const Vector2d &_size);
+
+            Box *getBox() const;
         };
     }
 }

@@ -49,11 +49,11 @@ void engine::physics::RigidBodyComponent::move() {
     this->_position.setY(this->_position.getY() + this->_velocity.getY());
 }
 
-void engine::physics::RigidBodyComponent::SendMessage(Message *message) {
+void engine::physics::RigidBodyComponent::SendMessage(Message *) {
 
 }
 
-void engine::physics::RigidBodyComponent::Update(float dt) {
+void engine::physics::RigidBodyComponent::Update(float) {
 
 }
 
@@ -63,4 +63,12 @@ void engine::physics::RigidBodyComponent::Init(void) {
 
 void engine::physics::RigidBodyComponent::ShutDown(void) {
 
+}
+
+engine::physics::Box *engine::physics::RigidBodyComponent::getBox() const {
+    return _box;
+}
+
+bool engine::physics::RigidBodyComponent::checkIntersect(const engine::physics::RigidBodyComponent &body) {
+    return this->_box->intersectBox(body.getBox());
 }
