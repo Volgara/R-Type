@@ -36,7 +36,7 @@ namespace engine {
             ASSERT_EQ(120, component->getVelocity().getX());
             ASSERT_EQ(-23, component->getVelocity().getY());
             component->move();
-            ASSERT_EQ(142, component->getPosition().getX());
+            ASSERT_EQ(132, component->getPosition().getX());
             ASSERT_EQ(-21, component->getPosition().getY());
         }
 
@@ -55,10 +55,34 @@ namespace engine {
             component->setPosition(Vector2d(12, 2));
             component->setVelocity(Vector2d(120, -23));
             component->move();
+            ASSERT_EQ(-21, component->getPosition().getY());
+            ASSERT_EQ(132, component->getPosition().getX());
             ASSERT_EQ(-21, box->getTop());
-            ASSERT_EQ(142, box->getLeft());
+            ASSERT_EQ(132, box->getLeft());
             ASSERT_EQ(-9, box->getBottom());
-            ASSERT_EQ(172, box->getRight());
+            ASSERT_EQ(162, box->getRight());
+        }
+
+        TEST(BoxTest, intersectTest) {
+            Vector2d pos(20, 18);
+            Vector2d velocity(2, 3);
+            Vector2d size(30, 12);
+            RigidBodyComponent *component = new RigidBodyComponent(pos, velocity, size);
+            Vector2d pos2(30, 18);
+            Vector2d velocity2(2, 0);
+            Vector2d size2(30, 12);
+            RigidBodyComponent *component2 = new RigidBodyComponent(pos2, velocity2, size2);
+
+            for (int i = 0; i < 11; ++i) {
+                component2->move();
+                if (i < 10)
+                    ASSERT_TRUE(component->checkIntersect(component2));
+            }
+            ASSERT_EQ(52, component2->getPosition().getX());
+            ASSERT_EQ(50, component->getBox()->getRight());
+            ASSERT_FALSE(component->checkIntersect(component2));
+            component->move();
+            ASSERT_TRUE(component->checkIntersect(component2));
         }
     }
 }

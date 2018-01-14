@@ -22,8 +22,8 @@ const engine::physics::Vector2d &engine::physics::RigidBodyComponent::getPositio
     return _position;
 }
 
-void engine::physics::RigidBodyComponent::setPosition(const engine::physics::Vector2d &_position) {
-    RigidBodyComponent::_position = _position;
+void engine::physics::RigidBodyComponent::setPosition(const engine::physics::Vector2d &position) {
+    this->_position = position;
     _box->updatePosition(this->_position, this->_size);
 }
 
@@ -31,22 +31,23 @@ const engine::physics::Vector2d &engine::physics::RigidBodyComponent::getVelocit
     return _velocity;
 }
 
-void engine::physics::RigidBodyComponent::setVelocity(const engine::physics::Vector2d &_velocity) {
-    RigidBodyComponent::_velocity = _velocity;
+void engine::physics::RigidBodyComponent::setVelocity(const engine::physics::Vector2d &velocity) {
+    this->_velocity = velocity;
 }
 
 const engine::physics::Vector2d &engine::physics::RigidBodyComponent::getSize() const {
     return _size;
 }
 
-void engine::physics::RigidBodyComponent::setSize(const engine::physics::Vector2d &_size) {
-    RigidBodyComponent::_size = _size;
+void engine::physics::RigidBodyComponent::setSize(const engine::physics::Vector2d &size) {
+    this->_size = size;
     _box->updatePosition(this->_position, this->_size);
 }
 
 void engine::physics::RigidBodyComponent::move() {
     this->_position.setX(this->_position.getX() + this->_velocity.getX());
     this->_position.setY(this->_position.getY() + this->_velocity.getY());
+    _box->updatePosition(this->_position, this->_size);
 }
 
 void engine::physics::RigidBodyComponent::SendMessage(Message *) {
@@ -69,6 +70,6 @@ engine::physics::Box *engine::physics::RigidBodyComponent::getBox() const {
     return _box;
 }
 
-bool engine::physics::RigidBodyComponent::checkIntersect(const engine::physics::RigidBodyComponent &body) {
-    return this->_box->intersectBox(body.getBox());
+bool engine::physics::RigidBodyComponent::checkIntersect(const engine::physics::RigidBodyComponent *body) {
+    return this->_box->intersectBox(body->getBox());
 }

@@ -9,8 +9,8 @@ namespace engine {
     namespace physics {
         class Vector2d {
         private:
-            int x;
-            int y;
+            int _x;
+            int _y;
         public:
             Vector2d(int x, int y);
 

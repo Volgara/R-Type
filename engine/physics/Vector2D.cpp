@@ -4,24 +4,24 @@
 
 #include "Vector2D.hpp"
 
-engine::physics::Vector2d::Vector2d(int x, int y) : x(x), y(y) {}
+engine::physics::Vector2d::Vector2d(int x, int y) : _x(x), _y(y) {}
 
 engine::physics::Vector2d::~Vector2d() {
 
 }
 
 int engine::physics::Vector2d::getX() const {
-    return x;
+    return _x;
 }
 
 void engine::physics::Vector2d::setX(int x) {
-    Vector2d::x = x;
+    this->_x = x;
 }
 
 int engine::physics::Vector2d::getY() const {
-    return y;
+    return _y;
 }
 
 void engine::physics::Vector2d::setY(int y) {
-    Vector2d::y = y;
+    this->_y = y;
 }

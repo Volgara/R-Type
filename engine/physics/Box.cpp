@@ -2,6 +2,7 @@
 // Created by Hamza Hammouche on 13/01/2018.
 //
 
+#include <iostream>
 #include "Box.hpp"
 
 engine::physics::Box::Box(Vector2d position, Vector2d size)
@@ -21,10 +22,10 @@ void engine::physics::Box::updatePosition(const engine::physics::Vector2d &posit
 }
 
 bool engine::physics::Box::intersectBox(Box *box){
-    return !(box->getLeft() >= this->_right
-            || box->getRight() <= this->_left
-            || box->getTop() >= this->_bottom
-            || box->getBottom() <= this->_top);
+    return !(box->getLeft() > this->_right
+            || box->getRight() < this->_left
+            || box->getTop() > this->_bottom
+            || box->getBottom() < this->_top);
 }
 
 int engine::physics::Box::getLeft() const {

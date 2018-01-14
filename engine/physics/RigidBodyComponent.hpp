@@ -33,19 +33,19 @@ namespace engine {
 
             void move();
 
-            bool checkIntersect(const RigidBodyComponent &body);
+            bool checkIntersect(const RigidBodyComponent *body);
 
             const Vector2d &getPosition() const;
 
-            void setPosition(const Vector2d &_position);
+            void setPosition(const Vector2d &position);
 
             const Vector2d &getVelocity() const;
 
-            void setVelocity(const Vector2d &_velocity);
+            void setVelocity(const Vector2d &velocity);
 
             const Vector2d &getSize() const;
 
-            void setSize(const Vector2d &_size);
+            void setSize(const Vector2d &size);
 
             Box *getBox() const;
         };
