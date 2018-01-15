@@ -8,6 +8,7 @@
 //
 
 #include <graphics/GraphicsComponent.hpp>
+#include <physics/RigidBodyComponent.hpp>
 #include <iostream>
 #include "Engine.hpp"
 
@@ -16,6 +17,17 @@ engine::core::ASystem *engine::core::Engine::getSystem(const std::string &system
 }
 
 void engine::core::Engine::Update(float dt) {
+    // listen for events on the window
+    if (_window.isOpen()) {
+        std::cout << "Checking for events" << std::endl;
+        sf::Event event;
+        while (_window.pollEvent(event)) {
+            // "close requested" event: we close the window
+            if (event.type == sf::Event::Closed)
+                _window.close();
+        }
+    }
+
     for (auto system : _systems) {
         system.second->Update(dt);
     }
