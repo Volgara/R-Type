@@ -20,7 +20,7 @@ namespace engine {
         public:
 
             // All systems must update each game loop
-            virtual void Update(float dt) {}
+            virtual void Update(float) {}
 
             // It's good practice to separate the construction and initialization code.
             virtual void Init(void) = 0;

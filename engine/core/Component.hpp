@@ -35,11 +35,11 @@ namespace engine {
 
             virtual void Update(float dt) = 0;
 
-            virtual void Init(void) = 0;
+            virtual void Init() = 0;
 
-            virtual void ShutDown(void) = 0;
+            virtual void ShutDown() = 0;
 
-            virtual bool Active(void) const;
+            bool Active() const;
         };
     }
 }

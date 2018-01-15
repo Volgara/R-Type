@@ -9,6 +9,6 @@
 
 #include "Component.hpp"
 
-bool engine::core::Component::Active(void) const {
+bool engine::core::Component::Active() const {
     return _isActive;
 }

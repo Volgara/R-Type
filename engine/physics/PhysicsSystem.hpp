@@ -7,13 +7,13 @@
 
 #include <vector>
 #include <map>
-#include "core/ISystem.hpp"
+#include "core/ASystem.hpp"
 #include "RigidBodyComponent.hpp"
 #define CELL_SIZE 20
 
 namespace engine {
     namespace physics {
-        class PhysicsSystem : public core::ISystem {
+        class PhysicsSystem : public core::ASystem {
         private:
             std::map<int, std::vector<RigidBodyComponent *>> _listState;
             std::vector<RigidBodyComponent *> _listDebug;
