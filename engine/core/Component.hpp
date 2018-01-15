@@ -23,7 +23,7 @@ namespace engine {
 namespace engine {
     namespace core {
         class Component {
-        private:
+        protected:
             GameObjectID _owner;
             ComponentID _id;
             bool _isActive = true;
@@ -39,7 +39,7 @@ namespace engine {
 
             virtual void ShutDown(void) = 0;
 
-            bool Active(void) const;
+            virtual bool Active(void) const;
         };
     }
 }

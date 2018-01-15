@@ -16,31 +16,32 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Event.hpp>
 #include "NonCopyable.hpp"
-#include "ISystem.hpp"
+#include "ASystem.hpp"
+#include "GameObjectManager.hpp"
+
 
 namespace engine {
     namespace core {
-        class Engine : private NonCopyable {
+        class Engine : private NonCopyable, public Singleton<Engine> {
         private:
-            std::map<std::string, ISystem *> _systems;
+            std::map<std::string, ASystem *> _systems;
             std::deque<Message *> _messages;
             sf::RenderWindow _window;
             bool _gameRunning;
 
         public:
-            Engine();
+            void constructor() override;
 
-            ~Engine();
-
+        public:
             void Init(void);
 
             void Update(float dt);
 
             void MainLoop(void);
 
-            void addSystem(const std::string &systemId, ISystem *);
+            void addSystem(const std::string &systemId, ASystem *);
 
-            ISystem *getSystem(const std::string &systemId);
+            ASystem *getSystem(const std::string &systemId);
 
             sf::RenderWindow &getWindow();
         };

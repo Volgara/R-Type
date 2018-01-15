@@ -7,34 +7,32 @@
 //-----------------------------------------------------------------------------
 //
 
-#ifndef RTYPE_GAMEOBJECTMANAGER_HPP
-#define RTYPE_GAMEOBJECTMANAGER_HPP
-
 #include <map>
 #include <vector>
 #include "GameObject.hpp"
+#include "Singleton.hpp"
+
+#ifndef RTYPE_GAMEOBJECTMANAGER_HPP
+#define RTYPE_GAMEOBJECTMANAGER_HPP
 
 namespace engine {
     namespace core {
-        class GameObjectManager {
+
+        class GameObjectManager : public Singleton<GameObjectManager> {
         private:
             std::map<GameObjectID, GameObject *> _objects;
 
         public:
-            GameObjectManager() = default;
-
-            virtual ~GameObjectManager() {
-                for (auto item : _objects) {
-                    delete (item);
-                }
-            }
-
             GameObject *getObjectId(GameObjectID id) {
                 return _objects[id];
             }
 
             void addObject(GameObjectID id, GameObject *obj) {
-                _objects[id] = obj;
+                _objects.insert(_objects.begin(), std::pair<GameObjectID, GameObject *>(id, obj));
+            }
+
+            const std::map<GameObjectID, GameObject *> &getObjects() const {
+                return _objects;
             }
         };
     }

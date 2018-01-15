@@ -40,7 +40,7 @@ bool engine::core::GameObject::hasComponent(engine::core::ComponentID id) const 
  * @return nullptr if not found
  */
 engine::core::Component *engine::core::GameObject::getComponent(engine::core::ComponentID id) {
-    return nullptr;
+    return _components[id];
 }
 
 /**

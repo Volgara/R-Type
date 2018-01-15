@@ -10,12 +10,12 @@ set(core_SOURCE_FILES
         engine/core/Engine.cpp
         engine/core/Engine.hpp
         engine/core/NonCopyable.hpp
-        engine/core/ISystem.hpp
+        engine/core/ASystem.hpp
         engine/core/GameObjectManager.hpp
         engine/core/Message.cpp
         engine/core/Message.hpp
         engine/core/GameObject.cpp
-        engine/core/GameObject.hpp engine/core/Component.cpp engine/core/Component.hpp)
+        engine/core/GameObject.hpp engine/core/Component.cpp engine/core/Component.hpp engine/core/Singleton.hpp)
 
 set(core_unit_SOURCE_FILES
         unit/engine/core/GameObjectUnit.cpp
@@ -43,7 +43,7 @@ set(graphics_SOURCE_FILES
         engine/graphics/Event.cpp
         engine/graphics/Event.hpp
         engine/graphics/Window.cpp
-        engine/graphics/Window.hpp)
+        engine/graphics/Window.hpp engine/graphics/SpriteComponent.cpp engine/graphics/SpriteComponent.hpp)
 set(graphics_unit_SOURCE_FILES)
 
 # Engine : Physics
@@ -75,7 +75,7 @@ set(server_MODULES
         ${network_SOURCE_FILES})
 
 # Software : Client
-set(client_SOURCE_FILES ${client_MODULES} client/main_client.cpp)
+set(client_SOURCE_FILES ${client_MODULES} client/main_client.cpp engine/graphics/GraphicsSystem.cpp engine/graphics/GraphicsSystem.hpp)
 
 # Software : Server
 set(server_SOURCE_FILES ${server_MODULES} server/main_server.cpp)

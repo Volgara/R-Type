@@ -14,11 +14,13 @@
 namespace engine {
     namespace core {
         class GameObject;
+
         typedef unsigned int GameObjectID;
     }
 }
 
 #include <vector>
+#include <map>
 #include "Message.hpp"
 #include "Component.hpp"
 
@@ -30,13 +32,12 @@ namespace engine {
         protected:
             GameObjectID _id;
             bool _active;
-            std::vector<Component *> _components;
-
-            // only used by the factory
-            GameObject();
-            ~GameObject();
+            std::map<ComponentID, Component *> _components;
 
         public:
+            GameObject();
+
+            ~GameObject();
 
             void SendMessage(Message *msg);
 
@@ -48,9 +49,9 @@ namespace engine {
 
             bool hasComponent(ComponentID id) const;
 
-            Component* getComponent(ComponentID id);
+            Component *getComponent(ComponentID id);
 
-            void addComponent(ComponentID id, Component*);
+            void addComponent(ComponentID id, Component *);
 
             void Update(float dt);
         };

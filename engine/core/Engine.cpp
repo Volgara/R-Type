@@ -7,17 +7,11 @@
 //-----------------------------------------------------------------------------
 //
 
+#include <graphics/SpriteComponent.hpp>
+#include <iostream>
 #include "Engine.hpp"
 
-engine::core::Engine::Engine() : _gameRunning(true), _window(sf::VideoMode(800, 600), "HelloSFML") {
-    Init();
-};
-
-void engine::core::Engine::addSystem(const std::string &systemId, engine::core::ISystem *system) {
-    _systems[systemId] = system;
-}
-
-engine::core::ISystem *engine::core::Engine::getSystem(const std::string &systemId) {
+engine::core::ASystem *engine::core::Engine::getSystem(const std::string &systemId) {
     return _systems[systemId];
 }
 
@@ -30,21 +24,41 @@ void engine::core::Engine::Update(float dt) {
 void engine::core::Engine::MainLoop(void) {
     while (_gameRunning) {
         _window.clear();
+        Update(1);
         _window.display();
     }
 }
 
-engine::core::Engine::~Engine() {
-    for (auto system : _systems) {
-        delete(system.second);
-    }
-}
-
 void engine::core::Engine::Init(void) {
-    if (!_window.isOpen())
+    _gameRunning = true;
+    _window.create(sf::VideoMode(800, 600), "toto");
+
+    if (!_window.isOpen()) {
+        std::cout << "windows is closed" << std::endl;
         exit(EXIT_FAILURE);
+    }
+
+    for (auto sys : _systems) {
+        sys.second->Init();
+    }
+
+    // TODO : replace by Scene loader
+    auto *gm = GameObjectManager::GetInstance();
+    auto object = new GameObject();
+
+    object->addComponent(1, new graphics::SpriteComponent);
+
+    gm->addObject(1, object);
 }
 
 sf::RenderWindow &engine::core::Engine::getWindow() {
     return _window;
+}
+
+void engine::core::Engine::addSystem(const std::string &systemId, engine::core::ASystem *system) {
+    _systems[systemId] = system;
+}
+
+void engine::core::Engine::constructor() {
+    Init();
 }
