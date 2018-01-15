@@ -47,8 +47,17 @@ set(graphics_SOURCE_FILES
 set(graphics_unit_SOURCE_FILES)
 
 # Engine : Physics
-set(physics_SOURCE_FILES)
-set(physics_unit_SOURCE_FILES)
+set(physics_SOURCE_FILES engine/physics/RigidBodyComponent.cpp
+        engine/physics/RigidBodyComponent.hpp
+        engine/physics/Vector2D.cpp
+        engine/physics/Vector2D.hpp
+        engine/physics/Box.cpp
+        engine/physics/Box.hpp
+        engine/physics/PhysicsSystem.cpp
+        engine/physics/PhysicsSystem.hpp)
+set(physics_unit_SOURCE_FILES
+        unit/engine/physics/RigidBodyComponentUnit.cpp
+        unit/engine/physics/PhysicsSystemUnit.cpp)
 
 # Engine : Network
 set(network_SOURCE_FILES engine/network/Socket.cpp
@@ -109,23 +118,30 @@ include_directories(${SFML_INCLUDE_DIR})
 # unit test
 add_executable(engine_core_unit ${core_SOURCE_FILES} ${core_unit_SOURCE_FILES})
 
+add_executable(engine_physics_unit ${physics_SOURCE_FILES} ${physics_unit_SOURCE_FILES})
+
 set(GOOGLE_TESTS_LIBS gtest gmock ${CMAKE_THREAD_LIBS_INIT})
 
 if (MSVC)
     target_compile_options(engine_core_unit PRIVATE /std:c++14 /W4 /WX)
+    target_compile_options(engine_physics_unit PRIVATE /std:c++14 /W4 /WX)
 
     set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /Ox")
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /Od")
     target_link_libraries(engine_core_unit ${GOOGLE_TESTS_LIBS})
+    target_link_libraries(engine_physics_unit ${GOOGLE_TESTS_LIBS})
     # VS 2017 removed tr1
     add_definitions(-DGTEST_HAS_TR1_TUPLE=0)
 else ()
     target_compile_options(engine_core_unit PRIVATE -g -Wall -Werror -Wextra -Wpedantic -Wconversion -Wswitch-default -Wswitch-enum -Wunreachable-code -Wwrite-strings -Wcast-align -Wshadow -Wundef)
-
+    target_compile_options(engine_physics_unit PRIVATE -g -Wall -Werror -Wextra -Wpedantic -Wconversion -Wswitch-default -Wswitch-enum -Wunreachable-code -Wwrite-strings -Wcast-align -Wshadow -Wundef)
     if (COVERAGE)
         target_compile_options(engine_core_unit PRIVATE --coverage)
         target_link_libraries(engine_core_unit PRIVATE --coverage ${GOOGLE_TESTS_LIBS})
+        target_compile_options(engine_physics_unit PRIVATE --coverage)
+        target_link_libraries(engine_physics_unit PRIVATE --coverage ${GOOGLE_TESTS_LIBS})
     else ()
         target_link_libraries(engine_core_unit ${GOOGLE_TESTS_LIBS})
+        target_link_libraries(engine_physics_unit ${GOOGLE_TESTS_LIBS})
     endif ()
 endif ()
