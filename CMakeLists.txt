@@ -52,9 +52,12 @@ set(physics_SOURCE_FILES engine/physics/RigidBodyComponent.cpp
         engine/physics/Vector2D.cpp
         engine/physics/Vector2D.hpp
         engine/physics/Box.cpp
-        engine/physics/Box.hpp)
+        engine/physics/Box.hpp
+        engine/physics/PhysicsSystem.cpp
+        engine/physics/PhysicsSystem.hpp)
 set(physics_unit_SOURCE_FILES
-        unit/engine/physics/RigidBodyComponentUnit.cpp)
+        unit/engine/physics/RigidBodyComponentUnit.cpp
+        unit/engine/physics/PhysicsSystemUnit.cpp)
 
 # Engine : Network
 set(network_SOURCE_FILES engine/network/Socket.cpp
