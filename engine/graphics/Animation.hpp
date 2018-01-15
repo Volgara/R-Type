@@ -10,18 +10,20 @@
 #include <string>
 #include "SpriteSheet.hpp"
 
-namespace RType {
-    class Animation {
+namespace engine {
+    namespace graphics {
+        class Animation {
 
-    public:
-        Animation(std::string name, RType::SpriteSheet sheet);
+        public:
+            Animation(std::string name, engine::graphics::SpriteSheet sheet);
 
-        void loadSpriteSheet(std::string file, int width, int height, int cols, int rows);
+            void loadSpriteSheet(std::string file, int width, int height, int cols, int rows);
 
-        void setAnimationFrames(int start, int end);
+            void setAnimationFrames(int start, int end);
 
-        void addFrame(int index, int x, int y);
-    };
+            void addFrame(int index, int x, int y);
+        };
+    }
 }
 
 

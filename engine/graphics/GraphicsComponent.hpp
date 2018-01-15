@@ -12,20 +12,25 @@
 
 
 #include <core/Component.hpp>
+#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/Texture.hpp>
+#include "Animation.hpp"
 
 namespace engine {
     namespace graphics {
-        class SpriteComponent : public core::Component {
+        class GraphicsComponent : public core::Component {
         protected:
             bool _active;
-            int _x = 0; // TODO : use another system point 2D
-            int _y = 0;
+
+            sf::Sprite sprite;
+            sf::Texture texture;
+            std::vector<engine::graphics::Animation> animations;
 
         public:
 
-            SpriteComponent() = default;
+            GraphicsComponent() = default;
 
-            virtual ~SpriteComponent() = default;
+            virtual ~GraphicsComponent() = default;
 
             void Update(float dt) override;
 
@@ -35,17 +40,12 @@ namespace engine {
 
             void ShutDown(void) override;
 
-            bool Active(void) const override;
+            bool Active(void) const;
 
-            // TODO : use another system point 2D
+            void addAnimation(engine::graphics::Animation animation);
 
-            int getX() const;
+            void play(std::string str, bool b);
 
-            int getY() const;
-
-            void setX(int _x);
-
-            void setY(int _y);
         };
 
     }

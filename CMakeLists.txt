@@ -29,10 +29,6 @@ set(game_unit_SOURCE_FILES)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/find/") #add FindSFML file
 
 set(graphics_SOURCE_FILES
-        engine/graphics/Position.cpp
-        engine/graphics/Position.hpp
-        engine/graphics/Orientation.cpp
-        engine/graphics/Orientation.hpp
         engine/graphics/Animation.cpp
         engine/graphics/Animation.hpp
         engine/graphics/RTypeGraphics.hpp
@@ -43,7 +39,7 @@ set(graphics_SOURCE_FILES
         engine/graphics/Event.cpp
         engine/graphics/Event.hpp
         engine/graphics/Window.cpp
-        engine/graphics/Window.hpp engine/graphics/SpriteComponent.cpp engine/graphics/SpriteComponent.hpp)
+        engine/graphics/Window.hpp engine/graphics/GraphicsComponent.cpp engine/graphics/GraphicsComponent.hpp)
 set(graphics_unit_SOURCE_FILES)
 
 # Engine : Physics

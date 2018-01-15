@@ -7,7 +7,7 @@
 //-----------------------------------------------------------------------------
 //
 
-#include <graphics/SpriteComponent.hpp>
+#include <graphics/GraphicsComponent.hpp>
 #include <iostream>
 #include "Engine.hpp"
 
@@ -46,7 +46,7 @@ void engine::core::Engine::Init(void) {
     auto *gm = GameObjectManager::GetInstance();
     auto object = new GameObject();
 
-    object->addComponent(1, new graphics::SpriteComponent);
+    object->addComponent(1, new graphics::GraphicsComponent);
 
     gm->addObject(1, object);
 }

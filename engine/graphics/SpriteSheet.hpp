@@ -8,14 +8,15 @@
 
 #include <string>
 
-namespace RType {
+namespace engine {
+    namespace graphics {
+        class SpriteSheet {
+        public:
+            SpriteSheet(std::string file, int width, int height, int cols, int rows);
 
-    class SpriteSheet {
-    public:
-        SpriteSheet(std::string file, int width, int height, int cols, int rows);
-
-        ~SpriteSheet();
-    };
+            ~SpriteSheet();
+        };
+    }
 }
 
 
