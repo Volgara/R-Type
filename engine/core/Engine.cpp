@@ -10,6 +10,7 @@
 #include <graphics/SpriteComponent.hpp>
 #include <iostream>
 #include "Engine.hpp"
+#include "GameObject.hpp"
 
 /**
  * Get's system with ID
@@ -30,6 +31,10 @@ void engine::core::Engine::Update(float dt) {
     }
 }
 
+/**
+ * Main Loop
+ * Execute and Update windows
+ */
 void engine::core::Engine::MainLoop(void) {
     while (_gameRunning) {
         _window.clear();
@@ -51,13 +56,15 @@ void engine::core::Engine::Init(void) {
         sys.second->Init();
     }
 
-    // TODO : replace by Scene loader
-    auto *gm = GameObjectManager::GetInstance();
-    auto object = new GameObject();
+    _scene = new Scene();
 
-    object->addComponent(1, new graphics::SpriteComponent);
+    auto *object = _scene->CreateEmptyObject();
+    auto *spriteComponent = _scene->CreateComponent(GRA_SPRITE);
 
-    gm->addObject(1, object);
+    object->AddComponent(spriteComponent);
+    //object->addComponent(GRA_SPRITE, new graphics::SpriteComponent);
+
+    //gm->addObject(1, object);
 }
 
 sf::RenderWindow &engine::core::Engine::getWindow() {
@@ -70,4 +77,8 @@ void engine::core::Engine::addSystem(const std::string &systemId, engine::core::
 
 void engine::core::Engine::constructor() {
     Init();
+}
+
+engine::core::Scene *engine::core::Engine::getScene() {
+    return _scene;
 }

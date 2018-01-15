@@ -8,72 +8,49 @@
 //
 
 #include "GameObject.hpp"
+#include "Scene.hpp"
 
-engine::core::GameObject::GameObject() = default;
+namespace engine {
+    namespace core {
+        template<typename T>
+        T *GameObject::GetComponent(ComponentID type) {
+            return (T *) GetComponent(type);
+        }
 
-engine::core::GameObject::~GameObject() = default;
+        Component *GameObject::GetComponent(ComponentID type) {
+            return components[type];
+        }
 
-engine::core::GameObjectID engine::core::GameObject::getId() const {
-    return _id;
-}
+        void GameObject::AddComponent(Component *component) {
+            component->owner = guid;
+            components[component->id] = component;
+        }
 
-/**
- * Set the GameObjectID
- * @param id
- */
-void engine::core::GameObject::setId(engine::core::GameObjectID id) {
-    _id = id;
-}
+        void GameObject::RemoveComponent(Component *component) {
+            component->owner = static_cast<GameObjectID>(-1); // Debug
+            components[component->id] = nullptr;
+        }
 
-/**
- * Check one entry with Component ID
- * @param id
- * @return
- */
-bool engine::core::GameObject::hasComponent(engine::core::ComponentID id) const {
-    return false;
-}
+        void GameObject::RemoveComponent(ComponentID type) {
+            auto *component = components[type];
+            component->owner = static_cast<GameObjectID>(-1); // Debug
+            components[component->id] = nullptr;
+        }
 
-/**
- * Return the component with the Component ID
- * @param id the ComponentID
- * @return nullptr if not found
- */
-engine::core::Component *engine::core::GameObject::getComponent(engine::core::ComponentID id) {
-    return _components[id];
-}
+        bool GameObject::HasComponent(ComponentID type) {
+            return components[type] != nullptr;
+        }
 
-/**
- * Update each component of the GameObject
- * @param dt
- */
-void engine::core::GameObject::Update(float dt) {
+        void GameObject::Update(float dt) {
+            for (auto component : components) {
+                component->Update(dt);
+            }
+        }
 
-}
-
-/**
- * Add a new component
- * @param id
- * @param component
- */
-void engine::core::GameObject::addComponent(engine::core::ComponentID id, engine::core::Component *component) {
-    _components[id] = component;
-}
-
-/**
- * Broadcast message foreach component
- * @param msg
- */
-void engine::core::GameObject::SendMessage(Message *msg) {
-    for (auto component : _components) {
-
+        void GameObject::Init(void) {
+            for (auto component : components) {
+                component->Init();
+            }
+        }
     }
-}
-
-/**
- * Get's the GameObject state
- * @return true if active
- */
-bool engine::core::GameObject::active(void) const {
-    return _active;
 }

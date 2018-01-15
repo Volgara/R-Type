@@ -7,53 +7,41 @@
 //-----------------------------------------------------------------------------
 //
 
-#ifndef RTYPE_GAMEOBJECT_HPP
-#define RTYPE_GAMEOBJECT_HPP
-
-
-namespace engine {
-    namespace core {
-        class GameObject;
-
-        typedef unsigned int GameObjectID;
-    }
-}
-
 #include <vector>
 #include <map>
+#include "ID.hpp"
 #include "Message.hpp"
 #include "Component.hpp"
 
+#ifndef RTYPE_GAMEOBJECT_HPP
+#define RTYPE_GAMEOBJECT_HPP
 
 namespace engine {
     namespace core {
+        struct Scene;
 
-        class GameObject {
-        protected:
-            GameObjectID _id;
-            bool _active;
-            std::map<ComponentID, Component *> _components;
+        struct GameObject {
+            Component *components[EComponentID_NUMBER];
+            GameObjectID guid;
+            Scene *scene;
+            bool active;
 
-        public:
-            GameObject();
+            void AddComponent(Component *component);
 
-            ~GameObject();
+            void RemoveComponent(Component *component);
 
-            void SendMessage(Message *msg);
+            void RemoveComponent(ComponentID type);
 
-            bool active(void) const;
+            Component *GetComponent(ComponentID type);
 
-            GameObjectID getId() const;
-
-            void setId(GameObjectID id);
-
-            bool hasComponent(ComponentID id) const;
-
-            Component *getComponent(ComponentID id);
-
-            void addComponent(ComponentID id, Component *);
+            bool HasComponent(ComponentID type);
 
             void Update(float dt);
+
+            void Init(void);
+
+            template<typename T>
+            T *GetComponent(ComponentID type);
         };
     }
 }

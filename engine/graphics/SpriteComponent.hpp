@@ -23,7 +23,7 @@ namespace engine {
 
         public:
 
-            SpriteComponent() = default;
+            SpriteComponent();
 
             virtual ~SpriteComponent() = default;
 
@@ -35,10 +35,7 @@ namespace engine {
 
             void ShutDown(void) override;
 
-            bool Active(void) const override;
-
             // TODO : use another system point 2D
-
             int getX() const;
 
             int getY() const;

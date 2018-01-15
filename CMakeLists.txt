@@ -11,11 +11,10 @@ set(core_SOURCE_FILES
         engine/core/Engine.hpp
         engine/core/NonCopyable.hpp
         engine/core/ASystem.hpp
-        engine/core/GameObjectManager.hpp
         engine/core/Message.cpp
         engine/core/Message.hpp
         engine/core/GameObject.cpp
-        engine/core/GameObject.hpp engine/core/Component.cpp engine/core/Component.hpp engine/core/Singleton.hpp)
+        engine/core/GameObject.hpp engine/core/Component.cpp engine/core/Component.hpp engine/core/Singleton.hpp engine/core/Scene.cpp engine/core/Scene.hpp engine/core/AutoList.hpp engine/core/ComponentHandler.hpp engine/core/ID.hpp)
 
 set(core_unit_SOURCE_FILES
         unit/engine/core/GameObjectUnit.cpp

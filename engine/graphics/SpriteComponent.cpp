@@ -11,6 +11,10 @@
 #include <SFML/Graphics/CircleShape.hpp>
 #include "SpriteComponent.hpp"
 
+engine::graphics::SpriteComponent::SpriteComponent() : Component(core::ComponentID::GRA_SPRITE) {
+
+}
+
 void engine::graphics::SpriteComponent::SendMessage(Message *message) {
 
 }
@@ -21,10 +25,6 @@ void engine::graphics::SpriteComponent::Init(void) {
 
 void engine::graphics::SpriteComponent::ShutDown(void) {
 
-}
-
-bool engine::graphics::SpriteComponent::Active(void) const {
-    return core::Component::Active();
 }
 
 int engine::graphics::SpriteComponent::getX() const {

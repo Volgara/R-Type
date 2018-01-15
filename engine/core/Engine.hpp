@@ -17,8 +17,8 @@
 #include <SFML/Window/Event.hpp>
 #include "NonCopyable.hpp"
 #include "ASystem.hpp"
-#include "GameObjectManager.hpp"
-
+#include "Singleton.hpp"
+#include "Scene.hpp"
 
 namespace engine {
     namespace core {
@@ -27,6 +27,7 @@ namespace engine {
             std::map<std::string, ASystem *> _systems;
             std::deque<Message *> _messages;
             sf::RenderWindow _window;
+            Scene *_scene;
             bool _gameRunning;
 
         public:
@@ -44,6 +45,8 @@ namespace engine {
             ASystem *getSystem(const std::string &systemId);
 
             sf::RenderWindow &getWindow();
+
+            Scene *getScene();
         };
     }
 }
