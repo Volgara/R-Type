@@ -11,7 +11,7 @@ RType::Room::Room(std::string name) {
 }
 
 bool RType::Room::join(Player *p) {
-    if (_player.size() >= 4)
+    if (_player.size() >= 4 || _gameStart)
         return false;
     std::cout << "[" << p->getId() << "]: " << "joined " << _name << std::endl;
     _player.push_back(p);
@@ -19,6 +19,7 @@ bool RType::Room::join(Player *p) {
 }
 
 void RType::Room::start() {
+    _gameStart = true;
     //game started
 }
 
@@ -28,4 +29,19 @@ std::string RType::Room::getName() const {
 
 int RType::Room::getNbrPlayer() const {
     return _player.size();
+}
+
+bool RType::Room::leave(Player *p) {
+    int pos = 0;
+
+    for (auto it : _player)
+    {
+        if (p->getId() == it->getId())
+        {
+            _player.erase(_player.begin() + pos);
+            return (true);
+        }
+        pos += 1;
+    }
+    return false;
 }

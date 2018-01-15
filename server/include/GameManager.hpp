@@ -18,6 +18,8 @@ public:
     ~GameManager();
     bool join(Player *, std::string);
     void listRoom();
+    bool start(std::string roomName);
+    bool leave(Player *);
 };
 
 
