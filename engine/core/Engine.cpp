@@ -11,10 +11,19 @@
 #include <iostream>
 #include "Engine.hpp"
 
+/**
+ * Get's system with ID
+ * @param systemId
+ * @return
+ */
 engine::core::ASystem *engine::core::Engine::getSystem(const std::string &systemId) {
     return _systems[systemId];
 }
 
+/**
+ * Update each system with the delta-time
+ * @param dt
+ */
 void engine::core::Engine::Update(float dt) {
     for (auto system : _systems) {
         system.second->Update(dt);
