@@ -6,10 +6,7 @@
 // Created by bonett_w on 1/9/18.
 //-----------------------------------------------------------------------------
 //
-#ifdef GRAPHICS
-#include <graphics/GraphicsComponent.hpp>
-#endif
-#include <physics/RigidBodyComponent.hpp>
+
 #include <iostream>
 #include "Engine.hpp"
 #include "GameObject.hpp"

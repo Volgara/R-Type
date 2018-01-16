@@ -13,14 +13,10 @@
 using namespace engine::core;
 
 TEST(GameObjectTest, Instance) {
-    auto *gameObject = new GameObject();
-
-    ASSERT_NE(gameObject, nullptr);
+    // TODO: rewrite test
 }
 
 TEST(GameObjectTest, Id) {
-    auto *gameObject = new GameObject();
+    // TODO: rewrite test
 
-    gameObject->setId(1);
-    ASSERT_EQ(gameObject->getId(), 1);
 }

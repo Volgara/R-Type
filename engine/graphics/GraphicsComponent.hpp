@@ -20,11 +20,9 @@ namespace engine {
     namespace graphics {
         class GraphicsComponent : public core::Component {
         protected:
-            bool _active;
-
-            sf::Sprite sprite;
-            sf::Texture texture;
-            std::vector<engine::graphics::Animation> animations;
+            sf::Sprite _sprite;
+            sf::Texture _texture;
+            std::vector<engine::graphics::Animation> _animations;
 
         public:
 
@@ -39,8 +37,6 @@ namespace engine {
             void Init(void) override;
 
             void ShutDown(void) override;
-
-            bool Active(void) const;
 
             void addAnimation(engine::graphics::Animation animation);
 

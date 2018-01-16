@@ -26,6 +26,6 @@ namespace RType
         virtual int listen_Socket() = 0;
         virtual int get_fd() const = 0;
     };
-};
+}
 
 #endif //RTYPE_ISOCKET_HPP

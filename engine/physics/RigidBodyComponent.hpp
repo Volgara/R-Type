@@ -5,7 +5,7 @@
 #ifndef RTYPE_RIGIDBODYCOMPONENT_HPP
 #define RTYPE_RIGIDBODYCOMPONENT_HPP
 
-#include "../core/Component.hpp"
+#include <core/Component.hpp>
 #include "Box.hpp"
 
 namespace engine {
@@ -17,7 +17,7 @@ namespace engine {
             core::Vector2d _size = core::Vector2d(0, 0);
             Box      *_box;
         public:
-            explicit RigidBodyComponent(core::ComponentID id);
+            RigidBodyComponent();
 
             virtual ~RigidBodyComponent();
 

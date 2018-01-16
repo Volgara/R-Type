@@ -71,6 +71,7 @@ set(client_MODULES
         ${core_SOURCE_FILES}
         ${game_SOURCE_FILES}
         ${graphics_SOURCE_FILES}
+        ${physics_SOURCE_FILES}
         ${network_SOURCE_FILES})
 
 set(server_MODULES
@@ -120,9 +121,9 @@ target_link_libraries(server ${SFML_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
 # includes dir libs
 include_directories(${SFML_INCLUDE_DIR})]]
 # unit test
-add_executable(engine_core_unit ${core_SOURCE_FILES} ${core_unit_SOURCE_FILES})
+add_executable(engine_core_unit ${server_MODULES} ${core_unit_SOURCE_FILES})
 
-add_executable(engine_physics_unit ${physics_SOURCE_FILES} ${core_SOURCE_FILES} ${physics_unit_SOURCE_FILES})
+add_executable(engine_physics_unit ${server_MODULES} ${physics_unit_SOURCE_FILES})
 
 set(GOOGLE_TESTS_LIBS gtest gmock ${CMAKE_THREAD_LIBS_INIT})
 
@@ -137,8 +138,8 @@ if (MSVC)
     # VS 2017 removed tr1
     add_definitions(-DGTEST_HAS_TR1_TUPLE=0)
 else ()
-    target_compile_options(engine_core_unit PRIVATE -g -Wall -Werror -Wextra -Wpedantic -Wconversion -Wswitch-default -Wswitch-enum -Wunreachable-code -Wwrite-strings -Wcast-align -Wshadow -Wundef)
-    target_compile_options(engine_physics_unit PRIVATE -g -Wall -Werror -Wextra -Wpedantic -Wconversion -Wswitch-default -Wswitch-enum -Wunreachable-code -Wwrite-strings -Wcast-align -Wshadow -Wundef)
+    target_compile_options(engine_core_unit PRIVATE -g -Wall -Wextra -Wpedantic -Wconversion -Wswitch-default -Wswitch-enum -Wunreachable-code -Wwrite-strings -Wcast-align -Wshadow -Wundef)
+    target_compile_options(engine_physics_unit PRIVATE -g -Wall -Wextra -Wpedantic -Wconversion -Wswitch-default -Wswitch-enum -Wunreachable-code -Wwrite-strings -Wcast-align -Wshadow -Wundef)
     if (COVERAGE)
         target_compile_options(engine_core_unit PRIVATE --coverage)
         target_link_libraries(engine_core_unit PRIVATE --coverage ${GOOGLE_TESTS_LIBS})
