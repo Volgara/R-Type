@@ -24,9 +24,13 @@ void engine::graphics::GraphicsComponent::ShutDown(void) {
 }
 
 bool engine::graphics::GraphicsComponent::Active(void) const {
-    return core::Component::Active();
+
 }
 
 void engine::graphics::GraphicsComponent::Update(float dt) {
+
+}
+
+engine::graphics::GraphicsComponent::GraphicsComponent() : Component(engine::core::ComponentID::GRA_SPRITE) {
 
 }

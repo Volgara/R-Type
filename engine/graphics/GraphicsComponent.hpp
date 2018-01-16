@@ -28,7 +28,7 @@ namespace engine {
 
         public:
 
-            GraphicsComponent() = default;
+            GraphicsComponent();
 
             virtual ~GraphicsComponent() = default;
 

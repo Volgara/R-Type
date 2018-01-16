@@ -26,22 +26,21 @@ void engine::graphics::GraphicSystem::SendMessage(Message *msg) {
 }
 
 void engine::graphics::GraphicSystem::Update(float) {
-    /*auto *eg = engine::core::Engine::GetInstance();
+    auto *eg = engine::core::Engine::GetInstance();
 
-    for (auto sprite : *eg->getScene()->GetComponents<SpriteComponent>(core::ComponentID::GRA_SPRITE)) {
-        auto const &x = sprite->getX();
-        auto const &y = sprite->getY();
+    for (auto sprite : *eg->getScene()->GetComponents<GraphicsComponent>(core::ComponentID::GRA_SPRITE)) {
+        auto const &x = 0;
+        auto const &y = 0;
         sf::CircleShape shape(50);
         shape.setFillColor(sf::Color(100, 250, 50));
         shape.setPosition(x, y);
-        sprite->setX(x + 1);
-        sprite->setY(y + 1);
         eg->getWindow().draw(shape);
     }
 
+    /*
     for (auto obj : gom) {
 
-        /*auto *sprite = static_cast<engine::physics::RigidBodyComponent *>(obj.second->getComponent(1)); // TODO : check is Sprite
+        auto *sprite = static_cast<engine::physics::RigidBodyComponent *>(obj.second->getComponent(1)); // TODO : check is Sprite
         if (sprite->Active()) {
             engine::physics::Vector2d position = sprite->getPosition();
 
@@ -54,7 +53,6 @@ void engine::graphics::GraphicSystem::Update(float) {
 
             sprite->setPosition(position);
             eg->getWindow().draw(shape);
-        }*/
-    }
-    */
+        }
+   */
 }

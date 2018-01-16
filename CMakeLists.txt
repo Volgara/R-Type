@@ -39,7 +39,9 @@ set(graphics_SOURCE_FILES
         engine/graphics/Event.cpp
         engine/graphics/Event.hpp
         engine/graphics/Window.cpp
-        engine/graphics/Window.hpp engine/graphics/GraphicsComponent.cpp engine/graphics/GraphicsComponent.hpp)
+        engine/graphics/Window.hpp
+        engine/graphics/GraphicsComponent.cpp
+        engine/graphics/GraphicsComponent.hpp)
 set(graphics_unit_SOURCE_FILES)
 
 # Engine : Physics
