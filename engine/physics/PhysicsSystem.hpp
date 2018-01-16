@@ -20,7 +20,6 @@ namespace engine {
             std::vector<std::pair<RigidBodyComponent *, RigidBodyComponent *>> _currentCollision;
             std::vector<RigidBodyComponent *> _listDebug;
             int _width;
-            int _height;
         private:
             int _debugNbAdd;
             int _debugNbCollision;

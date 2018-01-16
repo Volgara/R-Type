@@ -7,7 +7,6 @@
 
 engine::physics::PhysicsSystem::PhysicsSystem(int width, int height) {
     this->_width = width / CELL_SIZE;
-    this->_height = height / CELL_SIZE;
     Init();
 }
 
