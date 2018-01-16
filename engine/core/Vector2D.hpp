@@ -12,7 +12,7 @@ namespace engine {
             int _x;
             int _y;
         public:
-            Vector2d(int x, int y);
+            Vector2d(int x = 0, int y = 0);
 
             virtual ~Vector2d();
 
