@@ -14,15 +14,24 @@ set(core_SOURCE_FILES
         engine/core/Message.cpp
         engine/core/Message.hpp
         engine/core/GameObject.cpp
-        engine/core/GameObject.hpp engine/core/Component.cpp engine/core/Component.hpp engine/core/Singleton.hpp engine/core/Scene.cpp engine/core/Scene.hpp engine/core/AutoList.hpp engine/core/ComponentHandler.hpp engine/core/ID.hpp
-        engine/core/Vector2D.hpp engine/core/Vector2D.cpp)
+        engine/core/GameObject.hpp
+        engine/core/Component.cpp
+        engine/core/Component.hpp
+        engine/core/Singleton.hpp
+        engine/core/Scene.cpp
+        engine/core/Scene.hpp
+        engine/core/AutoList.hpp
+        engine/core/ComponentHandler.hpp
+        engine/core/ID.hpp
+        engine/core/Vector2D.hpp
+        engine/core/Vector2D.cpp)
 
 set(core_unit_SOURCE_FILES
         unit/engine/core/GameObjectUnit.cpp
         unit/engine/core/GameObjectManagerUnit.cpp)
 
 # Engine : Game
-set(game_SOURCE_FILES)
+set(game_SOURCE_FILES )
 set(game_unit_SOURCE_FILES)
 
 # Engine : Graphics
@@ -41,7 +50,9 @@ set(graphics_SOURCE_FILES
         engine/graphics/Window.cpp
         engine/graphics/Window.hpp
         engine/graphics/GraphicsComponent.cpp
-        engine/graphics/GraphicsComponent.hpp)
+        engine/graphics/GraphicsComponent.hpp
+        engine/graphics/GraphicsSystem.cpp
+        engine/graphics/GraphicsSystem.hpp)
 set(graphics_unit_SOURCE_FILES)
 
 # Engine : Physics
@@ -81,7 +92,8 @@ set(server_MODULES
         ${network_SOURCE_FILES})
 
 # Software : Client
-set(client_SOURCE_FILES ${client_MODULES} client/main_client.cpp engine/graphics/GraphicsSystem.cpp engine/graphics/GraphicsSystem.hpp)
+set(client_SOURCE_FILES ${client_MODULES}
+        client/main_client.cpp)
 
 # Software : Server
 set(server_SOURCE_FILES ${server_MODULES} server/main_server.cpp)
@@ -148,3 +160,15 @@ else ()
         target_link_libraries(engine_physics_unit ${GOOGLE_TESTS_LIBS})
     endif ()
 endif ()
+
+# Copy full directories
+macro(resource_dirs dirs)
+    foreach(dir ${dirs})
+        # Replace / at the end of the path (copy dir content VS copy dir)
+        string(REGEX REPLACE "/+$" "" dirclean "${dir}")
+        message(STATUS "Copying resource ${dirclean}")
+        file(COPY ${dirclean} DESTINATION ${CMAKE_BINARY_DIR})
+    endforeach()
+endmacro()
+
+resource_dirs(client/assets)
