@@ -11,11 +11,11 @@ set(core_SOURCE_FILES
         engine/core/Engine.hpp
         engine/core/NonCopyable.hpp
         engine/core/ASystem.hpp
-        engine/core/GameObjectManager.hpp
         engine/core/Message.cpp
         engine/core/Message.hpp
         engine/core/GameObject.cpp
-        engine/core/GameObject.hpp engine/core/Component.cpp engine/core/Component.hpp engine/core/Singleton.hpp)
+        engine/core/GameObject.hpp engine/core/Component.cpp engine/core/Component.hpp engine/core/Singleton.hpp engine/core/Scene.cpp engine/core/Scene.hpp engine/core/AutoList.hpp engine/core/ComponentHandler.hpp engine/core/ID.hpp
+        engine/core/Vector2D.hpp engine/core/Vector2D.cpp)
 
 set(core_unit_SOURCE_FILES
         unit/engine/core/GameObjectUnit.cpp
@@ -45,8 +45,6 @@ set(graphics_unit_SOURCE_FILES)
 # Engine : Physics
 set(physics_SOURCE_FILES engine/physics/RigidBodyComponent.cpp
         engine/physics/RigidBodyComponent.hpp
-        engine/physics/Vector2D.cpp
-        engine/physics/Vector2D.hpp
         engine/physics/Box.cpp
         engine/physics/Box.hpp
         engine/physics/PhysicsSystem.cpp

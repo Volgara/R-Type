@@ -52,8 +52,8 @@ void engine::physics::PhysicsSystem::createHasheMap() {
 
 void engine::physics::PhysicsSystem::addComponentInMap(engine::physics::RigidBodyComponent *comp) {
     Box *box = comp->getBox();
-    Vector2d width(box->getLeft() / CELL_SIZE, box->getRight() / CELL_SIZE);
-    Vector2d height(box->getTop() / CELL_SIZE, box->getBottom() / CELL_SIZE);
+    core::Vector2d width(box->getLeft() / CELL_SIZE, box->getRight() / CELL_SIZE);
+    core::Vector2d height(box->getTop() / CELL_SIZE, box->getBottom() / CELL_SIZE);
 
     for (int i = width.getX(); i <= width.getY(); i++) {
         for (int j = height.getX(); j <= height.getY(); j++) {

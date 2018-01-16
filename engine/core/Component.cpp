@@ -9,6 +9,4 @@
 
 #include "Component.hpp"
 
-bool engine::core::Component::Active() const {
-    return _isActive;
-}
+engine::core::Component::Component(engine::core::ComponentID type) : id(type) {}

@@ -6,20 +6,18 @@
 #define RTYPE_RIGIDBODYCOMPONENT_HPP
 
 #include "../core/Component.hpp"
-#include "Vector2D.hpp"
 #include "Box.hpp"
 
 namespace engine {
     namespace physics {
         class RigidBodyComponent : public core::Component {
         private:
-            Vector2d    _position;
-            Vector2d    _velocity;
-            Vector2d    _size;
+            core::Vector2d _position = core::Vector2d(0, 0);
+            core::Vector2d _velocity = core::Vector2d(0, 0);
+            core::Vector2d _size = core::Vector2d(0, 0);
             Box      *_box;
         public:
-            RigidBodyComponent(engine::physics::Vector2d position,
-                                           engine::physics::Vector2d velocity, Vector2d size);
+            explicit RigidBodyComponent(core::ComponentID id);
 
             virtual ~RigidBodyComponent();
 
@@ -35,17 +33,17 @@ namespace engine {
 
             bool checkIntersect(const RigidBodyComponent *body);
 
-            const Vector2d &getPosition() const;
+            const core::Vector2d &getPosition() const;
 
-            void setPosition(const Vector2d &position);
+            void setPosition(const core::Vector2d &position);
 
-            const Vector2d &getVelocity() const;
+            const core::Vector2d &getVelocity() const;
 
-            void setVelocity(const Vector2d &velocity);
+            void setVelocity(const core::Vector2d &velocity);
 
-            const Vector2d &getSize() const;
+            const core::Vector2d &getSize() const;
 
-            void setSize(const Vector2d &size);
+            void setSize(const core::Vector2d &size);
 
             Box *getBox() const;
         };

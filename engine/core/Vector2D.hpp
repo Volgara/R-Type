@@ -6,7 +6,7 @@
 #define RTYPE_VECTOR2D_HPP
 
 namespace engine {
-    namespace physics {
+    namespace core {
         class Vector2d {
         private:
             int _x;

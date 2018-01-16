@@ -4,14 +4,18 @@
 
 #include <gtest/gtest.h>
 #include "physics/RigidBodyComponent.hpp"
+#include "core/ID.hpp"
 
 namespace engine {
     namespace physics {
         TEST(RigidBodyTest, moveTest) {
-            Vector2d pos(20, 20);
-            Vector2d velocity(2, 3);
-            Vector2d size(30, 12);
-            RigidBodyComponent *component = new RigidBodyComponent(pos, velocity, size);
+            core::Vector2d pos(20, 20);
+            core::Vector2d velocity(2, 3);
+            core::Vector2d size(30, 12);
+            RigidBodyComponent *component = new RigidBodyComponent(engine::core::ComponentID::PHY_RIGIDBODY);
+            component->setPosition(pos);
+            component->setVelocity(velocity);
+            component->setSize(size);
 
             component->move();
             ASSERT_EQ(22, component->getPosition().getX());
@@ -22,17 +26,20 @@ namespace engine {
         }
 
         TEST(RigidBodyTest, updatePositionTest) {
-            Vector2d pos(20, 20);
-            Vector2d velocity(2, 3);
-            Vector2d size(30, 12);
-            RigidBodyComponent *component = new RigidBodyComponent(pos, velocity, size);
+            core::Vector2d pos(20, 20);
+            core::Vector2d velocity(2, 3);
+            core::Vector2d size(30, 12);
+            RigidBodyComponent *component = new RigidBodyComponent(engine::core::ComponentID::PHY_RIGIDBODY);
+            component->setPosition(pos);
+            component->setVelocity(velocity);
+            component->setSize(size);
 
             ASSERT_EQ(20, component->getPosition().getX());
             ASSERT_EQ(20, component->getPosition().getY());
-            component->setPosition(Vector2d(12, 2));
+            component->setPosition(core::Vector2d(12, 2));
             ASSERT_EQ(12, component->getPosition().getX());
             ASSERT_EQ(2, component->getPosition().getY());
-            component->setVelocity(Vector2d(120, -23));
+            component->setVelocity(core::Vector2d(120, -23));
             ASSERT_EQ(120, component->getVelocity().getX());
             ASSERT_EQ(-23, component->getVelocity().getY());
             component->move();
@@ -41,10 +48,13 @@ namespace engine {
         }
 
         TEST(RigidBodyTest, updateBoxTest) {
-            Vector2d pos(20, 18);
-            Vector2d velocity(2, 3);
-            Vector2d size(30, 12);
-            RigidBodyComponent *component = new RigidBodyComponent(pos, velocity, size);
+            core::Vector2d pos(20, 18);
+            core::Vector2d velocity(2, 3);
+            core::Vector2d size(30, 12);
+            RigidBodyComponent *component = new RigidBodyComponent(engine::core::ComponentID::PHY_RIGIDBODY);
+            component->setPosition(pos);
+            component->setVelocity(velocity);
+            component->setSize(size);
 
             Box *box;
             box = component->getBox();
@@ -52,8 +62,8 @@ namespace engine {
             ASSERT_EQ(20, box->getLeft());
             ASSERT_EQ(30, box->getBottom());
             ASSERT_EQ(50, box->getRight());
-            component->setPosition(Vector2d(12, 2));
-            component->setVelocity(Vector2d(120, -23));
+            component->setPosition(core::Vector2d(12, 2));
+            component->setVelocity(core::Vector2d(120, -23));
             component->move();
             ASSERT_EQ(-21, component->getPosition().getY());
             ASSERT_EQ(132, component->getPosition().getX());
@@ -64,14 +74,20 @@ namespace engine {
         }
 
         TEST(BoxTest, intersectTest) {
-            Vector2d pos(20, 18);
-            Vector2d velocity(2, 3);
-            Vector2d size(30, 12);
-            RigidBodyComponent *component = new RigidBodyComponent(pos, velocity, size);
-            Vector2d pos2(30, 18);
-            Vector2d velocity2(2, 0);
-            Vector2d size2(30, 12);
-            RigidBodyComponent *component2 = new RigidBodyComponent(pos2, velocity2, size2);
+            core::Vector2d pos(20, 18);
+            core::Vector2d velocity(2, 3);
+            core::Vector2d size(30, 12);
+            RigidBodyComponent *component = new RigidBodyComponent(engine::core::ComponentID::PHY_RIGIDBODY);
+            component->setPosition(pos);
+            component->setVelocity(velocity);
+            component->setSize(size);
+            core::Vector2d pos2(30, 18);
+            core::Vector2d velocity2(2, 0);
+            core::Vector2d size2(30, 12);
+            RigidBodyComponent *component2 = new RigidBodyComponent(engine::core::ComponentID::PHY_RIGIDBODY);
+            component2->setPosition(pos2);
+            component2->setVelocity(velocity2);
+            component2->setSize(size2);
 
             for (int i = 0; i < 11; ++i) {
                 component2->move();
@@ -86,14 +102,20 @@ namespace engine {
         }
 
         TEST(BoxTest, intersectTestLeft) {
-            Vector2d pos(20, 18);
-            Vector2d velocity(-4, 3);
-            Vector2d size(30, 12);
-            RigidBodyComponent *component = new RigidBodyComponent(pos, velocity, size);
-            Vector2d pos2(30, 18);
-            Vector2d velocity2(-4, 0);
-            Vector2d size2(30, 12);
-            RigidBodyComponent *component2 = new RigidBodyComponent(pos2, velocity2, size2);
+            core::Vector2d pos(20, 18);
+            core::Vector2d velocity(-4, 3);
+            core::Vector2d size(30, 12);
+            RigidBodyComponent *component = new RigidBodyComponent(engine::core::ComponentID::PHY_RIGIDBODY);
+            component->setPosition(pos);
+            component->setVelocity(velocity);
+            component->setSize(size);
+            core::Vector2d pos2(30, 18);
+            core::Vector2d velocity2(-4, 0);
+            core::Vector2d size2(30, 12);
+            RigidBodyComponent *component2 = new RigidBodyComponent(engine::core::ComponentID::PHY_RIGIDBODY);
+            component2->setPosition(pos2);
+            component2->setVelocity(velocity2);
+            component2->setSize(size2);
 
             for (int i = 0; i < 11; ++i) {
                 component2->move();
@@ -108,14 +130,20 @@ namespace engine {
         }
 
         TEST(BoxTest, intersectTestTop) {
-            Vector2d pos(20, 18);
-            Vector2d velocity(0, -7);
-            Vector2d size(30, 12);
-            RigidBodyComponent *component = new RigidBodyComponent(pos, velocity, size);
-            Vector2d pos2(30, 18);
-            Vector2d velocity2(0, -3);
-            Vector2d size2(30, 12);
-            RigidBodyComponent *component2 = new RigidBodyComponent(pos2, velocity2, size2);
+            core::Vector2d pos(20, 18);
+            core::Vector2d velocity(0, -7);
+            core::Vector2d size(30, 12);
+            RigidBodyComponent *component = new RigidBodyComponent(engine::core::ComponentID::PHY_RIGIDBODY);
+            component->setPosition(pos);
+            component->setVelocity(velocity);
+            component->setSize(size);
+            core::Vector2d pos2(30, 18);
+            core::Vector2d velocity2(0, -3);
+            core::Vector2d size2(30, 12);
+            RigidBodyComponent *component2 = new RigidBodyComponent(engine::core::ComponentID::PHY_RIGIDBODY);
+            component2->setPosition(pos2);
+            component2->setVelocity(velocity2);
+            component2->setSize(size2);
 
             for (int i = 0; i < 11; ++i) {
                 component2->move();

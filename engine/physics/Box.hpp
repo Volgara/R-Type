@@ -5,7 +5,7 @@
 #ifndef RTYPE_BOX_HPP
 #define RTYPE_BOX_HPP
 
-#include "Vector2D.hpp"
+#include "core/Vector2D.hpp"
 
 namespace engine {
     namespace physics {
@@ -16,9 +16,9 @@ namespace engine {
             int _top;
             int _bottom;
         public:
-            Box(Vector2d position, Vector2d size);
+            Box(engine::core::Vector2d position, engine::core::Vector2d size);
 
-            void updatePosition(const engine::physics::Vector2d &position, const engine::physics::Vector2d &size);
+            void updatePosition(const engine::core::Vector2d &position, const engine::core::Vector2d &size);
 
             bool intersectBox(Box *box);
 

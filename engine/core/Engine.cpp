@@ -11,11 +11,21 @@
 #include <physics/RigidBodyComponent.hpp>
 #include <iostream>
 #include "Engine.hpp"
+#include "GameObject.hpp"
 
+/**
+ * Get's system with ID
+ * @param systemId
+ * @return
+ */
 engine::core::ASystem *engine::core::Engine::getSystem(const std::string &systemId) {
     return _systems[systemId];
 }
 
+/**
+ * Update each system with the delta-time
+ * @param dt
+ */
 void engine::core::Engine::Update(float dt) {
     // listen for events on the window
     if (_window.isOpen()) {
@@ -33,6 +43,10 @@ void engine::core::Engine::Update(float dt) {
     }
 }
 
+/**
+ * Main Loop
+ * Execute and Update windows
+ */
 void engine::core::Engine::MainLoop(void) {
     while (_gameRunning) {
         _window.clear();
@@ -54,13 +68,15 @@ void engine::core::Engine::Init(void) {
         sys.second->Init();
     }
 
-    // TODO : replace by Scene loader
-    auto *gm = GameObjectManager::GetInstance();
-    auto object = new GameObject();
+    _scene = new Scene();
 
-    object->addComponent(1, new graphics::GraphicsComponent);
+    auto *object = _scene->CreateEmptyObject();
+    auto *spriteComponent = _scene->CreateComponent(GRA_SPRITE);
 
-    gm->addObject(1, object);
+    object->AddComponent(spriteComponent);
+    //object->addComponent(GRA_SPRITE, new graphics::SpriteComponent);
+
+    //gm->addObject(1, object);
 }
 
 sf::RenderWindow &engine::core::Engine::getWindow() {
@@ -73,4 +89,8 @@ void engine::core::Engine::addSystem(const std::string &systemId, engine::core::
 
 void engine::core::Engine::constructor() {
     Init();
+}
+
+engine::core::Scene *engine::core::Engine::getScene() {
+    return _scene;
 }

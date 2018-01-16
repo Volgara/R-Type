@@ -4,11 +4,8 @@
 
 #include "RigidBodyComponent.hpp"
 
-engine::physics::RigidBodyComponent::RigidBodyComponent(Vector2d position,
-                                                        Vector2d velocity, Vector2d size)
-        : _position(position), _velocity(velocity), _size(size)
-{
-    this->_box = new Box(position, size);
+engine::physics::RigidBodyComponent::RigidBodyComponent(engine::core::ComponentID id) : Component(id) {
+    this->_box = new Box(this->_position, this->_size);
 }
 
 engine::physics::RigidBodyComponent::~RigidBodyComponent() {
@@ -18,28 +15,28 @@ engine::physics::RigidBodyComponent::~RigidBodyComponent() {
 }
 
 
-const engine::physics::Vector2d &engine::physics::RigidBodyComponent::getPosition() const {
+const engine::core::Vector2d &engine::physics::RigidBodyComponent::getPosition() const {
     return _position;
 }
 
-void engine::physics::RigidBodyComponent::setPosition(const engine::physics::Vector2d &position) {
+void engine::physics::RigidBodyComponent::setPosition(const engine::core::Vector2d &position) {
     this->_position = position;
     _box->updatePosition(this->_position, this->_size);
 }
 
-const engine::physics::Vector2d &engine::physics::RigidBodyComponent::getVelocity() const {
+const engine::core::Vector2d &engine::physics::RigidBodyComponent::getVelocity() const {
     return _velocity;
 }
 
-void engine::physics::RigidBodyComponent::setVelocity(const engine::physics::Vector2d &velocity) {
+void engine::physics::RigidBodyComponent::setVelocity(const engine::core::Vector2d &velocity) {
     this->_velocity = velocity;
 }
 
-const engine::physics::Vector2d &engine::physics::RigidBodyComponent::getSize() const {
+const engine::core::Vector2d &engine::physics::RigidBodyComponent::getSize() const {
     return _size;
 }
 
-void engine::physics::RigidBodyComponent::setSize(const engine::physics::Vector2d &size) {
+void engine::physics::RigidBodyComponent::setSize(const engine::core::Vector2d &size) {
     this->_size = size;
     _box->updatePosition(this->_position, this->_size);
 }

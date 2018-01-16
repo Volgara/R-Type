@@ -5,7 +5,7 @@
 #include <iostream>
 #include "Box.hpp"
 
-engine::physics::Box::Box(Vector2d position, Vector2d size)
+engine::physics::Box::Box(engine::core::Vector2d position, engine::core::Vector2d size)
 {
     this->_top = position.getY();
     this->_left = position.getX();
@@ -13,8 +13,8 @@ engine::physics::Box::Box(Vector2d position, Vector2d size)
     this->_bottom = position.getY() + size.getY();
 }
 
-void engine::physics::Box::updatePosition(const engine::physics::Vector2d &position,
-                                          const engine::physics::Vector2d &size) {
+void engine::physics::Box::updatePosition(const engine::core::Vector2d &position,
+                                          const engine::core::Vector2d &size) {
     this->_top = position.getY();
     this->_left = position.getX();
     this->_right = position.getX() + size.getX();
