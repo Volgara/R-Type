@@ -43,8 +43,7 @@ void engine::graphics::GraphicsComponent::addAnimation(engine::graphics::Animati
  */
 void engine::graphics::GraphicsComponent::play(std::string str) {
     for (auto &animation : this->_animations) {
-        if (animation.getName() == str)
-        {
+        if (animation.getName() == str) {
             animation.setCurrentFrame(0);
             this->_sprite = animation.getCurrentSprite();
         }
@@ -61,7 +60,10 @@ sf::Sprite engine::graphics::GraphicsComponent::getDrawable() {
  */
 void engine::graphics::GraphicsComponent::update() {
     for (auto &animation : _animations) {
-        animation.setCurrentFrame(animation.getCurrenFrame() + 1);
+        if (animation.getCurrenFrame() >= animation.getFrames().size())
+            animation.setCurrentFrame(0);
+        else
+            animation.setCurrentFrame(animation.getCurrenFrame() + 1);
         this->_sprite = animation.getCurrentSprite();
     }
 

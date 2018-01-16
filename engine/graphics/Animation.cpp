@@ -72,3 +72,7 @@ const engine::graphics::SpriteSheet &engine::graphics::Animation::getSpriteSheet
     return _spriteSheet;
 }
 
+const std::vector<sf::Sprite> &engine::graphics::Animation::getFrames() const {
+    return _frames;
+}
+

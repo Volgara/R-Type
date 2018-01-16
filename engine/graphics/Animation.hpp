@@ -35,6 +35,9 @@ namespace engine {
             std::string _name;
             SpriteSheet _spriteSheet;
             std::vector<sf::Sprite> _frames;
+        public:
+            const std::vector<sf::Sprite> &getFrames() const;
+        protected:
             int _currenFrame;
             bool _loop;
             bool _reverse;
