@@ -88,8 +88,10 @@ set(server_SOURCE_FILES ${server_MODULES} server/main_server.cpp)
 # include dir
 include_directories(engine)
 
-
+# client
 add_executable(client ${client_SOURCE_FILES})
+set_target_properties(client PROPERTIES COMPILE_DEFINITIONS GRAPHICS=1)
+# server
 add_executable(server ${server_SOURCE_FILES})
 #add_executable(testGraphics ${graphics_SOURCE_FILES})
 

@@ -26,9 +26,12 @@ namespace engine {
         private:
             std::map<std::string, ASystem *> _systems;
             std::deque<Message *> _messages;
-            sf::RenderWindow _window;
             Scene *_scene;
             bool _gameRunning;
+
+#ifdef GRAPHICS
+            sf::RenderWindow _window;
+#endif
 
         public:
             void constructor() override;
@@ -44,7 +47,9 @@ namespace engine {
 
             ASystem *getSystem(const std::string &systemId);
 
+#ifdef GRAPHICS
             sf::RenderWindow &getWindow();
+#endif
 
             Scene *getScene();
         };
