@@ -22,7 +22,7 @@ namespace RType
         int listen_Socket();
         int get_fd() const;
     };
-};
+}
 
 
 

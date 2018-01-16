@@ -14,7 +14,7 @@ namespace engine {
             for (int i = 0; i < 100; ++i) {
                 core::Vector2d pos(i * 2, i * 2);
 
-                RigidBodyComponent *comp = new RigidBodyComponent(engine::core::ComponentID::PHY_RIGIDBODY);
+                RigidBodyComponent *comp = new RigidBodyComponent();
                 comp->setSize(size);
                 comp->setPosition(pos);
                 comp->setVelocity(core::Vector2d(2, 2));

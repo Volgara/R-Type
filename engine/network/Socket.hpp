@@ -24,7 +24,7 @@ namespace RType
         int listen_Socket();
         int get_fd() const;
     };
-};
+}
 
 
 #endif //RTYPE_SOCKET_HPP

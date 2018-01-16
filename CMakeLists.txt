@@ -71,6 +71,7 @@ set(client_MODULES
         ${core_SOURCE_FILES}
         ${game_SOURCE_FILES}
         ${graphics_SOURCE_FILES}
+        ${physics_SOURCE_FILES}
         ${network_SOURCE_FILES})
 
 set(server_MODULES
@@ -118,9 +119,9 @@ endif(SFML_FOUND)
 target_link_libraries(server ${SFML_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
 #target_link_libraries(testGraphics ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
 # unit test
-add_executable(engine_core_unit ${core_SOURCE_FILES} ${core_unit_SOURCE_FILES})
+add_executable(engine_core_unit ${server_MODULES} ${core_unit_SOURCE_FILES})
 
-add_executable(engine_physics_unit ${physics_SOURCE_FILES} ${physics_unit_SOURCE_FILES})
+add_executable(engine_physics_unit ${server_MODULES} ${physics_unit_SOURCE_FILES})
 
 set(GOOGLE_TESTS_LIBS gtest gmock ${CMAKE_THREAD_LIBS_INIT})
 

@@ -3,9 +3,9 @@
 // Contact: volgar.dev@gmail.com
 //
 
-#include "Socket.hpp"
-#include "WindowsSocket.hpp"
-#include "UnixSocket.hpp"
+#include "network/Socket.hpp"
+#include "network/WindowsSocket.hpp"
+#include "network/UnixSocket.hpp"
 
 RType::Socket::Socket() {
     _socket = NULL;

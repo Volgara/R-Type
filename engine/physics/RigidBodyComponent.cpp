@@ -4,7 +4,7 @@
 
 #include "RigidBodyComponent.hpp"
 
-engine::physics::RigidBodyComponent::RigidBodyComponent(engine::core::ComponentID id) : Component(id) {
+engine::physics::RigidBodyComponent::RigidBodyComponent() : Component(engine::core::PHY_RIGIDBODY) {
     this->_box = new Box(this->_position, this->_size);
 }
 
