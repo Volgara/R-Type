@@ -43,7 +43,9 @@ before_install:
 script:
   - mkdir build && cd build
   - ${DEPS_DIR}/cmake/bin/cmake -DCOVERAGE=1 ..
-  - ${DEPS_DIR}/cmake/bin/cmake --build .
+  - ${DEPS_DIR}/cmake/bin/cmake --build . --target engine_physics_unit
+  - ${DEPS_DIR}/cmake/bin/cmake --build . --target engine_core_unit
+  - ./engine_physics_unit
   - ./engine_core_unit
 
 after_success:

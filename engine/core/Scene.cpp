@@ -7,7 +7,10 @@
 //-----------------------------------------------------------------------------
 //
 
+#ifdef GRAPHICS
 #include <graphics/GraphicsComponent.hpp>
+#endif
+
 #include <physics/RigidBodyComponent.hpp>
 #include "Scene.hpp"
 #include "GameObject.hpp"
