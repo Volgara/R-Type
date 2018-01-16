@@ -17,25 +17,19 @@ engine::graphics::SpriteSheet::SpriteSheet(std::string file, int width, int heig
 
     std::cout << "Creating texture from " << file << std::endl;
 
-    sf::Texture texture;
-    if (!texture.loadFromFile(file))
+    this->_texture = new sf::Texture();
+    if (!this->_texture->loadFromFile(file))
     {
         throw std::runtime_error("Cannot load texture");
     }
-
-    this->_texture = texture;
 }
 
 engine::graphics::SpriteSheet::~SpriteSheet() {
 
 }
 
-const sf::Texture &engine::graphics::SpriteSheet::getTexture() const {
+const sf::Texture *engine::graphics::SpriteSheet::getTexture() const {
     return _texture;
-}
-
-void engine::graphics::SpriteSheet::setTexture(const sf::Texture &_texture) {
-    this->_texture = _texture;
 }
 
 int engine::graphics::SpriteSheet::getCols() const {

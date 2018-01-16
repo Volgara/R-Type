@@ -23,7 +23,7 @@ namespace engine {
             int _rows;
             int _frameWidth;
             int _frameHeight;
-            sf::Texture _texture;
+            sf::Texture *_texture;
 
         public:
             int getFrameWidth() const;
@@ -34,8 +34,7 @@ namespace engine {
             void setCols(int _cols);
             int getRows() const;
             void setRows(int _rows);
-            const sf::Texture &getTexture() const;
-            void setTexture(const sf::Texture &_texture);
+            const sf::Texture *getTexture() const;
         };
     }
 }
