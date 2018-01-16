@@ -7,8 +7,6 @@
 //-----------------------------------------------------------------------------
 //
 
-#include <graphics/GraphicsComponent.hpp>
-#include <physics/RigidBodyComponent.hpp>
 #include <iostream>
 #include "Engine.hpp"
 #include "GameObject.hpp"
