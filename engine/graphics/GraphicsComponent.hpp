@@ -34,7 +34,7 @@ namespace engine {
             void SendMessage(Message *message) override;
             void Init(void) override;
             void ShutDown(void) override;
-            void addAnimation(engine::graphics::Animation *animation);
+            void addAnimation(engine::graphics::Animation &animation);
             void play(std::string str);
             sf::Sprite getDrawable();
             void update();

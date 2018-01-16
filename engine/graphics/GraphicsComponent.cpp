@@ -33,8 +33,8 @@ engine::graphics::GraphicsComponent::GraphicsComponent() : Component(engine::cor
 
 }
 
-void engine::graphics::GraphicsComponent::addAnimation(engine::graphics::Animation *animation) {
-    this->_animations.push_back(*animation);
+void engine::graphics::GraphicsComponent::addAnimation(engine::graphics::Animation &animation) {
+    this->_animations.push_back(animation);
 }
 
 /**

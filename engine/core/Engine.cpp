@@ -68,9 +68,6 @@ void engine::core::Engine::Init(void) {
     }
 #endif
 
-    for (auto sys : _systems) {
-        sys.second->Init();
-    }
 
     _scene = new Scene();
 
@@ -81,6 +78,10 @@ void engine::core::Engine::Init(void) {
 #endif
     //object->addComponent(GRA_SPRITE, new graphics::SpriteComponent);
     //gm->addObject(1, object);
+
+    for (auto sys : _systems) {
+        sys.second->Init();
+    }
 }
 
 #ifdef GRAPHICS

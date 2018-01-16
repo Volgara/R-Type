@@ -16,6 +16,7 @@ namespace engine {
 
         public:
             Animation(const std::string &name, engine::graphics::SpriteSheet _spriteSheet);
+            Animation(const Animation &anim);
 
             void setInitialFrame(int initialFrame);
             void setReverse(bool reverse);
@@ -28,13 +29,11 @@ namespace engine {
             int getCurrenFrame() const;
             void setCurrentFrame(int currenFrame);
             void setLoop(bool loop);
+            const SpriteSheet &getSpriteSheet() const;
 
         protected:
             std::string _name;
             SpriteSheet _spriteSheet;
-        public:
-            const SpriteSheet &getSpriteSheet() const;
-        protected:
             std::vector<sf::Sprite> _frames;
             int _currenFrame;
             bool _loop;

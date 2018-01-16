@@ -16,6 +16,17 @@ engine::graphics::Animation::Animation(const std::string &name, engine::graphics
     this->_reverse = false;
 }
 
+engine::graphics::Animation::Animation(const engine::graphics::Animation &anim) : _spriteSheet(anim._spriteSheet) {
+    this->_reverse = anim._reverse;
+    this->_name = anim._name;
+    this->_spriteSheet = anim._spriteSheet;
+    this->_frames = anim._frames;
+    this->_currenFrame = anim._currenFrame;
+    this->_loop = anim._loop;
+    this->_reverse = anim._reverse;
+}
+
+
 void engine::graphics::Animation::loadSpriteSheet(std::string file, int width, int height, int cols, int rows) {
 
 }
@@ -60,3 +71,4 @@ void engine::graphics::Animation::setReverse(bool reverse) {
 const engine::graphics::SpriteSheet &engine::graphics::Animation::getSpriteSheet() const {
     return _spriteSheet;
 }
+
