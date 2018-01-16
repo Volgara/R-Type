@@ -23,6 +23,7 @@ namespace engine {
             sf::Sprite _sprite;
             std::vector<engine::graphics::Animation *> _animations;
             int currentAnimation;
+            float dtCounter;
         public:
             const std::vector<Animation *> &getAnimations() const;
 

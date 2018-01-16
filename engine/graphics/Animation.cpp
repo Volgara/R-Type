@@ -38,7 +38,7 @@ void engine::graphics::Animation::setAnimationFrames(int start, int end) {
 void engine::graphics::Animation::addFrame(int x, int y) {
     sf::Sprite sprite;
     sprite.setTexture(*this->_spriteSheet->getTexture());
-    sprite.setTextureRect(sf::IntRect(y * this->_spriteSheet->getFrameHeight(), x * this->_spriteSheet->getFrameWidth(),
+    sprite.setTextureRect(sf::IntRect(y * this->_spriteSheet->getFrameWidth(), x * this->_spriteSheet->getFrameHeight(),
                                       this->_spriteSheet->getFrameWidth(), this->_spriteSheet->getFrameHeight()));
 
     this->_frames.push_back(sprite);
@@ -54,11 +54,11 @@ sf::Sprite engine::graphics::Animation::getCurrentSprite() {
     return this->_frames[_currenFrame];
 }
 
-float engine::graphics::Animation::getCurrenFrame() const {
+int engine::graphics::Animation::getCurrenFrame() const {
     return  _currenFrame;
 }
 
-void engine::graphics::Animation::setCurrentFrame(float currenFrame) {
+void engine::graphics::Animation::setCurrentFrame(int currenFrame) {
     Animation::_currenFrame = currenFrame;
 }
 
@@ -76,5 +76,9 @@ const engine::graphics::SpriteSheet *engine::graphics::Animation::getSpriteSheet
 
 const std::vector<sf::Sprite> &engine::graphics::Animation::getFrames() const {
     return _frames;
+}
+
+void engine::graphics::Animation::setPingPong(bool pingpong) {
+    this->_pingPong = pingpong;
 }
 

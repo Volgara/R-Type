@@ -31,6 +31,7 @@ void engine::graphics::GraphicsComponent::Update(float dt) {
 
 engine::graphics::GraphicsComponent::GraphicsComponent() : Component(engine::core::ComponentID::GRA_SPRITE) {
     this->currentAnimation = 0;
+    this->dtCounter = 0;
 }
 
 void engine::graphics::GraphicsComponent::addAnimation(engine::graphics::Animation *animation) {
@@ -52,8 +53,6 @@ void engine::graphics::GraphicsComponent::play(const std::string &str) {
     _animations[this->currentAnimation]->setCurrentFrame(0);
 
     this->_sprite = _animations[this->currentAnimation]->getFrames()[_animations[this->currentAnimation]->getCurrenFrame()];
-
-    std::cout << "play: " <<_animations[0]->getFrames()[0].getTexture() << std::endl;
 }
 
 sf::Sprite &engine::graphics::GraphicsComponent::getDrawable() {
@@ -68,18 +67,19 @@ sf::Sprite &engine::graphics::GraphicsComponent::getDrawable() {
  */
 void engine::graphics::GraphicsComponent::update(float dt) {
     if (_animations[this->currentAnimation]->getCurrenFrame() >=
-        _animations[this->currentAnimation]->getFrames().size() - 1)
+        _animations[this->currentAnimation]->getFrames().size() - 1 && dtCounter >= 1) {
         _animations[this->currentAnimation]->setCurrentFrame(0);
-    else
-        _animations[this->currentAnimation]->setCurrentFrame(_animations[this->currentAnimation]->getCurrenFrame() + (dt / 30));
+        dtCounter = 0;
+    } else if (dtCounter >= 1) {
+        dtCounter = 0;
+        _animations[this->currentAnimation]->setCurrentFrame(_animations[this->currentAnimation]->getCurrenFrame() + 1);
+    }
 
     this->_sprite = _animations[this->currentAnimation]->getFrames()[_animations[this->currentAnimation]->getCurrenFrame()];
+    dtCounter += dt / 350;
 
-    std::cout << "update: " << _animations[0]->getFrames()[0].getTexture() << std::endl;
-
-
-/*    engine::core::Vector2d pos = this->ownerRef->pos;
-    this->_sprite.setPosition(pos.getX(), pos.getY());*/
+    engine::core::Vector2d pos = this->ownerRef->pos;
+    this->_sprite.setPosition(pos.getX(), pos.getY());
 }
 
 const std::vector<engine::graphics::Animation *> &engine::graphics::GraphicsComponent::getAnimations() const {
