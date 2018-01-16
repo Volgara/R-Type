@@ -8,3 +8,19 @@
 //
 
 #include "GameLogicSystem.hpp"
+
+void engine::game::GameLogicSystem::Update(float d) {
+    (void) d;
+}
+
+void engine::game::GameLogicSystem::Init(void) {
+
+}
+
+void engine::game::GameLogicSystem::SendMessage(engine::core::Message *msg) {
+
+}
+
+void engine::game::GameLogicSystem::Update(engine::core::Scene *scene) {
+
+}

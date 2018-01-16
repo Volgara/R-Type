@@ -31,7 +31,9 @@ namespace engine {
             GraphicsComponent();
             virtual ~GraphicsComponent() = default;
             void Update(float dt) override;
-            void SendMessage(Message *message) override;
+
+            void SendMessage(engine::core::Message *message) override;
+
             void Init(void) override;
             void ShutDown(void) override;
             void addAnimation(engine::graphics::Animation &animation);

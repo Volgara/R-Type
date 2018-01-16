@@ -21,7 +21,7 @@ namespace engine {
 
             virtual ~RigidBodyComponent();
 
-            void SendMessage(Message *message) override;
+            void SendMessage(engine::core::Message *message) override;
 
             void Update(float dt) override;
 

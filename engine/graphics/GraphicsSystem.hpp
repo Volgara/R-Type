@@ -19,7 +19,7 @@ namespace engine {
         public:
             void Init(void) override;
 
-            void SendMessage(Message *msg) override;
+            void SendMessage(engine::core::Message *msg) override;
 
             void Update(float dt) override;
         };

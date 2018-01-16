@@ -26,17 +26,6 @@ engine::core::ASystem *engine::core::Engine::getSystem(const std::string &system
  */
 void engine::core::Engine::Update(float dt) {
     // listen for events on the window
-#ifdef GRAPHICS
-    if (_window.isOpen()) {
-        sf::Event event;
-        while (_window.pollEvent(event)) {
-            // "close requested" event: we close the window
-            if (event.type == sf::Event::Closed)
-                _window.close();
-        }
-    }
-#endif
-
     for (auto system : _systems) {
         system.second->Update(dt);
     }
@@ -68,7 +57,6 @@ void engine::core::Engine::Init(void) {
     }
 #endif
 
-
     _scene = new Scene();
 
 #ifdef GRAPHICS
@@ -76,8 +64,6 @@ void engine::core::Engine::Init(void) {
     auto *spriteComponent = _scene->CreateComponent(GRA_SPRITE);
     object->AddComponent(spriteComponent);
 #endif
-    //object->addComponent(GRA_SPRITE, new graphics::SpriteComponent);
-    //gm->addObject(1, object);
 
     for (auto sys : _systems) {
         sys.second->Init();
@@ -102,4 +88,14 @@ void engine::core::Engine::constructor() {
 
 engine::core::Scene *engine::core::Engine::getScene() {
     return _scene;
+}
+
+bool engine::core::Engine::isRunning() const {
+    return _gameRunning;
+}
+
+void engine::core::Engine::Shutdown(void) {
+#ifdef GRAPHICS
+    _window.close();
+#endif
 }

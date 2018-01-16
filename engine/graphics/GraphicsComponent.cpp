@@ -13,7 +13,7 @@
 #include <iostream>
 #include "GraphicsComponent.hpp"
 
-void engine::graphics::GraphicsComponent::SendMessage(Message *message) {
+void engine::graphics::GraphicsComponent::SendMessage(engine::core::Message *message) {
     (void) message;
 }
 
