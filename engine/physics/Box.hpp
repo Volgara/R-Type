@@ -11,14 +11,10 @@ namespace engine {
     namespace physics {
         class Box {
         private:
-            int _left;
-            int _right;
-            int _top;
-            int _bottom;
+            core::Vector2d *_pos;
+            core::Vector2d *_size;
         public:
-            Box(engine::core::Vector2d position, engine::core::Vector2d size);
-
-            void updatePosition(const engine::core::Vector2d &position, const engine::core::Vector2d &size);
+            Box(engine::core::Vector2d *position, engine::core::Vector2d *size);
 
             bool intersectBox(Box *box);
 

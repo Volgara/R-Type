@@ -12,11 +12,12 @@ engine::physics::PhysicsSystem::PhysicsSystem(int width, int height) {
 }
 
 void engine::physics::PhysicsSystem::Update(float) {
+#ifdef DEBUG
     this->_debugNbCollision = 0;
     this->_debugNb = 0;
     this->_debugNbAdd = 0;
     this->_debugCheck = 0;
-
+#endif
     this->clearMap();
     this->createHasheMap();
     for (auto &it : this->_listState) {
@@ -25,18 +26,22 @@ void engine::physics::PhysicsSystem::Update(float) {
 }
 
 void engine::physics::PhysicsSystem::Init() {
+#ifdef DEBUG
     this->_debugNbCollision = 0;
     this->_debugNb = 0;
     this->_debugNbAdd = 0;
+#endif
 }
 
 void engine::physics::PhysicsSystem::SendMessage(Message *) {
 
 }
 
+#ifdef DEBUG
 void engine::physics::PhysicsSystem::debugAddComponent(engine::physics::RigidBodyComponent *c) {
     this->_listDebug.push_back(c);
 }
+#endif
 
 void engine::physics::PhysicsSystem::clearMap() {
     this->_listState.clear();
@@ -44,10 +49,13 @@ void engine::physics::PhysicsSystem::clearMap() {
 }
 
 void engine::physics::PhysicsSystem::createHasheMap() {
+#ifdef DEBUG
     for (auto &i : this->_listDebug) {
         addComponentInMap(i);
+
         this->_debugNbAdd++;
     }
+#endif
 }
 
 void engine::physics::PhysicsSystem::addComponentInMap(engine::physics::RigidBodyComponent *comp) {
@@ -58,7 +66,9 @@ void engine::physics::PhysicsSystem::addComponentInMap(engine::physics::RigidBod
     for (int i = width.getX(); i <= width.getY(); i++) {
         for (int j = height.getX(); j <= height.getY(); j++) {
             this->_listState[this->_width * i + j].push_back(comp);
+#ifdef DEBUG
             this->_debugNb++;
+#endif
         }
     }
 }
@@ -67,14 +77,31 @@ void engine::physics::PhysicsSystem::checkCellColision(std::vector<RigidBodyComp
     for (size_t i = 0; i < vec.size(); ++i) {
         for (size_t j = 0; j < i; ++j) {
             if (vec[i]->checkIntersect(vec[j])) {
-                if (this->addCollision(vec[i], vec[j]))
+                if (this->addCollision(vec[i], vec[j])) {
+#ifdef DEBUG
                     this->_debugNbCollision++;
+#endif
+                }
             }
+#ifdef DEBUG
             this->_debugCheck++;
+#endif
         }
     }
 }
 
+bool engine::physics::PhysicsSystem::addCollision(engine::physics::RigidBodyComponent *two,
+                                                  engine::physics::RigidBodyComponent *one) {
+    for (auto &it : this->_currentCollision) {
+        if ((it.first == one && it.second == two)
+            || (it.second == one && it.first == two))
+            return false;
+    }
+    this->_currentCollision.emplace_back(one, two);
+    return true;
+}
+
+#ifdef DEBUG
 int engine::physics::PhysicsSystem::get_debugNbAdd() const {
     return _debugNbAdd;
 }
@@ -90,14 +117,4 @@ int engine::physics::PhysicsSystem::get_debugNb() const {
 int engine::physics::PhysicsSystem::get_debugCheck() const {
     return _debugCheck;
 }
-
-bool engine::physics::PhysicsSystem::addCollision(engine::physics::RigidBodyComponent *two,
-                                                  engine::physics::RigidBodyComponent *one) {
-    for (auto &it : this->_currentCollision) {
-        if ((it.first == one && it.second == two)
-            || (it.second == one && it.first == two))
-            return false;
-    }
-    this->_currentCollision.emplace_back(one, two);
-    return true;
-}
+#endif
