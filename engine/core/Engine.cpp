@@ -77,12 +77,12 @@ void engine::core::Engine::Init(void) {
 
     _scene = new Scene();
 
+#ifdef GRAPHICS
     auto *object = _scene->CreateEmptyObject();
     auto *spriteComponent = _scene->CreateComponent(GRA_SPRITE);
-
     object->AddComponent(spriteComponent);
+#endif
     //object->addComponent(GRA_SPRITE, new graphics::SpriteComponent);
-
     //gm->addObject(1, object);
 }
 
