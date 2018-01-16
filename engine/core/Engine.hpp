@@ -10,11 +10,14 @@
 #ifndef RTYPE_EVENTMANAGER_HPP
 #define RTYPE_EVENTMANAGER_HPP
 
+#ifdef GRAPHICS
+#include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Window/Event.hpp>
+#endif
+
 #include <string>
 #include <map>
 #include <deque>
-#include <SFML/Graphics/RenderWindow.hpp>
-#include <SFML/Window/Event.hpp>
 #include "NonCopyable.hpp"
 #include "ASystem.hpp"
 #include "Singleton.hpp"
