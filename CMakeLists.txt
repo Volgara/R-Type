@@ -100,19 +100,23 @@ set(SFML_STATIC_LIBRARIES False)
 
 # search libs
 find_package(Threads)
-find_package(SFML 2.4 REQUIRED audio graphics window system) # find SFML
-
-message("SFML LIBS: " ${SFML_LIBRARIES})
-message("SFML INCLUDES: " ${SFML_INCLUDE_DIR})
+find_package(SFML 2.4 COMPONENTS audio graphics window system) # find SFML
 
 # link libs
-target_link_libraries(client ${SFML_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
+if (SFML_FOUND)
+    message("SFML LIBS: " ${SFML_LIBRARIES})
+    message("SFML INCLUDES: " ${SFML_INCLUDE_DIR})
+
+    target_link_libraries(client ${SFML_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
+
+    # includes dir libs
+    include_directories(${SFML_INCLUDE_DIR})
+else()
+    message("||||||||| SFML NOT FOUND ||||||||||")
+endif(SFML_FOUND)
+
 target_link_libraries(server ${SFML_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
 #target_link_libraries(testGraphics ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
-
-# includes dir libs
-include_directories(${SFML_INCLUDE_DIR})
-
 # unit test
 add_executable(engine_core_unit ${core_SOURCE_FILES} ${core_unit_SOURCE_FILES})
 
