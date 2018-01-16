@@ -32,17 +32,13 @@ void engine::physics::RigidBodyComponent::setSize(const engine::core::Vector2d &
     this->_size.setX(size.getX());
 }
 
-void engine::physics::RigidBodyComponent::move() {
-    this->ownerRef->pos.setX(this->ownerRef->pos.getX() + this->_velocity.getX());
-    this->ownerRef->pos.setY(this->ownerRef->pos.getY() + this->_velocity.getY());
-}
-
 void engine::physics::RigidBodyComponent::SendMessage(Message *) {
 
 }
 
-void engine::physics::RigidBodyComponent::Update(float) {
-
+void engine::physics::RigidBodyComponent::Update(float dt) {
+    this->ownerRef->pos.setX(static_cast<int>((this->ownerRef->pos.getX() + this->_velocity.getX()) * dt));
+    this->ownerRef->pos.setY(static_cast<int>((this->ownerRef->pos.getY() + this->_velocity.getY()) * dt));
 }
 
 void engine::physics::RigidBodyComponent::Init(void) {

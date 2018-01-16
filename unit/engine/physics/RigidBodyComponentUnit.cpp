@@ -21,10 +21,10 @@ namespace engine {
             component->setSize(size);
             component->Init();
 
-            component->move();
+            component->Update(1.0);
             ASSERT_EQ(22, component->ownerRef->pos.getX());
             ASSERT_EQ(23, component->ownerRef->pos.getY());
-            component->move();
+            component->Update(1.0);
             ASSERT_EQ(24, component->ownerRef->pos.getX());
             ASSERT_EQ(26, component->ownerRef->pos.getY());
         }
@@ -49,7 +49,7 @@ namespace engine {
             component->setVelocity(core::Vector2d(120, -23));
             ASSERT_EQ(120, component->getVelocity().getX());
             ASSERT_EQ(-23, component->getVelocity().getY());
-            component->move();
+            component->Update(1.0);
             ASSERT_EQ(132, component->ownerRef->pos.getX());
             ASSERT_EQ(-21, component->ownerRef->pos.getY());
         }
@@ -74,7 +74,7 @@ namespace engine {
             ASSERT_EQ(50, box->getRight());
             game->pos = core::Vector2d(12, 2);
             component->setVelocity(core::Vector2d(120, -23));
-            component->move();
+            component->Update(1.0);
             ASSERT_EQ(-21, component->ownerRef->pos.getY());
             ASSERT_EQ(132, component->ownerRef->pos.getX());
             ASSERT_EQ(-21, box->getTop());
@@ -106,7 +106,7 @@ namespace engine {
             component2->Init();
 
             for (int i = 0; i < 11; ++i) {
-                component2->move();
+                component2->Update(1.0);
                 if (i < 10) {
                     ASSERT_TRUE(component->checkIntersect(component2));
                 }
@@ -114,7 +114,7 @@ namespace engine {
             ASSERT_EQ(52, component2->ownerRef->pos.getX());
             ASSERT_EQ(50, component->getBox()->getRight());
             ASSERT_FALSE(component->checkIntersect(component2));
-            component->move();
+            component->Update(1.0);
             ASSERT_TRUE(component->checkIntersect(component2));
         }
 
@@ -141,7 +141,7 @@ namespace engine {
             component2->Init();
 
             for (int i = 0; i < 11; ++i) {
-                component2->move();
+                component2->Update(1.0);
                 if (i < 10) {
                     ASSERT_TRUE(component->checkIntersect(component2));
                 }
@@ -149,7 +149,7 @@ namespace engine {
             ASSERT_EQ(-14, component2->ownerRef->pos.getX());
             ASSERT_EQ(50, component->getBox()->getRight());
             ASSERT_FALSE(component->checkIntersect(component2));
-            component->move();
+            component->Update(1.0);
             ASSERT_TRUE(component->checkIntersect(component2));
         }
 
@@ -176,7 +176,7 @@ namespace engine {
             component2->Init();
 
             for (int i = 0; i < 11; ++i) {
-                component2->move();
+                component2->Update(1.0);
                 if (i < 4) {
                     ASSERT_TRUE(component->checkIntersect(component2));
                 }
@@ -185,7 +185,7 @@ namespace engine {
             ASSERT_EQ(-3, component2->getBox()->getBottom());
             ASSERT_FALSE(component->checkIntersect(component2));
             for (int j = 0; j < 3; ++j) {
-                component->move();
+                component->Update(1.0);
                 if (j < 2) {
                     ASSERT_FALSE(component->checkIntersect(component2));
                 }

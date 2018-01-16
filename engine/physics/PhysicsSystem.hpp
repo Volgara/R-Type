@@ -19,14 +19,14 @@ namespace engine {
             std::vector<std::pair<RigidBodyComponent *, RigidBodyComponent *>> _currentCollision;
             std::vector<RigidBodyComponent *> _listDebug;
             int _width;
-
             int _height;
-#ifdef DEBUG
+        private:
             int _debugNbAdd;
             int _debugNbCollision;
             int _debugNb;
             int _debugCheck;
-#endif
+
+        private:
             bool addCollision(RigidBodyComponent *, RigidBodyComponent *);
             void addComponentInMap(RigidBodyComponent *);
             void createHasheMap();
@@ -40,7 +40,8 @@ namespace engine {
             void Init() override;
 
             void SendMessage(Message *msg) override;
-#ifdef DEBUG
+
+        public:
             void debugAddComponent(RigidBodyComponent *);
 
             int get_debugNbAdd() const;
@@ -50,7 +51,6 @@ namespace engine {
             int get_debugNb() const;
 
             int get_debugCheck() const;
-#endif
         };
     }
 }

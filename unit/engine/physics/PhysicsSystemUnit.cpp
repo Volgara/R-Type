@@ -4,10 +4,10 @@
 
 #include <gtest/gtest.h>
 #include "physics/PhysicsSystem.hpp"
+#include <core/GameObject.hpp>
 
 namespace engine {
     namespace physics {
-#ifdef DEBUG
         TEST(PhysicsSystemTest, InitTest) {
             PhysicsSystem *physicsSystem = new PhysicsSystem(800, 600);
             core::Vector2d size(10, 10);
@@ -21,12 +21,12 @@ namespace engine {
                 comp->ownerRef = game;
                 comp->setSize(size);
                 comp->setVelocity(core::Vector2d(2, 2));
+                comp->Init();
                 physicsSystem->debugAddComponent(comp);
             }
             physicsSystem->Update(0);
             ASSERT_EQ(485, physicsSystem->get_debugNbColision());
             ASSERT_EQ(1200, physicsSystem->get_debugCheck());
         }
-#endif
     }
 }

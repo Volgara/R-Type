@@ -28,8 +28,6 @@ namespace engine {
 
             void ShutDown(void) override;
 
-            void move();
-
             bool checkIntersect(const RigidBodyComponent *body);
 
             const core::Vector2d &getVelocity() const;
