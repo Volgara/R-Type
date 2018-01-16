@@ -7,7 +7,9 @@
 //-----------------------------------------------------------------------------
 //
 
+#ifdef GRAPHICS
 #include <graphics/GraphicsComponent.hpp>
+#endif
 #include "Scene.hpp"
 #include "GameObject.hpp"
 #include "Component.hpp"
@@ -16,9 +18,12 @@ engine::core::Component *engine::core::Scene::CreateComponent(engine::core::Comp
     // TODO : Replace by Class based factory
     Component *component;
     switch (type) {
-
         case GRA_SPRITE:
+#ifdef GRAPHICS
             component = new graphics::GraphicsComponent();
+#else
+            throw  std::runtime_error("Replace by Class based factory");
+#endif
             break;
         case PHY_RIGIDBODY:
             throw  std::runtime_error("Replace by Class based factory");
@@ -28,23 +33,23 @@ engine::core::Component *engine::core::Scene::CreateComponent(engine::core::Comp
     return component;
 }
 
-void engine::core::Scene::RemoveComponent(engine::core::Component *c) {
+void engine::core::Scene::RemoveComponent(engine::core::Component *) {
 
 }
 
-void engine::core::Scene::RemoveComponent(engine::core::GameObjectID handle) {
+void engine::core::Scene::RemoveComponent(engine::core::GameObjectID) {
 
 }
 
-engine::core::GameObject *engine::core::Scene::CreateEmptyObject(void) {
+engine::core::GameObject *engine::core::Scene::CreateEmptyObject() {
+    return nullptr;
+}
+
+void engine::core::Scene::RemoveGameObject(engine::core::GameObject *) {
 
 }
 
-void engine::core::Scene::RemoveGameObject(engine::core::GameObject *o) {
-
-}
-
-void engine::core::Scene::RemoveGameObject(engine::core::GameObjectID handle) {
+void engine::core::Scene::RemoveGameObject(engine::core::GameObjectID) {
 
 }
 

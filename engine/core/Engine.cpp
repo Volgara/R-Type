@@ -6,8 +6,9 @@
 // Created by bonett_w on 1/9/18.
 //-----------------------------------------------------------------------------
 //
-
+#ifdef GRAPHICS
 #include <graphics/GraphicsComponent.hpp>
+#endif
 #include <physics/RigidBodyComponent.hpp>
 #include <iostream>
 #include "Engine.hpp"
@@ -69,7 +70,7 @@ void engine::core::Engine::Init(void) {
         std::cout << "windows is closed" << std::endl;
         exit(EXIT_FAILURE);
     }
-#endif
+
 
     for (auto sys : _systems) {
         sys.second->Init();
@@ -77,7 +78,6 @@ void engine::core::Engine::Init(void) {
 
     _scene = new Scene();
 
-#ifdef GRAPHICS
     auto *object = _scene->CreateEmptyObject();
     auto *spriteComponent = _scene->CreateComponent(GRA_SPRITE);
     object->AddComponent(spriteComponent);

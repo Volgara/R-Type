@@ -96,7 +96,7 @@ add_executable(server ${server_SOURCE_FILES})
 #add_executable(testGraphics ${graphics_SOURCE_FILES})
 
 # init linkage variable
-set(SFML_STATIC_LIBRARIES False)
+#[[set(SFML_STATIC_LIBRARIES False)
 
 # search libs
 find_package(Threads)
@@ -117,10 +117,12 @@ endif(SFML_FOUND)
 
 target_link_libraries(server ${SFML_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
 #target_link_libraries(testGraphics ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
+# includes dir libs
+include_directories(${SFML_INCLUDE_DIR})]]
 # unit test
 add_executable(engine_core_unit ${core_SOURCE_FILES} ${core_unit_SOURCE_FILES})
 
-add_executable(engine_physics_unit ${physics_SOURCE_FILES} ${physics_unit_SOURCE_FILES})
+add_executable(engine_physics_unit ${physics_SOURCE_FILES} ${core_SOURCE_FILES} ${physics_unit_SOURCE_FILES})
 
 set(GOOGLE_TESTS_LIBS gtest gmock ${CMAKE_THREAD_LIBS_INIT})
 
