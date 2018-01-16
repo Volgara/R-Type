@@ -17,7 +17,9 @@ int main(int argc, char *argv[]) {
     ge->Init();
 
     while (ge->isRunning()) {
+        ge->getWindow().clear();
         ge->Update(1.0f);
+        ge->getWindow().display();
     }
 
     ge->Shutdown();
