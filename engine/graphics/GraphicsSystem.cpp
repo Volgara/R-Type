@@ -54,8 +54,11 @@ void engine::graphics::GraphicSystem::Init(void) {
     }
 }
 
-void engine::graphics::GraphicSystem::SendMessage(Message *msg) {
-
+void engine::graphics::GraphicSystem::SendMessage(engine::core::Message *msg) {
+    auto *eg = engine::core::Engine::GetInstance();
+    for (auto sprite : *eg->getScene()->GetComponents<GraphicsComponent>(core::ComponentID::GRA_SPRITE)) {
+        sprite->SendMessage(msg);
+    }
 }
 
 void engine::graphics::GraphicSystem::Update(float) {

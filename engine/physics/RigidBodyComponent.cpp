@@ -32,7 +32,7 @@ void engine::physics::RigidBodyComponent::setSize(const engine::core::Vector2d &
     this->_size.setX(size.getX());
 }
 
-void engine::physics::RigidBodyComponent::SendMessage(Message *) {
+void engine::physics::RigidBodyComponent::SendMessage(engine::core::Message *msg) {
 
 }
 

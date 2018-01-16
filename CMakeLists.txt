@@ -11,7 +11,6 @@ set(core_SOURCE_FILES
         engine/core/Engine.hpp
         engine/core/NonCopyable.hpp
         engine/core/ASystem.hpp
-        engine/core/Message.cpp
         engine/core/Message.hpp
         engine/core/GameObject.cpp
         engine/core/GameObject.hpp
@@ -31,7 +30,9 @@ set(core_unit_SOURCE_FILES
         unit/engine/core/GameObjectManagerUnit.cpp)
 
 # Engine : Game
-set(game_SOURCE_FILES )
+set(game_SOURCE_FILES
+        engine/game/GameLogicSystem.cpp
+        engine/game/GameLogicSystem.hpp)
 set(game_unit_SOURCE_FILES)
 
 # Engine : Graphics
