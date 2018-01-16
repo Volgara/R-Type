@@ -40,12 +40,10 @@ void engine::graphics::GraphicSystem::Init(void) {
     shipAnimGoDown.setLoop(true);
     shipAnimGoDown.setCurrentFrame(0);
 
-    for (auto sprite : *eg->getScene()->GetComponents<GraphicsComponent>(core::ComponentID::GRA_SPRITE)) {
+    for (auto * sprite : *eg->getScene()->GetComponents<GraphicsComponent>(core::ComponentID::GRA_SPRITE)) {
         sprite->addAnimation(&shipAnimIdle);
         sprite->addAnimation(&shipAnimGoDown);
         sprite->addAnimation(&shipAnimGoUp);
-        
-        std::cout << sprite->getAnimations().size() << std::endl;
 
         sprite->play("idle");
     }
@@ -58,7 +56,7 @@ void engine::graphics::GraphicSystem::SendMessage(Message *msg) {
 void engine::graphics::GraphicSystem::Update(float) {
     auto *eg = engine::core::Engine::GetInstance();
 
-    for (auto gc : *eg->getScene()->GetComponents<GraphicsComponent>(core::ComponentID::GRA_SPRITE)) {
+    for (auto * gc : *eg->getScene()->GetComponents<GraphicsComponent>(core::ComponentID::GRA_SPRITE)) {
 
         std::cout << "Animations number: " << gc->getAnimations().size() << std::endl;
 

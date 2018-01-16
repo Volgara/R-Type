@@ -18,7 +18,7 @@ void engine::graphics::GraphicsComponent::SendMessage(Message *message) {
 }
 
 void engine::graphics::GraphicsComponent::Init(void) {
-
+    owner = static_cast<core::GameObjectID>(-1);
 }
 
 void engine::graphics::GraphicsComponent::ShutDown(void) {

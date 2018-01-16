@@ -47,7 +47,9 @@ void engine::core::Scene::RemoveComponent(engine::core::GameObjectID handle) {
 }
 
 engine::core::GameObject *engine::core::Scene::CreateEmptyObject(void) {
-    return new engine::core::GameObject;
+    auto *go = new engine::core::GameObject;
+    go->guid = guid++;
+    return go;
 }
 
 void engine::core::Scene::RemoveGameObject(engine::core::GameObject *o) {

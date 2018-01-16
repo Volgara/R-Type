@@ -96,7 +96,7 @@ void engine::core::Engine::addSystem(const std::string &systemId, engine::core::
 }
 
 void engine::core::Engine::constructor() {
-    Init();
+
 }
 
 engine::core::Scene *engine::core::Engine::getScene() {
