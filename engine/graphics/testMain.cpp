@@ -19,12 +19,6 @@
  */
 
 int main() {
-    // World
-    //RType::Engine::Game game = RType::Engine::Game(800, 600, "t");
-
-    // Create a level
-    RType::Engine::Scene level1 = RType::Engine::Scene("scene1");
-    game.addScene(level1);
 
     // Load a spritesheet
     RType::SpriteSheet shipSheet = RType::SpriteSheet("./ship.png", 192, 16, 6, 1);

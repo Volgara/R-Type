@@ -14,6 +14,7 @@ int main(int argc, char *argv[]) {
     auto *ge = engine::core::Engine::GetInstance();
     
     ge->addSystem("graphics", new engine::graphics::GraphicSystem());
+    ge->Init();
     ge->MainLoop();
 
     return (0);
