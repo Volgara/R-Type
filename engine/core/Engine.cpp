@@ -28,7 +28,6 @@ void engine::core::Engine::Update(float dt) {
     // listen for events on the window
 #ifdef GRAPHICS
     if (_window.isOpen()) {
-        std::cout << "Checking for events" << std::endl;
         sf::Event event;
         while (_window.pollEvent(event)) {
             // "close requested" event: we close the window
@@ -85,9 +84,11 @@ void engine::core::Engine::Init(void) {
 }
 
 #ifdef GRAPHICS
+
 sf::RenderWindow &engine::core::Engine::getWindow() {
     return _window;
 }
+
 #endif
 
 void engine::core::Engine::addSystem(const std::string &systemId, engine::core::ASystem *system) {
