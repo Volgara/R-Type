@@ -10,39 +10,51 @@
 #ifndef RTYPE_EVENTMANAGER_HPP
 #define RTYPE_EVENTMANAGER_HPP
 
+#ifdef GRAPHICS
+#include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Window/Event.hpp>
+#endif
+
 #include <string>
 #include <map>
 #include <deque>
-#include <SFML/Graphics/RenderWindow.hpp>
-#include <SFML/Window/Event.hpp>
 #include "NonCopyable.hpp"
-#include "ISystem.hpp"
+#include "ASystem.hpp"
+#include "Singleton.hpp"
+#include "Scene.hpp"
 
 namespace engine {
     namespace core {
-        class Engine : private NonCopyable {
+        class Engine : private NonCopyable, public Singleton<Engine> {
         private:
-            std::map<std::string, ISystem *> _systems;
+            std::map<std::string, ASystem *> _systems;
             std::deque<Message *> _messages;
-            sf::RenderWindow _window;
+            Scene *_scene;
             bool _gameRunning;
 
+#ifdef GRAPHICS
+            sf::RenderWindow _window;
+#endif
+
         public:
-            Engine();
+            void constructor() override;
 
-            ~Engine();
-
+        public:
             void Init(void);
 
             void Update(float dt);
 
             void MainLoop(void);
 
-            void addSystem(const std::string &systemId, ISystem *);
+            void addSystem(const std::string &systemId, ASystem *);
 
-            ISystem *getSystem(const std::string &systemId);
+            ASystem *getSystem(const std::string &systemId);
 
+#ifdef GRAPHICS
             sf::RenderWindow &getWindow();
+#endif
+
+            Scene *getScene();
         };
     }
 }

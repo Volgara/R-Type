@@ -21,7 +21,6 @@
 int main() {
     // World
     //RType::Engine::Game game = RType::Engine::Game(800, 600, "t");
-    RType::Engine::Game game = RType::Engine::Game(RType::Engine::Window(800, 600, "RType Engine"));
 
     // Create a level
     RType::Engine::Scene level1 = RType::Engine::Scene("scene1");
@@ -49,27 +48,7 @@ int main() {
     ship.addAnimation(shipAnimGoDown);
     ship.addAnimation(shipAnimGoUp);
 
-    game.loadScene();
-    while (game.isRunning()) {
-        RType::Engine::Event event;
-        while (game.getEvent(event)) {
-            if (event.type == RType::Engine::Event::Closed)
-                game.close();
-            if (event.type == RType::Engine::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
-                game.close();
-        }
-
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-            ship.play("up", true);
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-            ship.play("down", true);
-        }
-
-        game.clear();
-        ship.play("idle", false);
-        game.render();
-    }
+    ship.play("idle", false);
 
     return 0;
 }

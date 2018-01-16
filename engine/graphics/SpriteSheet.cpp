@@ -5,10 +5,10 @@
 
 #include "SpriteSheet.hpp"
 
-RType::SpriteSheet::SpriteSheet(std::string file, int width, int height, int cols, int rows) {
+engine::graphics::SpriteSheet::SpriteSheet(std::string file, int width, int height, int cols, int rows) {
 
 }
 
-RType::SpriteSheet::~SpriteSheet() {
+engine::graphics::SpriteSheet::~SpriteSheet() {
 
 }

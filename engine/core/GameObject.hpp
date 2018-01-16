@@ -7,52 +7,43 @@
 //-----------------------------------------------------------------------------
 //
 
+#include <vector>
+#include <map>
+#include "ID.hpp"
+#include "Message.hpp"
+#include "Component.hpp"
+#include "Vector2D.hpp"
+
 #ifndef RTYPE_GAMEOBJECT_HPP
 #define RTYPE_GAMEOBJECT_HPP
 
-
 namespace engine {
     namespace core {
-        class GameObject;
-        typedef unsigned int GameObjectID;
-    }
-}
+        struct Scene;
 
-#include <vector>
-#include "Message.hpp"
-#include "Component.hpp"
+        struct GameObject {
+            Component *components[EComponentID_NUMBER];
+            GameObjectID guid;
+            Scene *scene;
+            bool active;
+            Vector2d pos;
 
+            void AddComponent(Component *component);
 
-namespace engine {
-    namespace core {
+            void RemoveComponent(Component *component);
 
-        class GameObject {
-        protected:
-            GameObjectID _id;
-            bool _active;
-            std::vector<Component *> _components;
+            void RemoveComponent(ComponentID type);
 
-            // only used by the factory
-            GameObject();
-            ~GameObject();
+            Component *GetComponent(ComponentID type);
 
-        public:
-
-            void SendMessage(Message *msg);
-
-            bool active(void) const;
-
-            GameObjectID getId() const;
-
-            void setId(GameObjectID id);
-
-            bool hasComponent(ComponentID id) const;
-
-            Component* getComponent(ComponentID id);
-
-            void addComponent(ComponentID id, Component*);
+            bool HasComponent(ComponentID type);
 
             void Update(float dt);
+
+            void Init(void);
+
+            template<typename T>
+            T *GetComponent(ComponentID type);
         };
     }
 }

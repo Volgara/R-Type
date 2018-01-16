@@ -8,11 +8,13 @@
 //
 
 #include <core/Engine.hpp>
+#include <graphics/GraphicsSystem.hpp>
 
 int main(int argc, char *argv[]) {
-    engine::core::Engine engine;
-
-    engine.MainLoop();
+    auto *ge = engine::core::Engine::GetInstance();
+    
+    ge->addSystem("graphics", new engine::graphics::GraphicSystem());
+    ge->MainLoop();
 
     return (0);
 }

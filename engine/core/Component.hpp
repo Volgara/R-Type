@@ -7,39 +7,28 @@
 //-----------------------------------------------------------------------------
 //
 
+#include "ID.hpp"
+#include "Message.hpp"
+
 #ifndef RTYPE_COMPONENT_HPP
 #define RTYPE_COMPONENT_HPP
 
 namespace engine {
     namespace core {
-        class Component;
+        struct Component {
+            GameObjectID owner;
+            ComponentID id;
+            bool active = true;
 
-        typedef unsigned int ComponentID;
-    }
-}
-
-#include "GameObject.hpp"
-
-namespace engine {
-    namespace core {
-        class Component {
-        private:
-            GameObjectID _owner;
-            ComponentID _id;
-            bool _isActive = true;
-
-        public:
-            virtual ~Component() = default;
+            explicit Component(ComponentID id);
 
             virtual void SendMessage(Message *message) = 0;
 
             virtual void Update(float dt) = 0;
 
-            virtual void Init(void) = 0;
+            virtual void Init() = 0;
 
             virtual void ShutDown(void) = 0;
-
-            bool Active(void) const;
         };
     }
 }

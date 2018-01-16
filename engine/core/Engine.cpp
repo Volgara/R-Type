@@ -7,44 +7,97 @@
 //-----------------------------------------------------------------------------
 //
 
+#include <iostream>
 #include "Engine.hpp"
+#include "GameObject.hpp"
 
-engine::core::Engine::Engine() : _gameRunning(true), _window(sf::VideoMode(800, 600), "HelloSFML") {
-    Init();
-};
-
-void engine::core::Engine::addSystem(const std::string &systemId, engine::core::ISystem *system) {
-    _systems[systemId] = system;
-}
-
-engine::core::ISystem *engine::core::Engine::getSystem(const std::string &systemId) {
+/**
+ * Get's system with ID
+ * @param systemId
+ * @return
+ */
+engine::core::ASystem *engine::core::Engine::getSystem(const std::string &systemId) {
     return _systems[systemId];
 }
 
+/**
+ * Update each system with the delta-time
+ * @param dt
+ */
 void engine::core::Engine::Update(float dt) {
+    // listen for events on the window
+#ifdef GRAPHICS
+    if (_window.isOpen()) {
+        std::cout << "Checking for events" << std::endl;
+        sf::Event event;
+        while (_window.pollEvent(event)) {
+            // "close requested" event: we close the window
+            if (event.type == sf::Event::Closed)
+                _window.close();
+        }
+    }
+#endif
+
     for (auto system : _systems) {
         system.second->Update(dt);
     }
 }
 
+/**
+ * Main Loop
+ * Execute and Update windows
+ */
 void engine::core::Engine::MainLoop(void) {
+#ifdef GRAPHICS
     while (_gameRunning) {
         _window.clear();
+        Update(1);
         _window.display();
     }
-}
-
-engine::core::Engine::~Engine() {
-    for (auto system : _systems) {
-        delete(system.second);
-    }
+#endif
 }
 
 void engine::core::Engine::Init(void) {
-    if (!_window.isOpen())
+    _gameRunning = true;
+
+#ifdef GRAPHICS
+    _window.create(sf::VideoMode(800, 600), "toto");
+
+    if (!_window.isOpen()) {
+        std::cout << "windows is closed" << std::endl;
         exit(EXIT_FAILURE);
+    }
+#endif
+
+    for (auto sys : _systems) {
+        sys.second->Init();
+    }
+
+    _scene = new Scene();
+
+#ifdef GRAPHICS
+    auto *object = _scene->CreateEmptyObject();
+    auto *spriteComponent = _scene->CreateComponent(GRA_SPRITE);
+    object->AddComponent(spriteComponent);
+#endif
+    //object->addComponent(GRA_SPRITE, new graphics::SpriteComponent);
+    //gm->addObject(1, object);
 }
 
+#ifdef GRAPHICS
 sf::RenderWindow &engine::core::Engine::getWindow() {
     return _window;
+}
+#endif
+
+void engine::core::Engine::addSystem(const std::string &systemId, engine::core::ASystem *system) {
+    _systems[systemId] = system;
+}
+
+void engine::core::Engine::constructor() {
+    Init();
+}
+
+engine::core::Scene *engine::core::Engine::getScene() {
+    return _scene;
 }
