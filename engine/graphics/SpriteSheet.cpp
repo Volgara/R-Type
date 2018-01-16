@@ -17,7 +17,8 @@ engine::graphics::SpriteSheet::SpriteSheet(std::string file, int width, int heig
 
     std::cout << "Creating texture from " << file << std::endl;
 
-    if (!this->_texture.loadFromFile(file))
+    this->_texture = new sf::Texture();
+    if (!this->_texture->loadFromFile(file))
     {
         throw std::runtime_error("Cannot load texture");
     }
@@ -27,7 +28,7 @@ engine::graphics::SpriteSheet::~SpriteSheet() {
 
 }
 
-const sf::Texture &engine::graphics::SpriteSheet::getTexture() const {
+const sf::Texture *engine::graphics::SpriteSheet::getTexture() const {
     return _texture;
 }
 

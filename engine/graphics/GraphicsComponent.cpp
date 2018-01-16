@@ -66,14 +66,14 @@ sf::Sprite &engine::graphics::GraphicsComponent::getDrawable() {
 /**
  * Update current frame of all animation
  */
-void engine::graphics::GraphicsComponent::update() {
-/*    if (_animations[this->currentAnimation]->getCurrenFrame() >=
+void engine::graphics::GraphicsComponent::update(float dt) {
+    if (_animations[this->currentAnimation]->getCurrenFrame() >=
         _animations[this->currentAnimation]->getFrames().size() - 1)
         _animations[this->currentAnimation]->setCurrentFrame(0);
     else
-        _animations[this->currentAnimation]->setCurrentFrame(_animations[this->currentAnimation]->getCurrenFrame() + 1);
+        _animations[this->currentAnimation]->setCurrentFrame(_animations[this->currentAnimation]->getCurrenFrame() + (dt / 30));
 
-    this->_sprite = _animations[this->currentAnimation]->getFrames()[_animations[this->currentAnimation]->getCurrenFrame()];*/
+    this->_sprite = _animations[this->currentAnimation]->getFrames()[_animations[this->currentAnimation]->getCurrenFrame()];
 
     std::cout << "update: " << _animations[0]->getFrames()[0].getTexture() << std::endl;
 

@@ -26,8 +26,8 @@ namespace engine {
             void addFrame(int x, int y);
             const std::string &getName() const;
             sf::Sprite getCurrentSprite();
-            int getCurrenFrame() const;
-            void setCurrentFrame(int currenFrame);
+            float getCurrenFrame() const;
+            void setCurrentFrame(float currenFrame);
             void setLoop(bool loop);
             const SpriteSheet *getSpriteSheet() const;
 
@@ -38,7 +38,7 @@ namespace engine {
         public:
             const std::vector<sf::Sprite> &getFrames() const;
         protected:
-            int _currenFrame;
+            float _currenFrame;
             bool _loop;
             bool _reverse;
         };

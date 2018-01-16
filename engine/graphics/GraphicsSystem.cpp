@@ -58,21 +58,14 @@ void engine::graphics::GraphicSystem::SendMessage(Message *msg) {
 
 }
 
-void engine::graphics::GraphicSystem::Update(float) {
+void engine::graphics::GraphicSystem::Update(float dt) {
     auto *eg = engine::core::Engine::GetInstance();
 
     for (auto &gc : *eg->getScene()->GetComponents<GraphicsComponent>(core::ComponentID::GRA_SPRITE)) {
+        gc->setPosition(20, 20);
+        eg->getWindow().draw(gc->getDrawable());
 
-/*        sf::Sprite s;
-        s.setTexture(gc->getAnimations()[0].getSpriteSheet()->getTexture());
-        eg->getWindow().draw(s);*/
-
-
-
-        //gc->setPosition(20, 20);
-
-        //eg->getWindow().draw(gc->getDrawable());
-        gc->update();
+        gc->update(dt);
     }
 }
 

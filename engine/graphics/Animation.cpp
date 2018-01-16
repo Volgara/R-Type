@@ -37,7 +37,7 @@ void engine::graphics::Animation::setAnimationFrames(int start, int end) {
 
 void engine::graphics::Animation::addFrame(int x, int y) {
     sf::Sprite sprite;
-    sprite.setTexture(this->_spriteSheet->getTexture());
+    sprite.setTexture(*this->_spriteSheet->getTexture());
     sprite.setTextureRect(sf::IntRect(y * this->_spriteSheet->getFrameHeight(), x * this->_spriteSheet->getFrameWidth(),
                                       this->_spriteSheet->getFrameWidth(), this->_spriteSheet->getFrameHeight()));
 
@@ -54,11 +54,11 @@ sf::Sprite engine::graphics::Animation::getCurrentSprite() {
     return this->_frames[_currenFrame];
 }
 
-int engine::graphics::Animation::getCurrenFrame() const {
-    return _currenFrame;
+float engine::graphics::Animation::getCurrenFrame() const {
+    return  _currenFrame;
 }
 
-void engine::graphics::Animation::setCurrentFrame(int currenFrame) {
+void engine::graphics::Animation::setCurrentFrame(float currenFrame) {
     Animation::_currenFrame = currenFrame;
 }
 

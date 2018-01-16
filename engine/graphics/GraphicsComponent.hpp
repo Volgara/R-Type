@@ -37,7 +37,7 @@ namespace engine {
             void addAnimation(engine::graphics::Animation *animation);
             void play(const std::string &str);
             sf::Sprite &getDrawable();
-            void update();
+            void update(float dt);
             void setPosition(int x, int y);
         };
 
