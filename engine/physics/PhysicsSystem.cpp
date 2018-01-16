@@ -11,13 +11,16 @@ engine::physics::PhysicsSystem::PhysicsSystem(int width, int height) {
     Init();
 }
 
-void engine::physics::PhysicsSystem::Update(float) {
+void engine::physics::PhysicsSystem::Update(float dt) {
     this->_debugNbCollision = 0;
     this->_debugNb = 0;
     this->_debugNbAdd = 0;
     this->_debugCheck = 0;
     this->clearMap();
-    this->createHasheMap();
+    if (dt == -1)
+        this->createHasheMapDebug();
+    else
+        this->createHasheMap();
     for (auto &it : this->_listState) {
         this->checkCellColision(it.second);
     }
@@ -42,11 +45,18 @@ void engine::physics::PhysicsSystem::clearMap() {
     this->_currentCollision.clear();
 }
 
-void engine::physics::PhysicsSystem::createHasheMap() {
+void engine::physics::PhysicsSystem::createHasheMapDebug() {
     for (auto &i : this->_listDebug) {
         addComponentInMap(i);
-
         this->_debugNbAdd++;
+    }
+}
+
+void engine::physics::PhysicsSystem::createHasheMap() {
+    auto *eg = engine::core::Engine::GetInstance();
+
+    for (auto &body : *eg->getScene()->GetComponents<RigidBodyComponent>(core::ComponentID::PHY_RIGIDBODY)) {
+        addComponentInMap(body);
     }
 }
 
@@ -102,3 +112,4 @@ int engine::physics::PhysicsSystem::get_debugNb() const {
 int engine::physics::PhysicsSystem::get_debugCheck() const {
     return _debugCheck;
 }
+

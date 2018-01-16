@@ -8,6 +8,7 @@
 #include <vector>
 #include <map>
 #include "core/ASystem.hpp"
+#include "core/Engine.hpp"
 #include "RigidBodyComponent.hpp"
 #define CELL_SIZE 20
 
@@ -32,6 +33,7 @@ namespace engine {
             void createHasheMap();
             void clearMap();
             void checkCellColision(std::vector<RigidBodyComponent *>);
+            void createHasheMapDebug();
         public:
             PhysicsSystem(int width, int height);
 
@@ -42,6 +44,7 @@ namespace engine {
             void SendMessage(Message *msg) override;
 
         public:
+
             void debugAddComponent(RigidBodyComponent *);
 
             int get_debugNbAdd() const;
