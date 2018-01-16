@@ -28,7 +28,6 @@ void engine::core::Engine::Update(float dt) {
     // listen for events on the window
 #ifdef GRAPHICS
     if (_window.isOpen()) {
-        std::cout << "Checking for events" << std::endl;
         sf::Event event;
         while (_window.pollEvent(event)) {
             // "close requested" event: we close the window
@@ -69,9 +68,6 @@ void engine::core::Engine::Init(void) {
     }
 
 
-    for (auto sys : _systems) {
-        sys.second->Init();
-    }
 
     _scene = new Scene();
 
@@ -81,12 +77,18 @@ void engine::core::Engine::Init(void) {
 #endif
     //object->addComponent(GRA_SPRITE, new graphics::SpriteComponent);
     //gm->addObject(1, object);
+
+    for (auto sys : _systems) {
+        sys.second->Init();
+    }
 }
 
 #ifdef GRAPHICS
+
 sf::RenderWindow &engine::core::Engine::getWindow() {
     return _window;
 }
+
 #endif
 
 void engine::core::Engine::addSystem(const std::string &systemId, engine::core::ASystem *system) {
@@ -94,7 +96,7 @@ void engine::core::Engine::addSystem(const std::string &systemId, engine::core::
 }
 
 void engine::core::Engine::constructor() {
-    Init();
+
 }
 
 engine::core::Scene *engine::core::Engine::getScene() {

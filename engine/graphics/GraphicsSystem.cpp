@@ -10,6 +10,7 @@
 #include <core/Engine.hpp>
 #include <SFML/Graphics/CircleShape.hpp>
 #include <iostream>
+#include <core/GameObject.hpp>
 #include "GraphicsSystem.hpp"
 #include "GraphicsComponent.hpp"
 #include "../physics/RigidBodyComponent.hpp"
@@ -18,7 +19,39 @@
  * Init all texture
  */
 void engine::graphics::GraphicSystem::Init(void) {
+    auto *eg = engine::core::Engine::GetInstance();
 
+    engine::graphics::SpriteSheet shipSheet = engine::graphics::SpriteSheet("assets/ship.png", 192, 16, 6, 1);
+
+    sf::Sprite s;
+    s.setTexture(shipSheet.getTexture());
+    s.setPosition(20, 20);
+    eg->getWindow().draw(s);
+
+    // Create an animation based on the spritesheet
+    engine::graphics::Animation shipAnimIdle = engine::graphics::Animation("idle", shipSheet);
+    shipAnimIdle.addFrame(0, 2); // image in the middle
+
+/*    engine::graphics::Animation shipAnimGoDown = engine::graphics::Animation("down", shipSheet);
+    shipAnimGoDown.addFrame(0, 1);
+    shipAnimGoDown.addFrame(0, 0);
+    shipAnimGoDown.setLoop(true);
+    shipAnimGoDown.setCurrentFrame(0);
+    shipAnimGoDown.setReverse(true);
+
+    engine::graphics::Animation shipAnimGoUp = engine::graphics::Animation("up", shipSheet);
+    shipAnimGoUp.addFrame(0, 2);
+    shipAnimGoUp.addFrame(0, 3);
+    shipAnimGoDown.setLoop(true);
+    shipAnimGoDown.setCurrentFrame(0);*/
+
+    for (auto sprite : *eg->getScene()->GetComponents<GraphicsComponent>(core::ComponentID::GRA_SPRITE)) {
+        sprite->addAnimation(shipAnimIdle);
+/*        sprite->addAnimation(shipAnimGoDown);
+        sprite->addAnimation(shipAnimGoUp);*/
+
+        sprite->play("idle");
+    }
 }
 
 void engine::graphics::GraphicSystem::SendMessage(Message *msg) {
@@ -28,31 +61,18 @@ void engine::graphics::GraphicSystem::SendMessage(Message *msg) {
 void engine::graphics::GraphicSystem::Update(float) {
     auto *eg = engine::core::Engine::GetInstance();
 
-    for (auto sprite : *eg->getScene()->GetComponents<GraphicsComponent>(core::ComponentID::GRA_SPRITE)) {
-        auto const &x = 0;
-        auto const &y = 0;
-        sf::CircleShape shape(50);
-        shape.setFillColor(sf::Color(100, 250, 50));
-        shape.setPosition(x, y);
-        eg->getWindow().draw(shape);
-    }
+    for (auto gc : *eg->getScene()->GetComponents<GraphicsComponent>(core::ComponentID::GRA_SPRITE)) {
 
-    /*
-    for (auto obj : gom) {
+        std::cout << "Animations number: " << gc->getAnimations().size() << std::endl;
 
-        auto *sprite = static_cast<engine::physics::RigidBodyComponent *>(obj.second->getComponent(1)); // TODO : check is Sprite
-        if (sprite->Active()) {
-            engine::physics::Vector2d position = sprite->getPosition();
-
-            sf::CircleShape shape(50);
-            shape.setFillColor(sf::Color(100, 250, 50));
-            shape.setPosition(position.getX(), position.getY());
-
-            position.setX(sprite->getPosition().getX() + 1);
-            position.setY(sprite->getPosition().getY() + 1);
-
-            sprite->setPosition(position);
-            eg->getWindow().draw(shape);
+        if (!gc->getAnimations().empty()) {
+            sf::Sprite s;
+            s.setTexture(gc->getAnimations()[0].getSpriteSheet().getTexture());
+            s.setPosition(20, 20);
+            eg->getWindow().draw(s);
         }
-   */
+
+        eg->getWindow().draw(gc->getDrawable());
+        //gc->update();
+    }
 }
