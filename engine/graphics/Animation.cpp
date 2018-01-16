@@ -8,15 +8,15 @@
 #include "Animation.hpp"
 #include "SpriteSheet.hpp"
 
-engine::graphics::Animation::Animation(const std::string &name, engine::graphics::SpriteSheet sheet) : _spriteSheet(
-        sheet) {
+engine::graphics::Animation::Animation(const std::string &name, engine::graphics::SpriteSheet *sheet) {
     this->_name = name;
     this->_loop = false;
     this->_currenFrame = 0;
     this->_reverse = false;
+    this->_spriteSheet = sheet;
 }
 
-engine::graphics::Animation::Animation(const engine::graphics::Animation &anim) : _spriteSheet(anim._spriteSheet) {
+engine::graphics::Animation::Animation(const engine::graphics::Animation &anim) {
     this->_reverse = anim._reverse;
     this->_name = anim._name;
     this->_spriteSheet = anim._spriteSheet;
@@ -37,9 +37,9 @@ void engine::graphics::Animation::setAnimationFrames(int start, int end) {
 
 void engine::graphics::Animation::addFrame(int x, int y) {
     sf::Sprite sprite;
-    sprite.setTexture(this->_spriteSheet.getTexture());
-    sprite.setTextureRect(sf::IntRect(y * this->_spriteSheet.getFrameHeight(), x * this->_spriteSheet.getFrameWidth(),
-                                      this->_spriteSheet.getFrameWidth(), this->_spriteSheet.getFrameHeight()));
+    sprite.setTexture(this->_spriteSheet->getTexture());
+    sprite.setTextureRect(sf::IntRect(y * this->_spriteSheet->getFrameHeight(), x * this->_spriteSheet->getFrameWidth(),
+                                      this->_spriteSheet->getFrameWidth(), this->_spriteSheet->getFrameHeight()));
 
     this->_frames.push_back(sprite);
 }
@@ -49,6 +49,8 @@ const std::string &engine::graphics::Animation::getName() const {
 }
 
 sf::Sprite engine::graphics::Animation::getCurrentSprite() {
+    std::cout << "Frames available: " << this->_frames.size() << std::endl;
+    std::cout << "Current frame : " << _currenFrame << std::endl;
     return this->_frames[_currenFrame];
 }
 
@@ -68,7 +70,7 @@ void engine::graphics::Animation::setReverse(bool reverse) {
     this->_reverse = reverse;
 }
 
-const engine::graphics::SpriteSheet &engine::graphics::Animation::getSpriteSheet() const {
+const engine::graphics::SpriteSheet *engine::graphics::Animation::getSpriteSheet() const {
     return _spriteSheet;
 }
 

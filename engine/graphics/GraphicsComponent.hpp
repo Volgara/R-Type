@@ -21,10 +21,10 @@ namespace engine {
         class GraphicsComponent : public core::Component {
         protected:
             sf::Sprite _sprite;
-            sf::Texture _texture;
-            std::vector<engine::graphics::Animation> _animations;
+            std::vector<engine::graphics::Animation *> _animations;
+            int currentAnimation;
         public:
-            const std::vector<Animation> &getAnimations() const;
+            const std::vector<Animation *> &getAnimations() const;
 
         public:
 
@@ -34,10 +34,11 @@ namespace engine {
             void SendMessage(Message *message) override;
             void Init(void) override;
             void ShutDown(void) override;
-            void addAnimation(engine::graphics::Animation &animation);
-            void play(std::string str);
-            sf::Sprite getDrawable();
+            void addAnimation(engine::graphics::Animation *animation);
+            void play(const std::string &str);
+            sf::Sprite &getDrawable();
             void update();
+            void setPosition(int x, int y);
         };
 
     }

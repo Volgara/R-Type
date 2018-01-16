@@ -35,7 +35,6 @@ namespace engine {
             int getRows() const;
             void setRows(int _rows);
             const sf::Texture &getTexture() const;
-            void setTexture(const sf::Texture &_texture);
         };
     }
 }
