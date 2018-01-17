@@ -37,7 +37,7 @@ namespace engine {
 
             ge->addSystem("physics", physicsSystem);
             ge->Init();
-            ge->getScene()->CreateComponent(core::ComponentID::PHY_RIGIDBODY);a
+            ge->getScene()->CreateComponent(core::ComponentID::PHY_RIGIDBODY);
             ASSERT_EQ(0, physicsSystem->get_debugNbColision());
         }
     }

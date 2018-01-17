@@ -113,13 +113,14 @@ add_executable(server ${server_SOURCE_FILES})
 #add_executable(testGraphics ${graphics_SOURCE_FILES})
 
 # init linkage variable
-#[[set(SFML_STATIC_LIBRARIES False)
+set(SFML_STATIC_LIBRARIES False)
 
 # search libs
 find_package(Threads)
 find_package(SFML 2.4 COMPONENTS audio graphics window system) # find SFML
 
 # link libs
+#set(SFML_INCLUDE_DIR /usr/local/SFML)
 if (SFML_FOUND)
     message("SFML LIBS: " ${SFML_LIBRARIES})
     message("SFML INCLUDES: " ${SFML_INCLUDE_DIR})
@@ -135,7 +136,7 @@ endif(SFML_FOUND)
 target_link_libraries(server ${SFML_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
 #target_link_libraries(testGraphics ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
 # includes dir libs
-include_directories(${SFML_INCLUDE_DIR})]]
+include_directories(${SFML_INCLUDE_DIR})
 # unit test
 add_executable(engine_core_unit ${server_MODULES} ${core_unit_SOURCE_FILES})
 
