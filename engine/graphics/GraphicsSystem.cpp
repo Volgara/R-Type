@@ -66,7 +66,7 @@ void engine::graphics::GraphicSystem::Init(void) {
 
     mommy->setLoop(true);
     mommy->setPingPong(true);
-    mommy->setCurrentFrame(0);
+    mommy->setSpeed(10);
 
     for (auto &sprite : *eg->getScene()->GetComponents<GraphicsComponent>(core::ComponentID::GRA_SPRITE)) {
         sprite->addAnimation(shipAnimIdle);

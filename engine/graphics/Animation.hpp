@@ -20,6 +20,7 @@ namespace engine {
 
             void setReverse(bool reverse);
             void setPingPong(bool pingpong);
+            void setSpeed(int speed);
         public:
             void setAnimationFrames(int start, int end);
             void addFrame(int x, int y);
@@ -29,18 +30,18 @@ namespace engine {
             void setCurrentFrame(int currenFrame);
             void setLoop(bool loop);
             const SpriteSheet *getSpriteSheet() const;
+            int getSpeed() const;
+            const std::vector<sf::Sprite> &getFrames() const;
 
         protected:
             std::string _name;
             SpriteSheet *_spriteSheet;
             std::vector<sf::Sprite> _frames;
-        public:
-            const std::vector<sf::Sprite> &getFrames() const;
-        protected:
             int _currenFrame;
             bool _loop;
             bool _reverse;
             bool _pingPong;
+            int _speed;
         };
     }
 }

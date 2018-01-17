@@ -10,7 +10,7 @@
 #include "Engine.hpp"
 #include "InputSystem.hpp"
 
-void engine::core::InputSystem::Update(float d) {
+void engine::core::InputSystem::Update(float) {
     auto *eg = engine::core::Engine::GetInstance();
 
     while (eg->getWindow().pollEvent(_event)) {
@@ -24,7 +24,8 @@ void engine::core::InputSystem::Init() {
 
 }
 
-void engine::core::InputSystem::SendMessage(engine::core::Message *msg) {
+void engine::core::InputSystem::SendMessage(engine::core::Message *
+) {
 
 }
 
