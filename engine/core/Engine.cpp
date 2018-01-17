@@ -36,13 +36,12 @@ void engine::core::Engine::Update(float dt) {
  * Execute and Update windows
  */
 void engine::core::Engine::MainLoop(void) {
-    Update(1);
-    this->_messageBus->notify();
 #ifdef GRAPHICS
     while (_gameRunning) {
         _window.clear();
         Update(1);
         _window.display();
+        this->_messageBus->notify();
     }
 #endif
 }
