@@ -32,14 +32,14 @@ void engine::graphics::GraphicSystem::Init(void) {
     shipAnimGoDown->addFrame(0, 0);
     shipAnimGoDown->addFrame(0, 1);
     shipAnimGoDown->setLoop(true);
-    shipAnimGoDown->setCurrentFrame(0);
+    shipAnimGoDown->setCurrentFrameIndex(0);
     shipAnimGoDown->setReverse(true);
 
     engine::graphics::Animation *shipAnimGoUp = new engine::graphics::Animation("up", &shipSheet);
     shipAnimGoUp->addFrame(0, 3);
     shipAnimGoUp->addFrame(0, 4);
     shipAnimGoUp->setLoop(true);
-    shipAnimGoUp->setCurrentFrame(0);
+    shipAnimGoUp->setCurrentFrameIndex(0);
 
     engine::graphics::Animation *mommy = new engine::graphics::Animation("mommy", &shipSheet);
     mommy->addFrame(0, 0);
@@ -64,8 +64,10 @@ void engine::graphics::GraphicSystem::Init(void) {
     mommy->addFrame(3, 1);
     mommy->addFrame(3, 2);
 
+    mommy->setCurrentFrameIndex(10);
     mommy->setLoop(true);
-    mommy->setPingPong(true);
+/*    mommy->setPingPong(false);
+    mommy->setReverse(false);*/
     mommy->setSpeed(10);
 
     for (auto &sprite : *eg->getScene()->GetComponents<GraphicsComponent>(core::ComponentID::GRA_SPRITE)) {
@@ -87,7 +89,8 @@ void engine::graphics::GraphicSystem::Update(float dt) {
         gc->update(dt);
 
         //update position, should be in the game logic
-        gc->getDrawable().setPosition(static_cast<float>(gc->getDrawable().getPosition().x + 0.1), gc->getDrawable().getPosition().y);
+        gc->getDrawable().setPosition(static_cast<float>(gc->getDrawable().getPosition().x + 0.1),
+                                      gc->getDrawable().getPosition().y);
     }
 }
 
@@ -96,7 +99,7 @@ engine::graphics::GraphicSystem::GraphicSystem() {
 }
 
 void engine::graphics::GraphicSystem::onNotify(engine::core::Message msg) {
-    auto *eg = engine::core::Engine::GetInstance();
+    auto      *eg = engine::core::Engine::GetInstance();
     for (auto sprite : *eg->getScene()->GetComponents<GraphicsComponent>(core::ComponentID::GRA_SPRITE)) {
         sprite->SendMessage(&msg);
     }

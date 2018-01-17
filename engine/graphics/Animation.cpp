@@ -51,11 +51,11 @@ sf::Sprite engine::graphics::Animation::getCurrentSprite() {
     return this->_frames[_currenFrame];
 }
 
-int engine::graphics::Animation::getCurrenFrame() const {
+int engine::graphics::Animation::getCurrenFrameIndex() const {
     return _currenFrame;
 }
 
-void engine::graphics::Animation::setCurrentFrame(int currenFrame) {
+void engine::graphics::Animation::setCurrentFrameIndex(int currenFrame) {
     Animation::_currenFrame = currenFrame;
 }
 
@@ -85,4 +85,18 @@ void engine::graphics::Animation::setSpeed(int speed) {
 
 int engine::graphics::Animation::getSpeed() const {
     return _speed;
+}
+
+sf::Sprite engine::graphics::Animation::getCurrenFrame() const {
+    return this->getFrames()[this->getCurrenFrameIndex()];
+}
+bool engine::graphics::Animation::isReverse() {
+    return this->_reverse;
+}
+bool engine::graphics::Animation::isPingPong() {
+    return this->_pingPong;
+}
+
+bool engine::graphics::Animation::isLoop() {
+    return this->_loop;
 }
