@@ -9,18 +9,26 @@
 
 #include <core/Engine.hpp>
 #include <graphics/GraphicsSystem.hpp>
+#include <core/InputSystem.hpp>
+#include <iostream>
+
+void onKeyPressed(sf::Event &) {
+    std::cout << "KeyPressed" << std::endl;
+}
 
 int main(int argc, char *argv[]) {
     auto *ge = engine::core::Engine::GetInstance();
 
-    ge->addSystem("graphics", new engine::graphics::GraphicSystem());
+    auto *input = new engine::core::InputSystem();
+    auto *graphics =  new engine::graphics::GraphicSystem();
+
+    input->addEventListener(sf::Event::EventType::KeyPressed, std::bind(onKeyPressed, std::placeholders::_1));
+
+    ge->addSystem("graphics",graphics);
+    ge->addSystem("input", input);
     ge->Init();
 
-    while (ge->isRunning()) {
-        ge->getWindow().clear();
-        ge->Update(1.0f);
-        ge->getWindow().display();
-    }
+    ge->MainLoop();
 
     ge->Shutdown();
 

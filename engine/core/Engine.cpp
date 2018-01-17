@@ -38,9 +38,15 @@ void engine::core::Engine::Update(float dt) {
 void engine::core::Engine::MainLoop(void) {
 #ifdef GRAPHICS
     while (_gameRunning) {
-        _window.clear();
-        Update(1);
-        _window.display();
+        const auto elapsed = _clock.getElapsedTime().asSeconds();
+        if (elapsed >= 1.0f / 60)
+        {
+            _window.clear();
+            Update(elapsed);
+            _window.display();
+            _clock.restart();
+        }
+
     }
 #endif
 }
@@ -98,4 +104,8 @@ void engine::core::Engine::Shutdown(void) {
 #ifdef GRAPHICS
     _window.close();
 #endif
+}
+
+void engine::core::Engine::addMessage(void) {
+
 }

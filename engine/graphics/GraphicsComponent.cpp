@@ -76,7 +76,7 @@ void engine::graphics::GraphicsComponent::update(float dt) {
     }
 
     this->_sprite = _animations[this->currentAnimation]->getFrames()[_animations[this->currentAnimation]->getCurrenFrame()];
-    dtCounter += dt / 350;
+    dtCounter += dt;
 
     engine::core::Vector2d pos = this->ownerRef->pos;
     this->_sprite.setPosition((float) pos.getX(), (float) pos.getY());
