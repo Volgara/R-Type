@@ -14,7 +14,7 @@ engine::graphics::Animation::Animation(const std::string &name, engine::graphics
     this->_currenFrame = 0;
     this->_reverse = false;
     this->_spriteSheet = sheet;
-    this->_speed = 0;
+    this->_speed = 1;
 }
 
 engine::graphics::Animation::Animation(const engine::graphics::Animation &anim) {

@@ -23,6 +23,7 @@
 #include "ASystem.hpp"
 #include "Singleton.hpp"
 #include "Scene.hpp"
+#include "MessageBus.hpp"
 
 namespace engine {
     namespace core {
@@ -31,6 +32,7 @@ namespace engine {
             std::map<std::string, ASystem *> _systems;
             std::deque<Message *> _messages;
             Scene *_scene;
+            MessageBus *_messageBus;
             bool _gameRunning;
 
 #ifdef GRAPHICS
@@ -83,9 +85,7 @@ namespace engine {
              */
             void Shutdown(void);
 
-
-            void addMessage(void);
-
+            MessageBus *getMessageBus() const;
 
 #ifdef GRAPHICS
             sf::RenderWindow &getWindow();

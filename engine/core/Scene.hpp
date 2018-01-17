@@ -15,6 +15,7 @@
 #include "ID.hpp"
 #include "NonCopyable.hpp"
 #include "AutoList.hpp"
+#include "MessageBus.hpp"
 
 namespace engine {
     namespace core {

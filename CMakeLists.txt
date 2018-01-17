@@ -25,7 +25,12 @@ set(core_SOURCE_FILES
         engine/core/Vector2D.hpp
         engine/core/Vector2D.cpp
         engine/core/InputSystem.cpp
-        engine/core/InputSystem.hpp)
+        engine/core/InputSystem.hpp
+        engine/core/MessageBus.hpp
+        engine/core/MessageBus.cpp
+        engine/core/BusNode.hpp
+        engine/core/BusNode.cpp)
+
 
 set(core_unit_SOURCE_FILES
         unit/engine/core/GameObjectUnit.cpp
@@ -119,6 +124,7 @@ find_package(Threads)
 find_package(SFML 2.4 COMPONENTS audio graphics window system) # find SFML
 
 # link libs
+#set(SFML_INCLUDE_DIR /usr/local/SFML)
 if (SFML_FOUND)
     message("SFML LIBS: " ${SFML_LIBRARIES})
     message("SFML INCLUDES: " ${SFML_INCLUDE_DIR})
@@ -133,6 +139,8 @@ endif (SFML_FOUND)
 
 target_link_libraries(server ${SFML_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
 #target_link_libraries(testGraphics ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
+# includes dir libs
+include_directories(${SFML_INCLUDE_DIR})
 # unit test
 add_executable(engine_core_unit ${server_MODULES} ${core_unit_SOURCE_FILES})
 

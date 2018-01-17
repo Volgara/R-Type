@@ -25,12 +25,13 @@ namespace engine {
 
             void Init(void) override;
 
-            void SendMessage(core::Message *msg) override;
-
             ~GameLogicSystem() override = default;
 
         private:
             void Update(core::Scene *scene);
+
+        protected:
+            void onNotify(core::Message message) override;
         };
     }
 }

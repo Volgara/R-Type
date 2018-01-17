@@ -62,8 +62,8 @@ void engine::core::Engine::MainLoop(void) {
 }
 
 void engine::core::Engine::Init(void) {
-    _gameRunning = true;
-
+    this->_gameRunning = true;
+    this->_scene = new Scene();
 #ifdef GRAPHICS
     _window.create(sf::VideoMode(800, 600), "toto");
 
@@ -71,11 +71,7 @@ void engine::core::Engine::Init(void) {
         std::cout << "windows is closed" << std::endl;
         exit(EXIT_FAILURE);
     }
-#endif
 
-    _scene = new Scene();
-
-#ifdef GRAPHICS
     auto *object = _scene->CreateEmptyObject();
     auto *spriteComponent = _scene->CreateComponent(GRA_SPRITE);
     object->AddComponent(spriteComponent);
@@ -95,11 +91,12 @@ sf::RenderWindow &engine::core::Engine::getWindow() {
 #endif
 
 void engine::core::Engine::addSystem(const std::string &systemId, engine::core::ASystem *system) {
+    system->setMessageBus(this->_messageBus);
     _systems[systemId] = system;
 }
 
 void engine::core::Engine::constructor() {
-
+    this->_messageBus = new MessageBus();
 }
 
 engine::core::Scene *engine::core::Engine::getScene() {
@@ -116,6 +113,6 @@ void engine::core::Engine::Shutdown(void) {
 #endif
 }
 
-void engine::core::Engine::addMessage(void) {
-
+engine::core::MessageBus *engine::core::Engine::getMessageBus() const {
+    return _messageBus;
 }

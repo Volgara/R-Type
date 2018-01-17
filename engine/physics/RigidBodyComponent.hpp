@@ -12,7 +12,6 @@ namespace engine {
     namespace physics {
         class RigidBodyComponent : public core::Component {
         private:
-            core::Vector2d _position = core::Vector2d(0, 0);
             core::Vector2d _velocity = core::Vector2d(0, 0);
             core::Vector2d _size = core::Vector2d(0, 0);
             Box      *_box;
@@ -29,13 +28,7 @@ namespace engine {
 
             void ShutDown(void) override;
 
-            void move();
-
             bool checkIntersect(const RigidBodyComponent *body);
-
-            const core::Vector2d &getPosition() const;
-
-            void setPosition(const core::Vector2d &position);
 
             const core::Vector2d &getVelocity() const;
 

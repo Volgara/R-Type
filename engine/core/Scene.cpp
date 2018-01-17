@@ -20,7 +20,6 @@ engine::core::Component *engine::core::Scene::CreateComponent(engine::core::Comp
     // TODO : Replace by Class based factory
     Component *component;
     switch (type) {
-
         case GRA_SPRITE:
 #ifdef GRAPHICS
             component = new engine::graphics::GraphicsComponent();

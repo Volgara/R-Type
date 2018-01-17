@@ -5,41 +5,31 @@
 #include <iostream>
 #include "Box.hpp"
 
-engine::physics::Box::Box(engine::core::Vector2d position, engine::core::Vector2d size)
+engine::physics::Box::Box(engine::core::Vector2d *position, engine::core::Vector2d *size)
 {
-    this->_top = position.getY();
-    this->_left = position.getX();
-    this->_right = position.getX() + size.getX();
-    this->_bottom = position.getY() + size.getY();
-}
-
-void engine::physics::Box::updatePosition(const engine::core::Vector2d &position,
-                                          const engine::core::Vector2d &size) {
-    this->_top = position.getY();
-    this->_left = position.getX();
-    this->_right = position.getX() + size.getX();
-    this->_bottom = position.getY() + size.getY();
+    this->_pos = position;
+    this->_size = size;
 }
 
 bool engine::physics::Box::intersectBox(Box *box){
-    return !(box->getLeft() > this->_right
-            || box->getRight() < this->_left
-            || box->getTop() > this->_bottom
-            || box->getBottom() < this->_top);
+    return !(box->getLeft() > this->getRight()
+            || box->getRight() < this->getLeft()
+            || box->getTop() > this->getBottom()
+            || box->getBottom() < this->getTop());
 }
 
 int engine::physics::Box::getLeft() const {
-    return _left;
+    return this->_pos->getX();
 }
 
 int engine::physics::Box::getRight() const {
-    return _right;
+    return this->_pos->getX() + this->_size->getX();
 }
 
 int engine::physics::Box::getTop() const {
-    return _top;
+    return this->_pos->getY();
 }
 
 int engine::physics::Box::getBottom() const {
-    return _bottom;
+    return this->_pos->getY() + this->_size->getY();
 }

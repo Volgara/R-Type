@@ -7,9 +7,9 @@
 //-----------------------------------------------------------------------------
 //
 
+#ifdef GRAPHICS
 #include "Engine.hpp"
 #include "InputSystem.hpp"
-#ifdef GRAPHICS
 void engine::core::InputSystem::Update(float) {
 
     auto *eg = engine::core::Engine::GetInstance();
@@ -26,12 +26,11 @@ void engine::core::InputSystem::Init() {
 
 }
 
-void engine::core::InputSystem::SendMessage(engine::core::Message *
-) {
-
-}
-
 void engine::core::InputSystem::addEventListener(sf::Event::EventType type, engine::core::InputSystem::Callback fct) {
     _callbacks[type] = std::move(fct);
+}
+
+void engine::core::InputSystem::onNotify(engine::core::Message) {
+
 }
 #endif

@@ -8,7 +8,7 @@
 //
 
 #include "ID.hpp"
-#include "Message.hpp"
+#include "BusNode.hpp"
 
 #ifndef RTYPE_COMPONENT_HPP
 #define RTYPE_COMPONENT_HPP

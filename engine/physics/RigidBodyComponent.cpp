@@ -2,26 +2,17 @@
 // Created by Hamza Hammouche on 12/01/2018.
 //
 
+#include <core/GameObject.hpp>
 #include "RigidBodyComponent.hpp"
 
 engine::physics::RigidBodyComponent::RigidBodyComponent() : Component(engine::core::PHY_RIGIDBODY) {
-    this->_box = new Box(this->_position, this->_size);
+    this->_size = core::Vector2d(0, 0);
 }
 
 engine::physics::RigidBodyComponent::~RigidBodyComponent() {
     if (!this->_box)
         return;
     delete this->_box;
-}
-
-
-const engine::core::Vector2d &engine::physics::RigidBodyComponent::getPosition() const {
-    return _position;
-}
-
-void engine::physics::RigidBodyComponent::setPosition(const engine::core::Vector2d &position) {
-    this->_position = position;
-    _box->updatePosition(this->_position, this->_size);
 }
 
 const engine::core::Vector2d &engine::physics::RigidBodyComponent::getVelocity() const {
@@ -37,26 +28,21 @@ const engine::core::Vector2d &engine::physics::RigidBodyComponent::getSize() con
 }
 
 void engine::physics::RigidBodyComponent::setSize(const engine::core::Vector2d &size) {
-    this->_size = size;
-    _box->updatePosition(this->_position, this->_size);
+    this->_size.setY(size.getY());
+    this->_size.setX(size.getX());
 }
 
-void engine::physics::RigidBodyComponent::move() {
-    this->_position.setX(this->_position.getX() + this->_velocity.getX());
-    this->_position.setY(this->_position.getY() + this->_velocity.getY());
-    _box->updatePosition(this->_position, this->_size);
+void engine::physics::RigidBodyComponent::SendMessage(engine::core::Message *message) {
+    std::cout << "I get message in RigidBodyComponent : " << message->id << std::endl;
 }
 
-void engine::physics::RigidBodyComponent::SendMessage(engine::core::Message *) {
-
-}
-
-void engine::physics::RigidBodyComponent::Update(float) {
-
+void engine::physics::RigidBodyComponent::Update(float dt) {
+    this->ownerRef->pos.setX(static_cast<int>((this->ownerRef->pos.getX() + this->_velocity.getX()) * dt));
+    this->ownerRef->pos.setY(static_cast<int>((this->ownerRef->pos.getY() + this->_velocity.getY()) * dt));
 }
 
 void engine::physics::RigidBodyComponent::Init(void) {
-
+    this->_box = new Box(&this->ownerRef->pos, &this->_size);
 }
 
 void engine::physics::RigidBodyComponent::ShutDown(void) {
