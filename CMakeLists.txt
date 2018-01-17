@@ -44,8 +44,6 @@ set(graphics_SOURCE_FILES
         engine/graphics/RTypeGraphics.hpp
         engine/graphics/SpriteSheet.cpp
         engine/graphics/SpriteSheet.hpp
-        engine/graphics/Scene.cpp
-        engine/graphics/Scene.hpp
         engine/graphics/Event.cpp
         engine/graphics/Event.hpp
         engine/graphics/Window.cpp

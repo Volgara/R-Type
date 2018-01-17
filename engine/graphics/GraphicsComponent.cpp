@@ -18,7 +18,7 @@ void engine::graphics::GraphicsComponent::SendMessage(engine::core::Message *mes
 }
 
 void engine::graphics::GraphicsComponent::Init(void) {
-    owner = static_cast<core::GameObjectID>(-1);
+    //owner = static_cast<core::GameObjectID>(-1);
 }
 
 void engine::graphics::GraphicsComponent::ShutDown(void) {
@@ -30,10 +30,11 @@ void engine::graphics::GraphicsComponent::Update(float dt) {
 }
 
 engine::graphics::GraphicsComponent::GraphicsComponent() : Component(engine::core::ComponentID::GRA_SPRITE) {
-
+    this->currentAnimation = 0;
+    this->dtCounter = 0;
 }
 
-void engine::graphics::GraphicsComponent::addAnimation(engine::graphics::Animation &animation) {
+void engine::graphics::GraphicsComponent::addAnimation(engine::graphics::Animation *animation) {
     this->_animations.push_back(animation);
 }
 
@@ -41,37 +42,51 @@ void engine::graphics::GraphicsComponent::addAnimation(engine::graphics::Animati
  * Start playing an animation from the begining
  * @param str Animation name
  */
-void engine::graphics::GraphicsComponent::play(std::string str) {
+void engine::graphics::GraphicsComponent::play(const std::string &str) {
+    int i = 0;
     for (auto &animation : this->_animations) {
-        if (animation.getName() == str) {
-            animation.setCurrentFrame(0);
-            this->_sprite = animation.getCurrentSprite();
+        if (animation->getName() == str) {
+            this->currentAnimation = i;
         }
+        i++;
     }
+    _animations[this->currentAnimation]->setCurrentFrame(0);
+
+    this->_sprite = _animations[this->currentAnimation]->getFrames()[_animations[this->currentAnimation]->getCurrenFrame()];
 }
 
-sf::Sprite engine::graphics::GraphicsComponent::getDrawable() {
+sf::Sprite &engine::graphics::GraphicsComponent::getDrawable() {
+    auto *eg = engine::core::Engine::GetInstance();
+    eg->getWindow().draw(this->_sprite);
+
     return this->_sprite;
 }
 
 /**
  * Update current frame of all animation
- * TODO check for animation that overflow
  */
-void engine::graphics::GraphicsComponent::update() {
-    for (auto &animation : _animations) {
-        if (animation.getCurrenFrame() >= animation.getFrames().size())
-            animation.setCurrentFrame(0);
-        else
-            animation.setCurrentFrame(animation.getCurrenFrame() + 1);
-        this->_sprite = animation.getCurrentSprite();
+void engine::graphics::GraphicsComponent::update(float dt) {
+    if (_animations[this->currentAnimation]->getCurrenFrame() >=
+        _animations[this->currentAnimation]->getFrames().size() - 1 && dtCounter >= 1) {
+        _animations[this->currentAnimation]->setCurrentFrame(0);
+        dtCounter = 0;
+    } else if (dtCounter >= 1) {
+        dtCounter = 0;
+        _animations[this->currentAnimation]->setCurrentFrame(_animations[this->currentAnimation]->getCurrenFrame() + 1);
     }
+
+    this->_sprite = _animations[this->currentAnimation]->getFrames()[_animations[this->currentAnimation]->getCurrenFrame()];
+    dtCounter += dt / 350;
 
     engine::core::Vector2d pos = this->ownerRef->pos;
     this->_sprite.setPosition(pos.getX(), pos.getY());
 }
 
-const std::vector<engine::graphics::Animation> &engine::graphics::GraphicsComponent::getAnimations() const {
+const std::vector<engine::graphics::Animation *> &engine::graphics::GraphicsComponent::getAnimations() const {
     return _animations;
+}
+
+void engine::graphics::GraphicsComponent::setPosition(int x, int y) {
+    this->_sprite.setPosition(x, y);
 }
 
