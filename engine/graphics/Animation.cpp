@@ -14,6 +14,7 @@ engine::graphics::Animation::Animation(const std::string &name, engine::graphics
     this->_currenFrame = 0;
     this->_reverse = false;
     this->_spriteSheet = sheet;
+    this->_speed = 0;
 }
 
 engine::graphics::Animation::Animation(const engine::graphics::Animation &anim) {
@@ -24,14 +25,10 @@ engine::graphics::Animation::Animation(const engine::graphics::Animation &anim) 
     this->_currenFrame = anim._currenFrame;
     this->_loop = anim._loop;
     this->_reverse = anim._reverse;
+    this->_speed = anim._speed;
 }
 
-
-void engine::graphics::Animation::loadSpriteSheet(std::string file, int width, int height, int cols, int rows) {
-
-}
-
-void engine::graphics::Animation::setAnimationFrames(int start, int end) {
+void engine::graphics::Animation::setAnimationFrames(int, int) {
 
 }
 
@@ -55,7 +52,7 @@ sf::Sprite engine::graphics::Animation::getCurrentSprite() {
 }
 
 int engine::graphics::Animation::getCurrenFrame() const {
-    return  _currenFrame;
+    return _currenFrame;
 }
 
 void engine::graphics::Animation::setCurrentFrame(int currenFrame) {
@@ -82,3 +79,10 @@ void engine::graphics::Animation::setPingPong(bool pingpong) {
     this->_pingPong = pingpong;
 }
 
+void engine::graphics::Animation::setSpeed(int speed) {
+    this->_speed = speed;
+}
+
+int engine::graphics::Animation::getSpeed() const {
+    return _speed;
+}

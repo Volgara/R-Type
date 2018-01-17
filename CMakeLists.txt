@@ -24,6 +24,8 @@ set(core_SOURCE_FILES
         engine/core/ID.hpp
         engine/core/Vector2D.hpp
         engine/core/Vector2D.cpp
+        engine/core/InputSystem.cpp
+        engine/core/InputSystem.hpp
         engine/core/MessageBus.hpp
         engine/core/MessageBus.cpp
         engine/core/BusNode.hpp
@@ -57,7 +59,9 @@ set(graphics_SOURCE_FILES
         engine/graphics/GraphicsComponent.hpp
         engine/graphics/GraphicsSystem.cpp
         engine/graphics/GraphicsSystem.hpp)
-set(graphics_unit_SOURCE_FILES)
+set(graphics_unit_SOURCE_FILES
+        unit/engine/graphics/GraphicsComponentUnit.cpp
+        unit/engine/graphics/GraphicsSystemUnit.cpp)
 
 # Engine : Physics
 set(physics_SOURCE_FILES engine/physics/RigidBodyComponent.cpp
@@ -129,9 +133,9 @@ if (SFML_FOUND)
 
     # includes dir libs
     include_directories(${SFML_INCLUDE_DIR})
-else()
+else ()
     message("||||||||| SFML NOT FOUND ||||||||||")
-endif(SFML_FOUND)
+endif (SFML_FOUND)
 
 target_link_libraries(server ${SFML_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
 #target_link_libraries(testGraphics ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
@@ -142,40 +146,51 @@ add_executable(engine_core_unit ${server_MODULES} ${core_unit_SOURCE_FILES})
 
 add_executable(engine_physics_unit ${server_MODULES} ${physics_unit_SOURCE_FILES})
 
+add_executable(engine_graphics_unit ${client_MODULES} ${graphics_unit_SOURCE_FILES})
+set_target_properties(engine_graphics_unit PROPERTIES COMPILE_DEFINITIONS GRAPHICS=1)
+target_link_libraries(engine_graphics_unit ${SFML_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
+
+
 set(GOOGLE_TESTS_LIBS gtest gmock ${CMAKE_THREAD_LIBS_INIT})
 
 if (MSVC)
     target_compile_options(engine_core_unit PRIVATE /std:c++14 /W4 /WX)
     target_compile_options(engine_physics_unit PRIVATE /std:c++14 /W4 /WX)
+    target_compile_options(engine_graphics_unit PRIVATE /std:c++14 /W4 /WX)
 
     set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /Ox")
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /Od")
     target_link_libraries(engine_core_unit ${GOOGLE_TESTS_LIBS})
     target_link_libraries(engine_physics_unit ${GOOGLE_TESTS_LIBS})
+    target_link_libraries(engine_graphics_unit ${GOOGLE_TESTS_LIBS})
     # VS 2017 removed tr1
     add_definitions(-DGTEST_HAS_TR1_TUPLE=0)
 else ()
     target_compile_options(engine_core_unit PRIVATE -g -Wall -Wextra -Wpedantic -Wconversion -Wswitch-default -Wswitch-enum -Wunreachable-code -Wwrite-strings -Wcast-align -Wshadow -Wundef)
     target_compile_options(engine_physics_unit PRIVATE -g -Wall -Wextra -Wpedantic -Wconversion -Wswitch-default -Wswitch-enum -Wunreachable-code -Wwrite-strings -Wcast-align -Wshadow -Wundef)
+    target_compile_options(engine_graphics_unit PRIVATE -g -Wall -Wextra -Wpedantic -Wconversion -Wswitch-default -Wswitch-enum -Wunreachable-code -Wwrite-strings -Wcast-align -Wshadow -Wundef)
     if (COVERAGE)
         target_compile_options(engine_core_unit PRIVATE --coverage)
         target_link_libraries(engine_core_unit PRIVATE --coverage ${GOOGLE_TESTS_LIBS})
         target_compile_options(engine_physics_unit PRIVATE --coverage)
         target_link_libraries(engine_physics_unit PRIVATE --coverage ${GOOGLE_TESTS_LIBS})
+        target_compile_options(engine_graphics_unit PRIVATE --coverage)
+        target_link_libraries(engine_graphics_unit PRIVATE --coverage ${GOOGLE_TESTS_LIBS})
     else ()
         target_link_libraries(engine_core_unit ${GOOGLE_TESTS_LIBS})
         target_link_libraries(engine_physics_unit ${GOOGLE_TESTS_LIBS})
+        target_link_libraries(engine_graphics_unit ${GOOGLE_TESTS_LIBS})
     endif ()
 endif ()
 
 # Copy full directories
 macro(resource_dirs dirs)
-    foreach(dir ${dirs})
+    foreach (dir ${dirs})
         # Replace / at the end of the path (copy dir content VS copy dir)
         string(REGEX REPLACE "/+$" "" dirclean "${dir}")
         message(STATUS "Copying resource ${dirclean}")
         file(COPY ${dirclean} DESTINATION ${CMAKE_BINARY_DIR})
-    endforeach()
+    endforeach ()
 endmacro()
 
 resource_dirs(client/assets)

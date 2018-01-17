@@ -13,6 +13,7 @@
 #ifdef GRAPHICS
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Event.hpp>
+#include <SFML/System/Clock.hpp>
 #endif
 
 #include <string>
@@ -36,6 +37,7 @@ namespace engine {
 
 #ifdef GRAPHICS
             sf::RenderWindow _window;
+            sf::Clock _clock;
 #endif
 
         public:
@@ -82,6 +84,9 @@ namespace engine {
              * Before exit the application
              */
             void Shutdown(void);
+
+
+            void addMessage(void);
 
 
 #ifdef GRAPHICS

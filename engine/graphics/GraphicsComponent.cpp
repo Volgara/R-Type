@@ -30,12 +30,23 @@ void engine::graphics::GraphicsComponent::Update(float dt) {
 }
 
 engine::graphics::GraphicsComponent::GraphicsComponent() : Component(engine::core::ComponentID::GRA_SPRITE) {
-    this->currentAnimation = 0;
-    this->dtCounter = 0;
+    this->_currentAnimation = 0;
+    this->_dtCounter = 0;
 }
 
-void engine::graphics::GraphicsComponent::addAnimation(engine::graphics::Animation *animation) {
-    this->_animations.push_back(animation);
+/**
+ * Add an animation to the component
+ * @param animation
+ */
+void engine::graphics::GraphicsComponent::addAnimation(engine::graphics::Animation *anim) {
+    int i = 0;
+    for (auto &animation : this->_animations) {
+        if (animation->getName() == anim->getName()) {
+            throw std::runtime_error("Cannot add two animations with the same name!");
+        }
+        i++;
+    }
+    this->_animations.push_back(anim);
 }
 
 /**
@@ -46,15 +57,17 @@ void engine::graphics::GraphicsComponent::play(const std::string &str) {
     int i = 0;
     for (auto &animation : this->_animations) {
         if (animation->getName() == str) {
-            this->currentAnimation = i;
+            this->_currentAnimation = i;
         }
         i++;
     }
-    _animations[this->currentAnimation]->setCurrentFrame(0);
-
-    this->_sprite = _animations[this->currentAnimation]->getFrames()[_animations[this->currentAnimation]->getCurrenFrame()];
+    this->_sprite = _animations[this->_currentAnimation]->getFrames()[_animations[this->_currentAnimation]->getCurrenFrame()];
 }
 
+/**
+ * Get the current sprite of the current animation
+ * @return
+ */
 sf::Sprite &engine::graphics::GraphicsComponent::getDrawable() {
     auto *eg = engine::core::Engine::GetInstance();
     eg->getWindow().draw(this->_sprite);
@@ -66,20 +79,20 @@ sf::Sprite &engine::graphics::GraphicsComponent::getDrawable() {
  * Update current frame of all animation
  */
 void engine::graphics::GraphicsComponent::update(float dt) {
-    if (_animations[this->currentAnimation]->getCurrenFrame() >=
-        _animations[this->currentAnimation]->getFrames().size() - 1 && dtCounter >= 1) {
-        _animations[this->currentAnimation]->setCurrentFrame(0);
-        dtCounter = 0;
-    } else if (dtCounter >= 1) {
-        dtCounter = 0;
-        _animations[this->currentAnimation]->setCurrentFrame(_animations[this->currentAnimation]->getCurrenFrame() + 1);
+    if (_animations[this->_currentAnimation]->getCurrenFrame() >=
+        _animations[this->_currentAnimation]->getFrames().size() - 1 && _dtCounter >= 1) {
+        _animations[this->_currentAnimation]->setCurrentFrame(0);
+        _dtCounter = 0;
+    } else if (_dtCounter >= 1) {
+        _dtCounter = 0;
+        _animations[this->_currentAnimation]->setCurrentFrame(_animations[this->_currentAnimation]->getCurrenFrame() + 1);
     }
 
-    this->_sprite = _animations[this->currentAnimation]->getFrames()[_animations[this->currentAnimation]->getCurrenFrame()];
-    dtCounter += dt / 350;
+    this->_sprite = _animations[this->_currentAnimation]->getFrames()[_animations[this->_currentAnimation]->getCurrenFrame()];
+    _dtCounter += dt * (_animations[this->_currentAnimation]->getSpeed());
 
     engine::core::Vector2d pos = this->ownerRef->pos;
-    this->_sprite.setPosition(pos.getX(), pos.getY());
+    this->_sprite.setPosition((float) pos.getX(), (float) pos.getY());
 }
 
 const std::vector<engine::graphics::Animation *> &engine::graphics::GraphicsComponent::getAnimations() const {
@@ -87,5 +100,18 @@ const std::vector<engine::graphics::Animation *> &engine::graphics::GraphicsComp
 }
 
 void engine::graphics::GraphicsComponent::setPosition(int x, int y) {
-    this->_sprite.setPosition(x, y);
+    this->_sprite.setPosition((float) x, (float) y);
 }
+
+int engine::graphics::GraphicsComponent::getCurrentAnimationIndex() const {
+    return _currentAnimation;
+}
+
+void engine::graphics::GraphicsComponent::setCurrentAnimation(int currentAnimation) {
+    GraphicsComponent::_currentAnimation = currentAnimation;
+}
+
+engine::graphics::Animation *const & engine::graphics::GraphicsComponent::getCurrentAnimation() const {
+    return this->getAnimations()[_currentAnimation];
+}
+

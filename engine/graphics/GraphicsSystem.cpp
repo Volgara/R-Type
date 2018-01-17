@@ -66,7 +66,6 @@ void engine::graphics::GraphicSystem::Init(void) {
 
     mommy->setLoop(true);
     mommy->setPingPong(true);
-    mommy->setCurrentFrame(0);
 
     for (auto &sprite : *eg->getScene()->GetComponents<GraphicsComponent>(core::ComponentID::GRA_SPRITE)) {
         sprite->addAnimation(shipAnimIdle);
@@ -87,8 +86,12 @@ void engine::graphics::GraphicSystem::Update(float dt) {
         gc->update(dt);
 
         //update position, should be in the game logic
-        gc->getDrawable().setPosition(gc->getDrawable().getPosition().x + 0.1, gc->getDrawable().getPosition().y);
+        gc->getDrawable().setPosition(static_cast<float>(gc->getDrawable().getPosition().x + 0.1), gc->getDrawable().getPosition().y);
     }
+}
+
+engine::graphics::GraphicSystem::GraphicSystem() {
+
 }
 
 void engine::graphics::GraphicSystem::onNotify(engine::core::Message msg) {
@@ -97,3 +100,4 @@ void engine::graphics::GraphicSystem::onNotify(engine::core::Message msg) {
         sprite->SendMessage(&msg);
     }
 }
+

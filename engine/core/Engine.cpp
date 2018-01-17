@@ -38,10 +38,25 @@ void engine::core::Engine::Update(float dt) {
 void engine::core::Engine::MainLoop(void) {
 #ifdef GRAPHICS
     while (_gameRunning) {
-        _window.clear();
-        Update(1);
-        _window.display();
-        this->_messageBus->notify();
+        const auto elapsed = _clock.getElapsedTime().asSeconds();
+        if (elapsed >= 1.0f / 60) {
+            _window.clear();
+            Update(elapsed);
+            _window.display();
+            _clock.restart();
+        }
+
+        sf::Event event;
+        while (_window.pollEvent(event)) {
+            switch (event.type) {
+                case sf::Event::Closed:
+                    this->Shutdown();
+                    exit(0); // TODO maybe it's not the behaviour wanted, added for simpler tests
+                case sf::Event::KeyPressed:
+                default:
+                    break;
+            }
+        }
     }
 #endif
 }
@@ -96,4 +111,8 @@ void engine::core::Engine::Shutdown(void) {
 #ifdef GRAPHICS
     _window.close();
 #endif
+}
+
+void engine::core::Engine::addMessage(void) {
+
 }
