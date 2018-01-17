@@ -6,7 +6,7 @@
 #include <core/Engine.hpp>
 #include "PhysicsSystem.hpp"
 
-engine::physics::PhysicsSystem::PhysicsSystem(int width, int height) {
+engine::physics::PhysicsSystem::PhysicsSystem(int width, int) {
     this->_width = width / CELL_SIZE;
     Init();
 }
