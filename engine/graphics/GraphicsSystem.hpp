@@ -22,6 +22,9 @@ namespace engine {
             void SendMessage(engine::core::Message *msg) override;
 
             void Update(float dt) override;
+
+        protected:
+            void onNotify(core::Message message) override;
         };
     }
 }

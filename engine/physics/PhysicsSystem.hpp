@@ -33,6 +33,10 @@ namespace engine {
             void clearMap();
             void checkCellColision(std::vector<RigidBodyComponent *>);
             void createHasheMapDebug();
+
+        protected:
+            void onNotify(core::Message message) override;
+
         public:
             PhysicsSystem(int width, int height);
 

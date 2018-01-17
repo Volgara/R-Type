@@ -23,7 +23,12 @@ set(core_SOURCE_FILES
         engine/core/ComponentHandler.hpp
         engine/core/ID.hpp
         engine/core/Vector2D.hpp
-        engine/core/Vector2D.cpp)
+        engine/core/Vector2D.cpp
+        engine/core/MessageBus.hpp
+        engine/core/MessageBus.cpp
+        engine/core/BusNode.hpp
+        engine/core/BusNode.cpp)
+
 
 set(core_unit_SOURCE_FILES
         unit/engine/core/GameObjectUnit.cpp

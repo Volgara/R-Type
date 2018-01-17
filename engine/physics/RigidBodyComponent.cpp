@@ -32,7 +32,7 @@ void engine::physics::RigidBodyComponent::setSize(const engine::core::Vector2d &
     this->_size.setX(size.getX());
 }
 
-void engine::physics::RigidBodyComponent::SendMessage(engine::core::Message *msg) {
+void engine::physics::RigidBodyComponent::SendMessage(engine::core::Message *) {
 
 }
 
@@ -55,4 +55,8 @@ engine::physics::Box *engine::physics::RigidBodyComponent::getBox() const {
 
 bool engine::physics::RigidBodyComponent::checkIntersect(const engine::physics::RigidBodyComponent *body) {
     return this->_box->intersectBox(body->getBox());
+}
+
+void engine::physics::RigidBodyComponent::onNotify(engine::core::Message message) {
+    std::cout << "I get message in RigidBodyComponent : " << message.id << std::endl;
 }

@@ -16,6 +16,11 @@ void engine::physics::PhysicsSystem::Update(float dt) {
     this->_debugNb = 0;
     this->_debugNbAdd = 0;
     this->_debugCheck = 0;
+    if (dt == 1) {
+        engine::core::Message message(engine::core::MessageID::COLLISION);
+        send(message);
+        return;
+    }
     this->clearMap();
     if (dt == -1)
         this->createHasheMapDebug();
@@ -74,6 +79,10 @@ void engine::physics::PhysicsSystem::addComponentInMap(engine::physics::RigidBod
             this->_debugNb++;
         }
     }
+}
+
+void engine::physics::PhysicsSystem::onNotify(engine::core::Message message) {
+    std::cout << "PhysicsSystem receive Message : " << message.id << std::endl;
 }
 
 void engine::physics::PhysicsSystem::checkCellColision(std::vector<RigidBodyComponent *> vec) {

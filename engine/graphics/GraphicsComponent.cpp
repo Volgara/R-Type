@@ -90,3 +90,6 @@ void engine::graphics::GraphicsComponent::setPosition(int x, int y) {
     this->_sprite.setPosition(x, y);
 }
 
+void engine::graphics::GraphicsComponent::onNotify(engine::core::Message) {
+
+}

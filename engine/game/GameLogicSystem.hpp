@@ -31,6 +31,9 @@ namespace engine {
 
         private:
             void Update(core::Scene *scene);
+
+        protected:
+            void onNotify(core::Message message) override;
         };
     }
 }

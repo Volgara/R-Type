@@ -8,7 +8,7 @@
 //
 
 #include "ID.hpp"
-#include "Message.hpp"
+#include "BusNode.hpp"
 
 #ifndef RTYPE_COMPONENT_HPP
 #define RTYPE_COMPONENT_HPP
@@ -18,7 +18,7 @@ namespace engine {
 
         struct GameObject;
 
-        struct Component {
+        struct Component : public BusNode {
             GameObjectID owner;
             GameObject *ownerRef;
             ComponentID id;

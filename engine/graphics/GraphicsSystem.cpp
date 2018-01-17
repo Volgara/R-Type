@@ -98,3 +98,6 @@ void engine::graphics::GraphicSystem::Update(float dt) {
     }
 }
 
+void engine::graphics::GraphicSystem::onNotify(engine::core::Message) {
+
+}

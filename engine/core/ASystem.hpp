@@ -12,15 +12,15 @@
 
 
 #include "NonCopyable.hpp"
-#include "Message.hpp"
+#include "BusNode.hpp"
 
 namespace engine {
     namespace core {
-        class ASystem {
+        class ASystem : public BusNode {
         public:
 
             // All systems must update each game loop
-            virtual void Update(float) {}
+            virtual void Update(float dt) = 0;
 
             // It's good practice to separate the construction and initialization code.
             virtual void Init(void) = 0;
