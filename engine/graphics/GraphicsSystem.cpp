@@ -94,7 +94,7 @@ void engine::graphics::GraphicSystem::Update(float dt) {
         gc->update(dt);
 
         //update position, should be in the game logic
-        gc->getDrawable().setPosition(gc->getDrawable().getPosition().x + 0.1, gc->getDrawable().getPosition().y);
+        gc->getDrawable().setPosition(static_cast<float>(gc->getDrawable().getPosition().x + 0.1), gc->getDrawable().getPosition().y);
     }
 }
 

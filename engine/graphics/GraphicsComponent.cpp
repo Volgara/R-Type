@@ -79,7 +79,7 @@ void engine::graphics::GraphicsComponent::update(float dt) {
     dtCounter += dt / 350;
 
     engine::core::Vector2d pos = this->ownerRef->pos;
-    this->_sprite.setPosition(pos.getX(), pos.getY());
+    this->_sprite.setPosition((float) pos.getX(), (float) pos.getY());
 }
 
 const std::vector<engine::graphics::Animation *> &engine::graphics::GraphicsComponent::getAnimations() const {
@@ -87,6 +87,6 @@ const std::vector<engine::graphics::Animation *> &engine::graphics::GraphicsComp
 }
 
 void engine::graphics::GraphicsComponent::setPosition(int x, int y) {
-    this->_sprite.setPosition(x, y);
+    this->_sprite.setPosition((float) x, (float) y);
 }
 

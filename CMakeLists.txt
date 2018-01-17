@@ -53,10 +53,6 @@ set(graphics_SOURCE_FILES
         engine/graphics/GraphicsSystem.cpp
         engine/graphics/GraphicsSystem.hpp)
 set(graphics_unit_SOURCE_FILES
-        engine/graphics/Animation.cpp
-        engine/graphics/Animation.hpp
-        engine/graphics/SpriteSheet.cpp
-        engine/graphics/SpriteSheet.hpp
         unit/engine/graphics/GraphicsComponentUnit.cpp
         unit/engine/graphics/GraphicsSystemUnit.cpp)
 
@@ -140,7 +136,10 @@ add_executable(engine_core_unit ${server_MODULES} ${core_unit_SOURCE_FILES})
 
 add_executable(engine_physics_unit ${server_MODULES} ${physics_unit_SOURCE_FILES})
 
-add_executable(engine_graphics_unit ${server_MODULES} ${graphics_unit_SOURCE_FILES})
+add_executable(engine_graphics_unit ${client_MODULES} ${graphics_unit_SOURCE_FILES})
+set_target_properties(engine_graphics_unit PROPERTIES COMPILE_DEFINITIONS GRAPHICS=1)
+target_link_libraries(engine_graphics_unit ${SFML_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
+
 
 set(GOOGLE_TESTS_LIBS gtest gmock ${CMAKE_THREAD_LIBS_INIT})
 
