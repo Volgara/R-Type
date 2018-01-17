@@ -10,6 +10,7 @@
 #ifndef RTYPE_INPUTSYSTEM_HPP
 #define RTYPE_INPUTSYSTEM_HPP
 
+#ifdef GRAPHICS
 #include <functional>
 #include <SFML/Window/Event.hpp>
 #include "ASystem.hpp"
@@ -37,6 +38,6 @@ namespace engine {
         };
     }
 }
-
+#endif
 
 #endif //RTYPE_INPUTSYSTEM_HPP

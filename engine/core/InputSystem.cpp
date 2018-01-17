@@ -7,10 +7,11 @@
 //-----------------------------------------------------------------------------
 //
 
+#ifdef GRAPHICS
 #include "Engine.hpp"
 #include "InputSystem.hpp"
-
 void engine::core::InputSystem::Update(float) {
+
     auto *eg = engine::core::Engine::GetInstance();
 
     while (eg->getWindow().pollEvent(_event)) {
@@ -18,6 +19,7 @@ void engine::core::InputSystem::Update(float) {
             _callbacks[_event.type](_event);
         }
     }
+
 }
 
 void engine::core::InputSystem::Init() {
@@ -31,3 +33,4 @@ void engine::core::InputSystem::addEventListener(sf::Event::EventType type, engi
 void engine::core::InputSystem::onNotify(engine::core::Message) {
 
 }
+#endif
