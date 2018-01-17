@@ -28,11 +28,12 @@ namespace engine {
 
             void Init(void) override;
 
-            void SendMessage(Message *msg) override;
-
             ~InputSystem() override = default;
 
             void addEventListener(sf::Event::EventType type, Callback fct);
+
+        protected:
+            void onNotify(Message message) override;
         };
     }
 }
