@@ -44,8 +44,6 @@ namespace engine {
 
             void Init() override;
 
-            void SendMessage(engine::core::Message *msg) override;
-
         public:
 
             void debugAddComponent(RigidBodyComponent *);

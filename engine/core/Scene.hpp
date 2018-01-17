@@ -27,9 +27,6 @@ namespace engine {
             std::map<GameObjectID, GameObject *> objectsMap;
             std::vector<Component *> handlesComponents[EComponentID_NUMBER];
             unsigned guid = 0;
-            MessageBus *_messageBus;
-
-            void setMessageBus(MessageBus *);
 
             Component *CreateComponent(ComponentID type);
 

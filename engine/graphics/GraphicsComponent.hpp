@@ -42,9 +42,6 @@ namespace engine {
             sf::Sprite &getDrawable();
             void update(float dt);
             void setPosition(int x, int y);
-
-        protected:
-            void onNotify(core::Message message) override;
         };
 
     }

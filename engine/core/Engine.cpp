@@ -50,7 +50,6 @@ void engine::core::Engine::MainLoop(void) {
 void engine::core::Engine::Init(void) {
     this->_gameRunning = true;
     this->_scene = new Scene();
-    this->_scene->setMessageBus(this->_messageBus);
 #ifdef GRAPHICS
     _window.create(sf::VideoMode(800, 600), "toto");
 

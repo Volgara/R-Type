@@ -37,13 +37,6 @@ void engine::physics::PhysicsSystem::Init() {
     this->_debugNbAdd = 0;
 }
 
-void engine::physics::PhysicsSystem::SendMessage(engine::core::Message *msg) {
-    auto *eg = engine::core::Engine::GetInstance();
-    for (auto sprite : *eg->getScene()->GetComponents<RigidBodyComponent>(core::ComponentID::GRA_SPRITE)) {
-        sprite->SendMessage(msg);
-    }
-}
-
 void engine::physics::PhysicsSystem::debugAddComponent(engine::physics::RigidBodyComponent *c) {
     this->_listDebug.push_back(c);
 }
@@ -82,6 +75,10 @@ void engine::physics::PhysicsSystem::addComponentInMap(engine::physics::RigidBod
 }
 
 void engine::physics::PhysicsSystem::onNotify(engine::core::Message message) {
+    auto *eg = engine::core::Engine::GetInstance();
+    for (auto &body : *eg->getScene()->GetComponents<RigidBodyComponent>(core::ComponentID::PHY_RIGIDBODY)) {
+        body->SendMessage(&message);
+    }
     std::cout << "PhysicsSystem receive Message : " << message.id << std::endl;
 }
 

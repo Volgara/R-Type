@@ -78,13 +78,6 @@ void engine::graphics::GraphicSystem::Init(void) {
     }
 }
 
-void engine::graphics::GraphicSystem::SendMessage(engine::core::Message *msg) {
-    auto *eg = engine::core::Engine::GetInstance();
-    for (auto sprite : *eg->getScene()->GetComponents<GraphicsComponent>(core::ComponentID::GRA_SPRITE)) {
-        sprite->SendMessage(msg);
-    }
-}
-
 void engine::graphics::GraphicSystem::Update(float dt) {
     auto *eg = engine::core::Engine::GetInstance();
 
@@ -98,6 +91,9 @@ void engine::graphics::GraphicSystem::Update(float dt) {
     }
 }
 
-void engine::graphics::GraphicSystem::onNotify(engine::core::Message) {
-
+void engine::graphics::GraphicSystem::onNotify(engine::core::Message msg) {
+    auto *eg = engine::core::Engine::GetInstance();
+    for (auto sprite : *eg->getScene()->GetComponents<GraphicsComponent>(core::ComponentID::GRA_SPRITE)) {
+        sprite->SendMessage(&msg);
+    }
 }

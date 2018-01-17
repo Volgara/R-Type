@@ -33,7 +33,6 @@ engine::core::Component *engine::core::Scene::CreateComponent(engine::core::Comp
         default:
             throw  std::runtime_error("Replace by Class based factory");
     }
-    component->setMessageBus(this->_messageBus);
     handlesComponents[type].push_back(component);
     return component;
 }
@@ -63,8 +62,4 @@ void engine::core::Scene::RemoveGameObject(engine::core::GameObjectID handle) {
 engine::core::Component *
 engine::core::Scene::GetComponent(engine::core::ComponentID type, engine::core::GameObjectID owner) {
     return objectsMap[owner]->GetComponent(type);
-}
-
-void engine::core::Scene::setMessageBus(engine::core::MessageBus *messageBus) {
-    this->_messageBus = messageBus;
 }

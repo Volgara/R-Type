@@ -39,9 +39,6 @@ namespace engine {
             void setSize(const core::Vector2d &size);
 
             Box *getBox() const;
-
-        protected:
-            void onNotify(core::Message message) override;
         };
     }
 }

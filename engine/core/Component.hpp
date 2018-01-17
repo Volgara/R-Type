@@ -18,7 +18,7 @@ namespace engine {
 
         struct GameObject;
 
-        struct Component : public BusNode {
+        struct Component {
             GameObjectID owner;
             GameObject *ownerRef;
             ComponentID id;
