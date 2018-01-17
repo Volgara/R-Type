@@ -26,12 +26,7 @@ engine::graphics::Animation::Animation(const engine::graphics::Animation &anim) 
     this->_reverse = anim._reverse;
 }
 
-
-void engine::graphics::Animation::loadSpriteSheet(std::string file, int width, int height, int cols, int rows) {
-
-}
-
-void engine::graphics::Animation::setAnimationFrames(int start, int end) {
+void engine::graphics::Animation::setAnimationFrames(int, int) {
 
 }
 
@@ -55,7 +50,7 @@ sf::Sprite engine::graphics::Animation::getCurrentSprite() {
 }
 
 int engine::graphics::Animation::getCurrenFrame() const {
-    return  _currenFrame;
+    return _currenFrame;
 }
 
 void engine::graphics::Animation::setCurrentFrame(int currenFrame) {

@@ -36,30 +36,30 @@ int engine::graphics::SpriteSheet::getCols() const {
     return _cols;
 }
 
-void engine::graphics::SpriteSheet::setCols(int _cols) {
-    this->_cols = _cols;
+void engine::graphics::SpriteSheet::setCols(int cols) {
+    this->_cols = cols;
 }
 
 int engine::graphics::SpriteSheet::getRows() const {
     return _rows;
 }
 
-void engine::graphics::SpriteSheet::setRows(int _rows) {
-    this->_rows = _rows;
+void engine::graphics::SpriteSheet::setRows(int rows) {
+    this->_rows = rows;
 }
 
 int engine::graphics::SpriteSheet::getFrameWidth() const {
     return _frameWidth;
 }
 
-void engine::graphics::SpriteSheet::setFrameWidth(int _frameWidth) {
-    this->_frameWidth = _frameWidth;
+void engine::graphics::SpriteSheet::setFrameWidth(int frameWidth) {
+    this->_frameWidth = frameWidth;
 }
 
 int engine::graphics::SpriteSheet::getFrameHeight() const {
     return _frameHeight;
 }
 
-void engine::graphics::SpriteSheet::setFrameHeight(int _frameHeight) {
-    this->_frameHeight = _frameHeight;
+void engine::graphics::SpriteSheet::setFrameHeight(int frameHeight) {
+    this->_frameHeight = frameHeight;
 }

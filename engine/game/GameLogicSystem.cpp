@@ -17,10 +17,10 @@ void engine::game::GameLogicSystem::Init(void) {
 
 }
 
-void engine::game::GameLogicSystem::SendMessage(engine::core::Message *msg) {
+void engine::game::GameLogicSystem::SendMessage(engine::core::Message *) {
 
 }
 
-void engine::game::GameLogicSystem::Update(engine::core::Scene *scene) {
+void engine::game::GameLogicSystem::Update(engine::core::Scene *) {
 
 }

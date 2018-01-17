@@ -98,3 +98,7 @@ void engine::graphics::GraphicSystem::Update(float dt) {
     }
 }
 
+engine::graphics::GraphicSystem::GraphicSystem() {
+
+}
+
