@@ -85,9 +85,7 @@ namespace engine {
              */
             void Shutdown(void);
 
-
-            void addMessage(void);
-
+            MessageBus *getMessageBus() const;
 
 #ifdef GRAPHICS
             sf::RenderWindow &getWindow();

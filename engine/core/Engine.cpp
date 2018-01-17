@@ -113,6 +113,6 @@ void engine::core::Engine::Shutdown(void) {
 #endif
 }
 
-void engine::core::Engine::addMessage(void) {
-
+engine::core::MessageBus *engine::core::Engine::getMessageBus() const {
+    return _messageBus;
 }
