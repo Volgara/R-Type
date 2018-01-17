@@ -15,8 +15,12 @@
 
 namespace engine {
     namespace core {
+
+        struct GameObject;
+
         struct Component {
             GameObjectID owner;
+            GameObject *ownerRef;
             ComponentID id;
             bool active = true;
 

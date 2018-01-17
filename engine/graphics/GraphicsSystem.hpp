@@ -17,10 +17,11 @@ namespace engine {
     namespace graphics {
         class GraphicSystem : public engine::core::ASystem {
         public:
+            GraphicSystem();
+
+        public:
             void Init(void) override;
-
-            void SendMessage(Message *msg) override;
-
+            void SendMessage(engine::core::Message *msg) override;
             void Update(float dt) override;
         };
     }

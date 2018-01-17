@@ -23,17 +23,20 @@ namespace engine {
 
         void GameObject::AddComponent(Component *component) {
             component->owner = guid;
+            component->ownerRef = this;
             components[component->id] = component;
         }
 
         void GameObject::RemoveComponent(Component *component) {
             component->owner = static_cast<GameObjectID>(-1); // Debug
+            component->ownerRef = nullptr;
             components[component->id] = nullptr;
         }
 
         void GameObject::RemoveComponent(ComponentID type) {
             auto *component = components[type];
             component->owner = static_cast<GameObjectID>(-1); // Debug
+            component->ownerRef = nullptr;
             components[component->id] = nullptr;
         }
 

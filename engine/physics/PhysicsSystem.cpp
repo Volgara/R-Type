@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include <core/Engine.hpp>
 #include "PhysicsSystem.hpp"
 
 engine::physics::PhysicsSystem::PhysicsSystem(int width, int height) {
@@ -30,8 +31,11 @@ void engine::physics::PhysicsSystem::Init() {
     this->_debugNbAdd = 0;
 }
 
-void engine::physics::PhysicsSystem::SendMessage(Message *) {
-
+void engine::physics::PhysicsSystem::SendMessage(engine::core::Message *msg) {
+    auto *eg = engine::core::Engine::GetInstance();
+    for (auto sprite : *eg->getScene()->GetComponents<RigidBodyComponent>(core::ComponentID::GRA_SPRITE)) {
+        sprite->SendMessage(msg);
+    }
 }
 
 void engine::physics::PhysicsSystem::debugAddComponent(engine::physics::RigidBodyComponent *c) {

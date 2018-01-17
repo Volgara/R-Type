@@ -13,6 +13,7 @@
 #ifdef GRAPHICS
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Event.hpp>
+#include <SFML/System/Clock.hpp>
 #endif
 
 #include <string>
@@ -34,21 +35,57 @@ namespace engine {
 
 #ifdef GRAPHICS
             sf::RenderWindow _window;
+            sf::Clock _clock;
 #endif
 
         public:
             void constructor() override;
 
         public:
+            /**
+             * Init each subsystem
+             */
             void Init(void);
 
+            /**
+             * Update each subsystem
+             * @param dt
+             */
             void Update(float dt);
 
+            /**
+             * Only for debug
+             */
             void MainLoop(void);
 
-            void addSystem(const std::string &systemId, ASystem *);
+            /**
+             * Insert a new system in engine list
+             * @param systemId
+             * @param system
+             */
+            void addSystem(const std::string &systemId, ASystem *system);
 
+            /**
+             * Get's system by name
+             * @param systemId
+             * @return
+             */
             ASystem *getSystem(const std::string &systemId);
+
+            /**
+             * Get's engine status
+             * @return true if is running
+             */
+            bool isRunning() const;
+
+            /**
+             * Before exit the application
+             */
+            void Shutdown(void);
+
+
+            void addMessage(void);
+
 
 #ifdef GRAPHICS
             sf::RenderWindow &getWindow();

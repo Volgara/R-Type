@@ -26,18 +26,6 @@ engine::core::ASystem *engine::core::Engine::getSystem(const std::string &system
  */
 void engine::core::Engine::Update(float dt) {
     // listen for events on the window
-#ifdef GRAPHICS
-    if (_window.isOpen()) {
-        std::cout << "Checking for events" << std::endl;
-        sf::Event event;
-        while (_window.pollEvent(event)) {
-            // "close requested" event: we close the window
-            if (event.type == sf::Event::Closed)
-                _window.close();
-        }
-    }
-#endif
-
     for (auto system : _systems) {
         system.second->Update(dt);
     }
@@ -50,9 +38,25 @@ void engine::core::Engine::Update(float dt) {
 void engine::core::Engine::MainLoop(void) {
 #ifdef GRAPHICS
     while (_gameRunning) {
-        _window.clear();
-        Update(1);
-        _window.display();
+        const auto elapsed = _clock.getElapsedTime().asSeconds();
+        if (elapsed >= 1.0f / 60) {
+            _window.clear();
+            Update(elapsed);
+            _window.display();
+            _clock.restart();
+        }
+
+        sf::Event event;
+        while (_window.pollEvent(event)) {
+            switch (event.type) {
+                case sf::Event::Closed:
+                    this->Shutdown();
+                    exit(0); // TODO maybe it's not the behaviour wanted, added for simpler tests
+                case sf::Event::KeyPressed:
+                default:
+                    break;
+            }
+        }
     }
 #endif
 }
@@ -69,10 +73,6 @@ void engine::core::Engine::Init(void) {
     }
 #endif
 
-    for (auto sys : _systems) {
-        sys.second->Init();
-    }
-
     _scene = new Scene();
 
 #ifdef GRAPHICS
@@ -80,14 +80,18 @@ void engine::core::Engine::Init(void) {
     auto *spriteComponent = _scene->CreateComponent(GRA_SPRITE);
     object->AddComponent(spriteComponent);
 #endif
-    //object->addComponent(GRA_SPRITE, new graphics::SpriteComponent);
-    //gm->addObject(1, object);
+
+    for (auto sys : _systems) {
+        sys.second->Init();
+    }
 }
 
 #ifdef GRAPHICS
+
 sf::RenderWindow &engine::core::Engine::getWindow() {
     return _window;
 }
+
 #endif
 
 void engine::core::Engine::addSystem(const std::string &systemId, engine::core::ASystem *system) {
@@ -95,9 +99,23 @@ void engine::core::Engine::addSystem(const std::string &systemId, engine::core::
 }
 
 void engine::core::Engine::constructor() {
-    Init();
+
 }
 
 engine::core::Scene *engine::core::Engine::getScene() {
     return _scene;
+}
+
+bool engine::core::Engine::isRunning() const {
+    return _gameRunning;
+}
+
+void engine::core::Engine::Shutdown(void) {
+#ifdef GRAPHICS
+    _window.close();
+#endif
+}
+
+void engine::core::Engine::addMessage(void) {
+
 }

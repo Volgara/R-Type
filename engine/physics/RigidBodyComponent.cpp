@@ -47,7 +47,7 @@ void engine::physics::RigidBodyComponent::move() {
     _box->updatePosition(this->_position, this->_size);
 }
 
-void engine::physics::RigidBodyComponent::SendMessage(Message *) {
+void engine::physics::RigidBodyComponent::SendMessage(engine::core::Message *) {
 
 }
 

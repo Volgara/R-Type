@@ -19,35 +19,46 @@
 namespace engine {
     namespace graphics {
         class GraphicsComponent : public core::Component {
-        protected:
-            bool _active;
 
-            sf::Sprite sprite;
-            sf::Texture texture;
-            std::vector<engine::graphics::Animation> animations;
-
+            /**
+             * Constructor / Destructor
+             */
         public:
-
             GraphicsComponent();
-
             virtual ~GraphicsComponent() = default;
 
+            /**
+             * Methods
+             */
+        public:
             void Update(float dt) override;
-
-            void SendMessage(Message *message) override;
-
+            void SendMessage(engine::core::Message *message) override;
             void Init(void) override;
-
             void ShutDown(void) override;
+            void addAnimation(engine::graphics::Animation *animation);
+            void play(const std::string &str);
+            void update(float dt);
 
-            bool Active(void) const;
+            /**
+             * Getters / Setters
+             */
+        public:
+            sf::Sprite &getDrawable();
+            void setPosition(int x, int y);
+            int getCurrentAnimationIndex() const;
+            Animation *const & getCurrentAnimation() const;
+            void setCurrentAnimation(int currentAnimation);
+            const std::vector<Animation *> &getAnimations() const;
 
-            void addAnimation(engine::graphics::Animation animation);
-
-            void play(std::string str, bool b);
-
+            /**
+             * Properties
+             */
+        protected:
+            sf::Sprite                                 _sprite;
+            std::vector<engine::graphics::Animation *> _animations;
+            int                                        _currentAnimation;
+            float                                      _dtCounter;
         };
-
     }
 }
 
