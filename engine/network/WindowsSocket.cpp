@@ -6,7 +6,7 @@
 #ifdef _WIN32
 
 #include "WindowsSocket.hpp"
-#include "Exception.hpp"
+#include "networkException.hpp"
 
 engine::Network::WindowsSocket::WindowsSocket(SocketType type) {
     _socketType = type;
