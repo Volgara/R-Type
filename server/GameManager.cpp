@@ -60,12 +60,12 @@ void GameManager::listRoom(Player *p) {
     {
         data += it->getName();
         data += ",";
-        data += it->getNbrPlayer();
+        data += std::to_string(it->getNbrPlayer());
         data += "|";
         std::cout << it->getName() << std::endl;
     }
     std::cout << "Data send: " << data << std::endl;
-    send(p->getFd(), data.c_str(), data.size(), 0);
+    send(p->getFd(), data.c_str(), data.size() + 1, 0);
 }
 
 bool GameManager::start(std::string roomName) {

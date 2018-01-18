@@ -17,8 +17,11 @@ bool MatchMaking::connect(const std::string &ip, int port) {
     engine::Network::Socket *sok = new engine::Network::Socket(engine::Network::Tcp);
 
     sok->connect_socket(ip, port);
-    sok->write_socket("list");
+    sok->write_socket("join room1");
     std::string res = sok->read_socket();
+    std::cout << "RES: " << res << std::endl;
+    sok->write_socket("list");
+    res = sok->read_socket();
     std::cout << "RES: " << res << std::endl;
     return false;
 }

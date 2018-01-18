@@ -83,8 +83,8 @@ void engine::Network::UnixSocket::Update(float dt) {
 
 }
 
-void engine::Network::UnixSocket::write_socket(const char *data) {
-    write(fd, data, strlen(data));
+void engine::Network::UnixSocket::write_socket(std::string data) {
+    write(fd, data.c_str(), data.size() + 1);
 
 }
 
