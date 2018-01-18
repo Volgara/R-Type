@@ -116,7 +116,7 @@ void engine::Network::WindowsSocket::Update(float dt) {
 }
 
 void engine::Network::WindowsSocket::write_socket(std::string data) {
-    send(fd, data, strlen(data) + 1, 0);
+    send(fd, data.c_str(), strlen(data) + 1, 0);
 }
 
 std::string engine::Network::WindowsSocket::read_socket() {
