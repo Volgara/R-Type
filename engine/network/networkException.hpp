@@ -9,6 +9,7 @@
 
 #include <string>
 #include <exception>
+
 namespace engine {
     namespace Network {
         class networkException: public std::exception

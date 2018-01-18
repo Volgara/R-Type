@@ -32,7 +32,7 @@ namespace engine {
         ~WindowsSocket() override;
 
         void init_socket() override;
-        int connect_socket() override;
+        int connect_socket(const std::string &ip, int port) override;
         void blind_Socket() override;
         void listen_Socket() override;
         unsigned int get_fd() const override;

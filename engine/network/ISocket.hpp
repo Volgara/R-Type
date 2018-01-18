@@ -26,7 +26,7 @@ namespace engine {
 
         public:
             virtual void init_socket() = 0;
-            virtual int connect_socket() = 0;
+            virtual int connect_socket(const std::string &ip, int port) = 0;
             virtual void blind_Socket() = 0;
             virtual void listen_Socket() = 0;
             virtual unsigned int get_fd() const = 0;

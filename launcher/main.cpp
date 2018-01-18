@@ -123,7 +123,7 @@ int main(int ac, char **av) {
                         text.setOrigin(textRect.left + textRect.width/2.0f,
                                        textRect.top  + textRect.height/2.0f);
 
-                        mm.connect(config["ip"], 4242);
+                        mm.connect(config["ip"].get<std::string>(), 4242);
                         break;
                     case 1:
                         // play offline

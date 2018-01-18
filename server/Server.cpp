@@ -29,7 +29,6 @@ RType::Server::~Server() {
 void RType::Server::configure() {
     _socket = new engine::Network::Socket(engine::Network::SocketType::Tcp);
     _socket->init_socket();
-    _socket->connect_socket();
     _socket->blind_Socket();
     _socket->listen_Socket();
     _nbrPlayer = 0;

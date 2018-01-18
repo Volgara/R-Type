@@ -34,8 +34,8 @@ void engine::Network::Socket::init_socket() {
     _socket->init_socket();
 }
 
-int engine::Network::Socket::connect_socket() {
-    return (_socket->connect_socket());
+int engine::Network::Socket::connect_socket(const std::string &ip, int port) {
+    return (_socket->connect_socket(ip, port));
 }
 
 void engine::Network::Socket::blind_Socket() {

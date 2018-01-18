@@ -5,6 +5,7 @@
 
 #if defined(linux) || defined(__APPLE__)
 
+#include <memory.h>
 #include "UnixSocket.hpp"
 #include "networkException.hpp"
 
@@ -30,8 +31,24 @@ void engine::Network::UnixSocket::init_socket() {
     serv_addr.sin_port = htons(4242);
 }
 
-int engine::Network::UnixSocket::connect_socket() {
-    return 0;
+int engine::Network::UnixSocket::connect_socket(const std::string &ip, int port) {
+    struct sockaddr_in serv_addr;
+    struct hostent *server;
+
+    if (_socketType == Tcp)
+        fd = socket(AF_INET, SOCK_STREAM, 0);
+    else
+        throw NetworkException("UDP connect not implemented yet");
+    server = gethostbyname(ip.c_str());
+    if (server == NULL) {
+        throw NetworkException("No host found");
+    }
+    bzero((char *) &serv_addr, sizeof(serv_addr));
+    serv_addr.sin_family = AF_INET;
+    bcopy((char *)server->h_addr, (char *)&serv_addr.sin_addr.s_addr, server->h_length);
+    serv_addr.sin_port = htons(port);
+    if (connect(fd,(struct sockaddr *) &serv_addr,sizeof(serv_addr)) < 0)
+        throw NetworkException("Connect error");
 }
 
 void engine::Network::UnixSocket::blind_Socket() {
