@@ -7,10 +7,11 @@
 #define RTYPE_MATCHMAKING_HPP
 
 #include <string>
-class MatchMaking {
+#include <SFML/Graphics/Text.hpp>
+class Connection {
  public:
-  MatchMaking();
-  virtual ~MatchMaking();
+  Connection();
+  virtual ~Connection();
 
  public:
   bool connect(const std::string &ip, int port);

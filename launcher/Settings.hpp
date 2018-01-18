@@ -11,13 +11,12 @@
 
 class Settings : public Scene {
  public:
-  Settings();
+  Settings(std::string name, sf::RenderWindow *win);
   virtual ~Settings();
 
  public:
-  virtual void init();
-  virtual void render();
-  virtual void update();
+  void init() override;
+  void update() override;
 };
 
 #endif //RTYPE_SETTINGS_HPP

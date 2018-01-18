@@ -7,12 +7,23 @@
 #define RTYPE_SCENEMANAGER_HPP
 
 #include <string>
+#include <SFML/Graphics/RenderWindow.hpp>
 #include "Scene.hpp"
 class SceneManager {
  public:
   SceneManager();
   virtual ~SceneManager();
-  void addScene(std::string name, Scene *scene);
+  void addScene(Scene *scene);
+  Scene *getCurrentScene();
+
+ public:
+  std::vector<Scene *> _scenes;
+  int _currentScene;
+  bool isSwitchRequested();
+  void switchScene();
+  Scene *findScene(const std::string &search);
+  int findSceneIndex(const std::string &search);
+  void switchScene(const std::string &basic_string);
 };
 
 #endif //RTYPE_SCENEMANAGER_HPP

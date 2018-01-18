@@ -3,13 +3,53 @@
 ** Copyright (c) 2018 Armaldio - All rights reserved.            *
 *****************************************************************/
 
+#include <iostream>
 #include "SceneManager.hpp"
 SceneManager::SceneManager() {
-
+    this->_currentScene = 0;
 }
+
 SceneManager::~SceneManager() {
 
 }
-void SceneManager::addScene(std::string name, Scene *scene) {
 
+void SceneManager::addScene(Scene *scene) {
+    scene->init();
+    this->_scenes.push_back(scene);
+}
+
+Scene *SceneManager::getCurrentScene() {
+    return _scenes[this->_currentScene];
+}
+
+bool SceneManager::isSwitchRequested() {
+    return !this->getCurrentScene()->getRequestSwitch().empty();
+}
+void SceneManager::switchScene() {
+    std::string scene = this->getCurrentScene()->getRequestSwitch();
+    this->getCurrentScene()->setRequestSwitch("");
+    this->switchScene(scene);
+}
+Scene *SceneManager::findScene(const std::string &search) {
+    for (auto &scene : this->_scenes) {
+        if (scene->getName() == search)
+            return scene;
+    }
+    return nullptr;
+}
+
+int SceneManager::findSceneIndex(const std::string &search) {
+    int       i = 0;
+    for (auto &scene : this->_scenes) {
+        if (scene->getName() == search)
+            return i;
+    }
+    return -1;
+}
+void SceneManager::switchScene(const std::string &scene) {
+    int i = this->findSceneIndex(scene);
+    if (i != -1)
+        this->_currentScene = i;
+    else
+        std::cout << "Scene " << scene << " not found" << std::endl;
 }

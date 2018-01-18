@@ -5,7 +5,7 @@
 
 #include "Settings.hpp"
 
-Settings::Settings() {
+Settings::Settings(std::string name, sf::RenderWindow *win) : Scene(name, win)  {
 
 }
 Settings::~Settings() {
@@ -14,9 +14,7 @@ Settings::~Settings() {
 void Settings::init() {
 
 }
-void Settings::render() {
 
-}
 void Settings::update() {
 
 }
