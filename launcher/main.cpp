@@ -14,6 +14,9 @@
 #include <fstream>
 #include "json.hpp"
 #include "Connection.hpp"
+#include "SceneManager.hpp"
+#include "Settings.hpp"
+#include "Menu.hpp"
 
 using json = nlohmann::json;
 
@@ -21,6 +24,21 @@ int main(int ac, char **av) {
 
     // create the window
     sf::RenderWindow window(sf::VideoMode(800, 600), "RType Launcher", sf::Style::Titlebar | sf::Style::Close);
+    window.setMouseCursorVisible(false); // Hide cursor
+
+    sf::Texture texture;
+    texture.loadFromFile("assets/cursor.png");
+    sf::Sprite sprite(texture);
+
+    sf::View fixed = window.getView();
+
+    SceneManager sm;
+
+    AScene *menu     = new Menu();
+    AScene *settings = new Settings();
+
+    sm.addScene("menu", menu);
+    sm.addScene("settings", settings);
 
     sf::Texture texture1;
     sf::Texture texture2;
@@ -127,8 +145,8 @@ int main(int ac, char **av) {
 
                         textRect = text.getLocalBounds();
                         text.setPosition(sf::Vector2f(window.getSize().x / 2.0f, window.getSize().y - 35));
-                        text.setOrigin(textRect.left + textRect.width/2.0f,
-                                       textRect.top  + textRect.height/2.0f);
+                        text.setOrigin(textRect.left + textRect.width / 2.0f,
+                                       textRect.top + textRect.height / 2.0f);
 
                         mm.connect(config["ip"].get<std::string>(), 4242);
                         break;
@@ -159,6 +177,11 @@ int main(int ac, char **av) {
         selected.setPosition(sf::Vector2f((window.getSize().x / 2.0f) - (button1.getTexture()->getSize().x / 2.0f),
                                           250 + (selectedButtonIndex * 75)));
         window.draw(selected);
+
+
+        sprite.setPosition(sf::Vector2f(sf::Mouse::getPosition(window)));
+        window.setView(fixed);
+        window.draw(sprite);
 
         window.draw(text);
 
