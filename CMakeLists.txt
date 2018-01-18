@@ -86,7 +86,7 @@ set(network_unit_SOURCE_FILES)
 
 # Launcher
 set(launcher_SOURCE_FILES
-        launcher/main.cpp)
+        launcher/main.cpp launcher/MatchMaking.cpp launcher/MatchMaking.hpp)
 set(launcher_unit_SOURCE_FILES)
 
 # Link Module

@@ -9,6 +9,11 @@
 #include <SFML/Graphics/Texture.hpp>
 #include <iostream>
 #include <SFML/Graphics/Sprite.hpp>
+#include <fstream>
+#include "json.hpp"
+#include "MatchMaking.hpp"
+
+using json = nlohmann::json;
 
 int main(int ac, char **av) {
 
@@ -57,12 +62,18 @@ int main(int ac, char **av) {
 
     // Setting space and position for the sprites
 
-    button1.setPosition(sf::Vector2f((window.getSize().x / 2) - (button1.getTexture()->getSize().x / 2), 300));
-    button2.setPosition(sf::Vector2f((window.getSize().x / 2) - (button1.getTexture()->getSize().x / 2), 375));
-    button3.setPosition(sf::Vector2f((window.getSize().x / 2) - (button1.getTexture()->getSize().x / 2), 450));
-    button4.setPosition(sf::Vector2f((window.getSize().x / 2) - (button1.getTexture()->getSize().x / 2), 525));
+    button1.setPosition(sf::Vector2f((window.getSize().x / 2) - (button1.getTexture()->getSize().x / 2), 250));
+    button2.setPosition(sf::Vector2f((window.getSize().x / 2) - (button1.getTexture()->getSize().x / 2), 325));
+    button3.setPosition(sf::Vector2f((window.getSize().x / 2) - (button1.getTexture()->getSize().x / 2), 400));
+    button4.setPosition(sf::Vector2f((window.getSize().x / 2) - (button1.getTexture()->getSize().x / 2), 475));
 
     int selectedButtonIndex = 0;
+
+    // play online
+    MatchMaking   mm;
+    std::ifstream file("assets/server_config.json");
+    json          config;
+    file >> config;
 
 
     // run the program as long as the window is open
@@ -86,6 +97,24 @@ int main(int ac, char **av) {
                 else
                     selectedButtonIndex--;
             }
+
+            if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return) {
+                switch (selectedButtonIndex) {
+                    case 0:
+                        mm.connect(config["ip"]);
+                        break;
+                    case 1:
+                        // play offline
+                    case 2:
+                        // settings
+                        break;
+                    case 3:
+                        window.close();
+                        return (0);
+                    default:
+                        break;
+                }
+            }
         }
 
 
@@ -98,7 +127,7 @@ int main(int ac, char **av) {
         window.draw(button4);
 
         selected.setPosition(sf::Vector2f((window.getSize().x / 2) - (button1.getTexture()->getSize().x / 2),
-                                          300 + (selectedButtonIndex * 75)));
+                                          250 + (selectedButtonIndex * 75)));
         window.draw(selected);
 
 
