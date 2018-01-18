@@ -6,7 +6,17 @@
 #include <iostream>
 #include <cstring>
 #include <network/Socket.hpp>
+
+#ifdef _WIN32
+#include <winsock2.h>
+#include <Ws2tcpip.h>
+
+#endif
+#if defined(linux) || defined(__APPLE__)
 #include <sys/socket.h>
+
+#endif
+
 #include "GameManager.hpp"
 
 GameManager::GameManager() {
