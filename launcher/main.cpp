@@ -101,7 +101,7 @@ int main(int ac, char **av) {
             if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return) {
                 switch (selectedButtonIndex) {
                     case 0:
-                        mm.connect(config["ip"]);
+                        mm.connect(config["ip"], 4242);
                         break;
                     case 1:
                         // play offline

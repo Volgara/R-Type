@@ -13,7 +13,7 @@ class MatchMaking {
   virtual ~MatchMaking();
 
  public:
-  bool connect(const std::string &ip);
+  bool connect(const std::string &ip, int port);
 };
 
 #endif //RTYPE_MATCHMAKING_HPP

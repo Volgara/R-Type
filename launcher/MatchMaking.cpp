@@ -9,7 +9,7 @@ MatchMaking::MatchMaking() {}
 MatchMaking::~MatchMaking() {
 
 }
-bool MatchMaking::connect(const std::string &ip) {
-    std::cout << "Connecting to " << ip << ", please wait..." << std::endl;
+bool MatchMaking::connect(const std::string &ip, int port) {
+    std::cout << "Connecting to " << ip << ":" << port << ", please wait..." << std::endl;
     return false;
 }
