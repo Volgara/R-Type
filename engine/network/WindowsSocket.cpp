@@ -61,15 +61,15 @@ int engine::Network::WindowsSocket::connect_socket(const std::string &ip, int po
         throw NetworkException("getaddrinfo error");
     }
     fd = socket(result->ai_family, result->ai_socktype, result->ai_protocol);
-    if (ConnectSocket == INVALID_SOCKET) {
+    if (fd == INVALID_SOCKET) {
             WSACleanup();
             throw NetworkException("Socket creating failed");
         }
 
     iResult = connect(fd, result->ai_addr, (int)result->ai_addrlen);
     if (iResult == SOCKET_ERROR) {
-        closesocket(ConnectSocket);
-        ConnectSocket = INVALID_SOCKET;
+        closesocket(fd);
+        fd = INVALID_SOCKET;
         throw NetworkException("Connect failed");
     }
     return(fd);
