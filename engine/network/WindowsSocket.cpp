@@ -55,7 +55,7 @@ int engine::Network::WindowsSocket::connect_socket(const std::string &ip, int po
     hints.ai_socktype = SOCK_STREAM;
     hints.ai_protocol = IPPROTO_TCP;
 
-    int iResult = getaddrinfo(ip.c_str(), std::to_string(port), &hints, &result);
+    int iResult = getaddrinfo(ip.c_str(), std::to_string(port).c_str(), &hints, &result);
     if ( iResult != 0 ) {
         WSACleanup();
         throw NetworkException("getaddrinfo error");
