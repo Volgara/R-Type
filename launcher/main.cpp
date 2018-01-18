@@ -70,10 +70,10 @@ int main(int ac, char **av) {
 
     // Setting space and position for the sprites
 
-    button1.setPosition(sf::Vector2f((window.getSize().x / 2) - (button1.getTexture()->getSize().x / 2), 250));
-    button2.setPosition(sf::Vector2f((window.getSize().x / 2) - (button1.getTexture()->getSize().x / 2), 325));
-    button3.setPosition(sf::Vector2f((window.getSize().x / 2) - (button1.getTexture()->getSize().x / 2), 400));
-    button4.setPosition(sf::Vector2f((window.getSize().x / 2) - (button1.getTexture()->getSize().x / 2), 475));
+    button1.setPosition(sf::Vector2f((window.getSize().x / 2.0f) - (button1.getTexture()->getSize().x / 2.0f), 250));
+    button2.setPosition(sf::Vector2f((window.getSize().x / 2.0f) - (button1.getTexture()->getSize().x / 2.0f), 325));
+    button3.setPosition(sf::Vector2f((window.getSize().x / 2.0f) - (button1.getTexture()->getSize().x / 2.0f), 400));
+    button4.setPosition(sf::Vector2f((window.getSize().x / 2.0f) - (button1.getTexture()->getSize().x / 2.0f), 475));
     bg.setPosition(0, 0);
 
     int selectedButtonIndex = 0;
@@ -126,7 +126,7 @@ int main(int ac, char **av) {
                         text.setString(ss.str());
 
                         textRect = text.getLocalBounds();
-                        text.setPosition(window.getSize().x / 2, window.getSize().y - 35);
+                        text.setPosition(sf::Vector2f(window.getSize().x / 2.0f, window.getSize().y - 35));
                         text.setOrigin(textRect.left + textRect.width/2.0f,
                                        textRect.top  + textRect.height/2.0f);
 
@@ -156,7 +156,7 @@ int main(int ac, char **av) {
         window.draw(button3);
         window.draw(button4);
 
-        selected.setPosition(sf::Vector2f((window.getSize().x / 2) - (button1.getTexture()->getSize().x / 2),
+        selected.setPosition(sf::Vector2f((window.getSize().x / 2.0f) - (button1.getTexture()->getSize().x / 2.0f),
                                           250 + (selectedButtonIndex * 75)));
         window.draw(selected);
 
