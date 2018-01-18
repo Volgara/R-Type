@@ -7,12 +7,12 @@
 #define RTYPE_SCENEMANAGER_HPP
 
 #include <string>
-#include "AScene.hpp"
+#include "Scene.hpp"
 class SceneManager {
  public:
   SceneManager();
   virtual ~SceneManager();
-  void addScene(std::string name, AScene *scene);
+  void addScene(std::string name, Scene *scene);
 };
 
 #endif //RTYPE_SCENEMANAGER_HPP

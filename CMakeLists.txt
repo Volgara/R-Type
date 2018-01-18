@@ -89,8 +89,8 @@ set(launcher_SOURCE_FILES
         launcher/main.cpp
         launcher/Connection.cpp
         launcher/Connection.hpp
-        launcher/AScene.cpp
-        launcher/AScene.hpp
+        launcher/Scene.cpp
+        launcher/Scene.hpp
         launcher/SceneManager.cpp
         launcher/SceneManager.hpp
         launcher/Menu.cpp

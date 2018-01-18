@@ -10,6 +10,6 @@ SceneManager::SceneManager() {
 SceneManager::~SceneManager() {
 
 }
-void SceneManager::addScene(std::string name, AScene *scene) {
+void SceneManager::addScene(std::string name, Scene *scene) {
 
 }

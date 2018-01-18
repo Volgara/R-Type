@@ -34,11 +34,11 @@ int main(int ac, char **av) {
 
     SceneManager sm;
 
-    AScene *menu     = new Menu();
+    /*AScene *menu     = new Menu();
     AScene *settings = new Settings();
 
     sm.addScene("menu", menu);
-    sm.addScene("settings", settings);
+    sm.addScene("settings", settings);*/
 
     sf::Texture texture1;
     sf::Texture texture2;

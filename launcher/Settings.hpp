@@ -7,9 +7,9 @@
 #define RTYPE_SETTINGS_HPP
 
 #include "Settings.hpp"
-#include "AScene.hpp"
+#include "Scene.hpp"
 
-class Settings : public AScene {
+class Settings : public Scene {
  public:
   Settings();
   virtual ~Settings();

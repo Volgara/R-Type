@@ -3,16 +3,15 @@
 ** Copyright (c) 2018 Armaldio - All rights reserved.            *
 *****************************************************************/
 
-#ifndef RTYPE_MENU_HPP
-#define RTYPE_MENU_HPP
+#ifndef RTYPE_SCENE_HPP
+#define RTYPE_SCENE_HPP
 
-#include "Menu.hpp"
 #include "Scene.hpp"
 
-class Menu : public Scene {
+class Scene {
  public:
-  Menu();
-  virtual ~Menu();
+  Scene();
+  virtual ~Scene();
 
  public:
   virtual void init();
@@ -20,4 +19,4 @@ class Menu : public Scene {
   virtual void update();
 };
 
-#endif //RTYPE_MENU_HPP
+#endif //RTYPE_SCENE_HPP
