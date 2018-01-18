@@ -7,25 +7,31 @@
 #define RTYPE_ISOCKET_HPP
 
 #include <iostream>
+#include <core/ASystem.hpp>
 
-namespace RType
-{
-    class ISocket {
 
-    protected:
-        int         fd;
+namespace engine {
+    namespace Network{
+        enum SocketType {Tcp, Udp};
 
-    public:
-        enum OsType {Windows, Linux};
-        virtual ~ISocket() {};
+        class ISocket  : public core::ASystem {
 
-    public:
-        virtual void init_socket() = 0;
-        virtual int connect_socket() = 0;
-        virtual int blind_Socket() = 0;
-        virtual int listen_Socket() = 0;
-        virtual int get_fd() const = 0;
-    };
+        protected:
+            unsigned int         fd;
+            SocketType  _socketType;
+
+        public:
+            enum OsType {Windows, Linux};
+            virtual ~ISocket() {};
+
+        public:
+            virtual void init_socket() = 0;
+            virtual int connect_socket() = 0;
+            virtual void blind_Socket() = 0;
+            virtual void listen_Socket() = 0;
+            virtual unsigned int get_fd() const = 0;
+        };
+    }
 }
 
 #endif //RTYPE_ISOCKET_HPP

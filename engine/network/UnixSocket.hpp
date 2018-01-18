@@ -6,24 +6,34 @@
 #ifndef RTYPE_UNIXSOCKET_HPP
 #define RTYPE_UNIXSOCKET_HPP
 
+#if defined(linux) || defined(__APPLE__)
+
 #include "ISocket.hpp"
+#include <netdb.h>
+#include <netinet/in.h>
 
-namespace RType
-{
-    class UnixSocket : public ISocket{
-    public:
-        UnixSocket();
+namespace engine {
+    namespace Network{
+        class UnixSocket : public ISocket{
+        private:
+            struct sockaddr_in serv_addr;
+        public:
+            explicit UnixSocket(SocketType);
 
-        ~UnixSocket() override;
+            ~UnixSocket() override;
 
-        void init_socket();
-        int connect_socket();
-        int blind_Socket();
-        int listen_Socket();
-        int get_fd() const;
-    };
+            void init_socket() override;
+            int connect_socket() override;
+            void blind_Socket() override;
+            void listen_Socket() override;
+            unsigned int get_fd() const override;
+            void Init(void) override;
+            void onNotify(core::Message message) override;
+            void Update(float dt) override;
+        };
+    }
 }
 
-
+#endif // linux or apple
 
 #endif //RTYPE_UNIXSOCKET_HPP

@@ -7,24 +7,27 @@
 #define RTYPE_SOCKET_HPP
 
 #include "ISocket.hpp"
+#include "core/MessageBus.hpp"
 
-namespace RType
-{
-    class Socket : public ISocket {
-    public:
-        ISocket *_socket;
-
-    public:
-        Socket();
-        ~Socket() override;
-
-        void init_socket();
-        int connect_socket();
-        int blind_Socket();
-        int listen_Socket();
-        int get_fd() const;
-    };
+namespace engine {
+    namespace Network {
+        class Socket : public ISocket {
+        public:
+            ISocket *_socket;
+        public:
+            Socket(SocketType);
+            ~Socket() override;
+            void init_socket() override;
+            int connect_socket() override;
+            void blind_Socket() override;
+            void listen_Socket() override;
+            unsigned int get_fd() const override;
+            void send_data(char *);
+            void Init(void) override;
+            void onNotify(core::Message message) override;
+            void Update(float dt) override;
+        };
+    }
 }
-
 
 #endif //RTYPE_SOCKET_HPP
