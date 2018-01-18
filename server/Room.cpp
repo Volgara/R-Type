@@ -8,6 +8,7 @@
 
 RType::Room::Room(std::string name) {
     _name = name;
+    _gameStart = false;
 }
 
 bool RType::Room::join(Player *p) {
