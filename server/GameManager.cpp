@@ -29,18 +29,11 @@ GameManager::~GameManager() {
 
 bool GameManager::join(Player *p, std::string roomname) {
     if (p->getRoomStatus())
-    {
-        std::cout << "Error1" << std::endl;
         return (false);
-    }
 
     roomname.erase(0, 5);
     if (roomname.length() == 0)
-    {
-        std::cout << "Error2" << std::endl;
         return (false);
-    }
-
     for (auto it : _room)
     {
         if (strcmp(it->getName().c_str(), roomname.c_str()) == 0)
@@ -59,20 +52,21 @@ bool GameManager::join(Player *p, std::string roomname) {
             return(it->join(p));
         }
     }
-
-    std::cout << "Error3" << std::endl;
     return (false);
 }
 
 void GameManager::listRoom(Player *p) {
     std::string data = " ";
+    int a = 0;
     for (auto it : _room)
     {
+        if (a != 0)
+            data += "|";
         data += it->getName();
         data += ",";
         data += std::to_string(it->getNbrPlayer());
-        data += "|";
         std::cout << it->getName() << std::endl;
+        a += 1;
     }
     std::cout << "Data send: " << data << std::endl;
     send(p->getFd(), data.c_str(), data.size() + 1, 0);
