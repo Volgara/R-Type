@@ -13,11 +13,7 @@ RType::Room::Room(std::string name) {
 
 bool RType::Room::join(Player *p) {
     if (_player.size() >= 4 || _gameStart)
-    {
-        std::cout << "Error4" << std::endl;
         return false;
-    }
-
     std::cout << "[" << p->getId() << "]: " << "joined " << _name << std::endl;
     _player.push_back(p);
     return (true);
