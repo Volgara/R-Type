@@ -55,55 +55,24 @@ int engine::Network::WindowsSocket::connect_socket(const std::string &ip, int po
     hints.ai_socktype = SOCK_STREAM;
     hints.ai_protocol = IPPROTO_TCP;
 
-    // Resolve the server address and port
-    int iResult = getaddrinfo(ip.c_str(), "4242", &hints, &result);
+    int iResult = getaddrinfo(ip.c_str(), std::to_string(port), &hints, &result);
     if ( iResult != 0 ) {
         WSACleanup();
         throw NetworkException("getaddrinfo error");
     }
-    SOCKET ConnectSocket = socket(result->ai_family, result->ai_socktype, result->ai_protocol);
+    fd = socket(result->ai_family, result->ai_socktype, result->ai_protocol);
     if (ConnectSocket == INVALID_SOCKET) {
             WSACleanup();
             throw NetworkException("Socket creating failed");
         }
 
-    iResult = connect(ConnectSocket, result->ai_addr, (int)result->ai_addrlen);
+    iResult = connect(fd, result->ai_addr, (int)result->ai_addrlen);
     if (iResult == SOCKET_ERROR) {
         closesocket(ConnectSocket);
         ConnectSocket = INVALID_SOCKET;
         throw NetworkException("Connect failed");
     }
-    return(ConnectSocket);
-
-
-
-
-
-
-
-
-
-
-
-    struct sockaddr_in serv_addr;
-    struct hostent *server;
-
-    if (_socketType == Tcp)
-        fd = socket(AF_INET, SOCK_STREAM, 0);
-    else
-        throw NetworkException("UDP connect not implemented yet");
-    server = gethostbyname(ip.c_str());
-    if (server == NULL) {
-        throw NetworkException("No host found");
-    }
-    ZeroMemory(&serv_addr, sizeof(serv_addr));
-
-    serv_addr.sin_family = AF_INET;
-    //bcopy((char *)server->h_addr, (char *)&serv_addr.sin_addr.s_addr, server->h_length);
-    serv_addr.sin_port = htons(port);
-
-    if (connect(fd,(struct sockaddr *) &serv_addr,sizeof(serv_addr)) < 0)
-        throw NetworkException("Connect error");
+    return(fd);
 }
 
 void engine::Network::WindowsSocket::blind_Socket() {
