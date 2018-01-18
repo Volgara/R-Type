@@ -84,6 +84,14 @@ set(network_SOURCE_FILES engine/network/Socket.cpp
         engine/network/ISocket.hpp)
 set(network_unit_SOURCE_FILES)
 
+# Mygame
+set(mygame_SOURCE_FILES
+        game/BulletComponent.cpp
+        game/BulletComponent.hpp
+        game/BulletSystem.cpp
+        game/BulletSystem.hpp
+        game/Type.hpp)
+
 # Link Module
 
 set(client_MODULES
@@ -91,7 +99,8 @@ set(client_MODULES
         ${game_SOURCE_FILES}
         ${graphics_SOURCE_FILES}
         ${physics_SOURCE_FILES}
-        ${network_SOURCE_FILES})
+        ${network_SOURCE_FILES}
+        ${mygame_SOURCE_FILES})
 
 set(server_MODULES
         ${core_SOURCE_FILES}
@@ -124,7 +133,7 @@ find_package(Threads)
 find_package(SFML 2.4 COMPONENTS audio graphics window system) # find SFML
 
 # link libs
-#set(SFML_INCLUDE_DIR /usr/local/SFML)
+set(SFML_INCLUDE_DIR /usr/lib)
 if (SFML_FOUND)
     message("SFML LIBS: " ${SFML_LIBRARIES})
     message("SFML INCLUDES: " ${SFML_INCLUDE_DIR})

@@ -26,6 +26,7 @@ engine::core::ASystem *engine::core::Engine::getSystem(const std::string &system
  */
 void engine::core::Engine::Update(float dt) {
     // listen for events on the window
+    std::cout << "debug\n";
     for (auto system : _systems) {
         system.second->Update(dt);
     }
@@ -36,6 +37,14 @@ void engine::core::Engine::Update(float dt) {
  * Execute and Update windows
  */
 void engine::core::Engine::MainLoop(void) {
+        while (_gameRunning) {
+            const auto elapsed = _clock.getElapsedTime().asSeconds();
+            if (elapsed >= 1.0f / 60) {
+                Update(elapsed);
+                _clock.restart();
+            }
+        }
+    /*
 #ifdef GRAPHICS
     while (_gameRunning) {
         const auto elapsed = _clock.getElapsedTime().asSeconds();
@@ -59,11 +68,13 @@ void engine::core::Engine::MainLoop(void) {
         }
     }
 #endif
+     */
 }
 
 void engine::core::Engine::Init(void) {
     this->_gameRunning = true;
     this->_scene = new Scene();
+    /*
 #ifdef GRAPHICS
     _window.create(sf::VideoMode(800, 600), "toto");
 
@@ -76,6 +87,7 @@ void engine::core::Engine::Init(void) {
     auto *spriteComponent = _scene->CreateComponent(GRA_SPRITE);
     object->AddComponent(spriteComponent);
 #endif
+     */
 
     for (auto sys : _systems) {
         sys.second->Init();
