@@ -56,12 +56,12 @@ int engine::Network::WindowsSocket::connect_socket(const std::string &ip, int po
     hints.ai_protocol = IPPROTO_TCP;
 
     // Resolve the server address and port
-    iResult = getaddrinfo(ip.c_str(), port, &hints, &result);
+    int iResult = getaddrinfo(ip.c_str(), "4242", &hints, &result);
     if ( iResult != 0 ) {
         WSACleanup();
         throw NetworkException("getaddrinfo error");
     }
-    ConnectSocket = socket(result->ai_family, result->ai_socktype, result->ai_protocol);
+    SOCKET ConnectSocket = socket(result->ai_family, result->ai_socktype, result->ai_protocol);
     if (ConnectSocket == INVALID_SOCKET) {
             WSACleanup();
             throw NetworkException("Socket creating failed");
@@ -98,7 +98,7 @@ int engine::Network::WindowsSocket::connect_socket(const std::string &ip, int po
     }
     ZeroMemory(&serv_addr, sizeof(serv_addr));
     serv_addr.sin_family = AF_INET;
-    bcopy((char *)server->h_addr, (char *)&serv_addr.sin_addr.s_addr, server->h_length);
+    //bcopy((char *)server->h_addr, (char *)&serv_addr.sin_addr.s_addr, server->h_length);
     serv_addr.sin_port = htons(port);
     if (connect(fd,(struct sockaddr *) &serv_addr,sizeof(serv_addr)) < 0)
         throw NetworkException("Connect error");
