@@ -18,9 +18,9 @@
 
 #pragma comment (lib, "Ws2_32.lib")
 
-namespace RType
-{
-    class WindowsSocket : public ISocket {
+namespace engine {
+    namespace Network{
+        class WindowsSocket : public ISocket {
     private:
         WSADATA wsaData;
         struct addrinfo local;
@@ -36,8 +36,12 @@ namespace RType
         void blind_Socket() override;
         void listen_Socket() override;
         unsigned int get_fd() const override;
+        void Init(void) override;
+        void onNotify(core::Message message) override;
+        void Update(float dt) override;
     };
-};
+    }
+}
 
 #endif
 

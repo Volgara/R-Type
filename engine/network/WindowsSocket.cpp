@@ -8,15 +8,16 @@
 #include "WindowsSocket.hpp"
 #include "Exception.hpp"
 
-RType::WindowsSocket::WindowsSocket(SocketType type) {
+engine::Network::WindowsSocket::WindowsSocket(SocketType type) {
     _socketType = type;
 }
 
-RType::WindowsSocket::~WindowsSocket() {
+
+engine::Network::WindowsSocket::~WindowsSocket() {
 
 }
 
-void RType::WindowsSocket::init_socket() {
+void engine::Network::WindowsSocket::init_socket() {
     if (WSAStartup(MAKEWORD(2,2), &wsaData) != 0)
         throw NetworkException("WSAStartup failed");
 
@@ -43,11 +44,11 @@ void RType::WindowsSocket::init_socket() {
     }
 }
 
-int RType::WindowsSocket::connect_socket() {
+int engine::Network::WindowsSocket::connect_socket() {
     return 0;
 }
 
-void RType::WindowsSocket::blind_Socket() {
+void engine::Network::WindowsSocket::blind_Socket() {
     if (bind(fd, result->ai_addr, (int)result->ai_addrlen) == SOCKET_ERROR) {
         freeaddrinfo(result);
         closesocket(fd);
@@ -56,7 +57,7 @@ void RType::WindowsSocket::blind_Socket() {
     }
 }
 
-void RType::WindowsSocket::listen_Socket() {
+void engine::Network::WindowsSocket::listen_Socket() {
     if (_socketType == Tcp)
     {
         if (listen(fd, 100) == SOCKET_ERROR) {
@@ -67,8 +68,20 @@ void RType::WindowsSocket::listen_Socket() {
     }
 }
 
-unsigned int RType::WindowsSocket::get_fd() const {
+unsigned int engine::Network::WindowsSocket::get_fd() const {
     return fd;
+}
+
+void engine::Network::WindowsSocket::Init(void) {
+
+}
+
+void engine::Network::WindowsSocket::onNotify(engine::core::Message message) {
+
+}
+
+void engine::Network::WindowsSocket::Update(float dt) {
+
 }
 
 #endif
