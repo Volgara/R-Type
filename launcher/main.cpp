@@ -27,6 +27,7 @@ int main(int ac, char **av) {
     sf::Texture texture3;
     sf::Texture texture4;
     sf::Texture textureSelected;
+    sf::Texture textureBg;
 
     // Checking for loading errors
 
@@ -50,9 +51,13 @@ int main(int ac, char **av) {
         std::cout << "An error occurred." << std::endl;
     }
 
+    if (!textureBg.loadFromFile("assets/bg.png")) {
+        std::cout << "An error occurred." << std::endl;
+    }
+
     // Sprites declaration
 
-    sf::Sprite button1, button2, button3, button4, selected;
+    sf::Sprite button1, button2, button3, button4, selected, bg;
 
     // Setting the texture for the sprites
 
@@ -61,6 +66,7 @@ int main(int ac, char **av) {
     button3.setTexture(texture3);
     button4.setTexture(texture4);
     selected.setTexture(textureSelected);
+    bg.setTexture(textureBg);
 
     // Setting space and position for the sprites
 
@@ -68,6 +74,7 @@ int main(int ac, char **av) {
     button2.setPosition(sf::Vector2f((window.getSize().x / 2) - (button1.getTexture()->getSize().x / 2), 325));
     button3.setPosition(sf::Vector2f((window.getSize().x / 2) - (button1.getTexture()->getSize().x / 2), 400));
     button4.setPosition(sf::Vector2f((window.getSize().x / 2) - (button1.getTexture()->getSize().x / 2), 475));
+    bg.setPosition(0, 0);
 
     int selectedButtonIndex = 0;
 
@@ -143,6 +150,7 @@ int main(int ac, char **av) {
         // clear the window with black color
         window.clear(sf::Color::Black);
 
+        window.draw(bg);
         window.draw(button1);
         window.draw(button2);
         window.draw(button3);
