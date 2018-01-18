@@ -45,6 +45,46 @@ void engine::Network::WindowsSocket::init_socket() {
 }
 
 int engine::Network::WindowsSocket::connect_socket(const std::string &ip, int port) {
+    struct addrinfo *result = NULL, hints;
+
+    if (WSAStartup(MAKEWORD(2,2), &wsaData) != 0)
+        throw NetworkException("WSAStartup error");
+
+    ZeroMemory( &hints, sizeof(hints) );
+    hints.ai_family = AF_UNSPEC;
+    hints.ai_socktype = SOCK_STREAM;
+    hints.ai_protocol = IPPROTO_TCP;
+
+    // Resolve the server address and port
+    iResult = getaddrinfo(ip.c_str(), port, &hints, &result);
+    if ( iResult != 0 ) {
+        WSACleanup();
+        throw NetworkException("getaddrinfo error");
+    }
+    ConnectSocket = socket(result->ai_family, result->ai_socktype, result->ai_protocol);
+    if (ConnectSocket == INVALID_SOCKET) {
+            WSACleanup();
+            throw NetworkException("Socket creating failed");
+        }
+
+    iResult = connect(ConnectSocket, result->ai_addr, (int)result->ai_addrlen);
+    if (iResult == SOCKET_ERROR) {
+        closesocket(ConnectSocket);
+        ConnectSocket = INVALID_SOCKET;
+        throw NetworkException("Connect failed");
+    }
+    return(ConnectSocket);
+
+
+
+
+
+
+
+
+
+
+
     struct sockaddr_in serv_addr;
     struct hostent *server;
 
