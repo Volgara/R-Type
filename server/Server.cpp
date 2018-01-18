@@ -65,12 +65,15 @@ DWORD RType::Server::ThreadFunc() {
             std::cout << "[" << player->getId() << "]: " << buffer << std::endl;
         if (strncmp(buffer, "list", 4) == 0)
             _gameManager->listRoom(player);
-        if (strncmp(buffer, "join", 4) == 0)
+        else if (strncmp(buffer, "join", 4) == 0)
             if (!_gameManager->join(player, buffer))
+            {
                 std::cout << "Failed to " << buffer << std::endl;
-        if (strncmp(buffer, "start", 5) == 0)
-            return 1;
+                send(player->getFd(), "ko", 3, 0);
+            }
 
+        else
+            send(player->getFd(), "ok", 3, 0);
     }
     return(1);
 }
@@ -97,7 +100,11 @@ void RType::Server::ThreadFunct() {
         memset(&buffer, 0, 256);
         a = recv(player->getFd(), buffer, 256, 0);
         if (a <= 0)
+        {
             std::cout << "[" << player->getId() << "]: Disconnected" << std::endl;
+            if (player->getRoomStatus())
+                _gameManager->leave(player);
+        }
         else
             std::cout << "[" << player->getId() << "]: " << buffer << std::endl;
         if (strncmp(buffer, "list", 4) == 0)
