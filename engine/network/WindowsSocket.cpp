@@ -5,6 +5,10 @@
 
 #ifdef _WIN32
 
+#include <io.h>
+#include <winsock2.h>
+#include <Ws2tcpip.h>
+#include <stdio.h>
 #include "WindowsSocket.hpp"
 #include "networkException.hpp"
 
@@ -112,14 +116,13 @@ void engine::Network::WindowsSocket::Update(float dt) {
 }
 
 void engine::Network::WindowsSocket::write_socket(const char *data) {
-    write(fd, data, strlen(data));
-
+    send(fd, data, strlen(data), 0);
 }
 
 std::string engine::Network::WindowsSocket::read_socket() {
     std::string res;
     char data[512];
-    read(fd, data, 512);
+    recv(fd, data, 512, 0);
     res = data;
     return(res);
 }

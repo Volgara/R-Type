@@ -17,5 +17,9 @@ bool MatchMaking::connect(const std::string &ip, int port) {
     engine::Network::Socket *sok = new engine::Network::Socket(engine::Network::Tcp);
 
     sok->connect_socket(ip, port);
+
+    sok->write_socket("blblbl");
+    std::string data = sok->read_socket();
+    std::cout << "data: " << data << std::endl;
     return false;
 }

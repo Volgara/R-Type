@@ -14,7 +14,7 @@ std::function<void (engine::core::Message)> engine::core::BusNode::getNotifyFunc
     return messageListener;
 }
 
-void engine::core::BusNode::send(engine::core::Message message) {
+void engine::core::BusNode::sendMsg(engine::core::Message message) {
     this->_messageBus->sendMessage(message);
 }
 
