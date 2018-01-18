@@ -84,6 +84,11 @@ set(network_SOURCE_FILES engine/network/Socket.cpp
         engine/network/ISocket.hpp)
 set(network_unit_SOURCE_FILES)
 
+# Launcher
+set(launcher_SOURCE_FILES
+        launcher/main.cpp)
+set(launcher_unit_SOURCE_FILES)
+
 # Link Module
 
 set(client_MODULES
@@ -114,7 +119,9 @@ add_executable(client ${client_SOURCE_FILES})
 set_target_properties(client PROPERTIES COMPILE_DEFINITIONS GRAPHICS=1)
 # server
 add_executable(server ${server_SOURCE_FILES})
-#add_executable(testGraphics ${graphics_SOURCE_FILES})
+
+#launcher
+add_executable(launcher ${launcher_SOURCE_FILES})
 
 # init linkage variable
 set(SFML_STATIC_LIBRARIES False)
@@ -130,6 +137,7 @@ if (SFML_FOUND)
     message("SFML INCLUDES: " ${SFML_INCLUDE_DIR})
 
     target_link_libraries(client ${SFML_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
+    target_link_libraries(launcher ${SFML_LIBRARIES})
 
     # includes dir libs
     include_directories(${SFML_INCLUDE_DIR})
@@ -138,7 +146,6 @@ else ()
 endif (SFML_FOUND)
 
 target_link_libraries(server ${SFML_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
-#target_link_libraries(testGraphics ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
 # includes dir libs
 include_directories(${SFML_INCLUDE_DIR})
 # unit test
@@ -194,3 +201,4 @@ macro(resource_dirs dirs)
 endmacro()
 
 resource_dirs(client/assets)
+resource_dirs(launcher/assets)
