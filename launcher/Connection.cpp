@@ -4,12 +4,18 @@
 *****************************************************************/
 
 #include <iostream>
-#include "MatchMaking.hpp"
+#include "Connection.hpp"
+#include "../engine/network/Socket.hpp"
+
 MatchMaking::MatchMaking() {}
 MatchMaking::~MatchMaking() {
 
 }
 bool MatchMaking::connect(const std::string &ip, int port) {
     std::cout << "Connecting to " << ip << ":" << port << ", please wait..." << std::endl;
+
+    engine::Network::Socket sok(engine::Network::Tcp);
+
+    sok.connect_socket();
     return false;
 }

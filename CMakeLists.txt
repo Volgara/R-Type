@@ -86,7 +86,7 @@ set(network_unit_SOURCE_FILES)
 
 # Launcher
 set(launcher_SOURCE_FILES
-        launcher/main.cpp launcher/MatchMaking.cpp launcher/MatchMaking.hpp)
+        launcher/main.cpp launcher/Connection.cpp launcher/Connection.hpp)
 set(launcher_unit_SOURCE_FILES)
 
 # Link Module
@@ -132,7 +132,7 @@ set_target_properties(client PROPERTIES COMPILE_DEFINITIONS GRAPHICS=1)
 add_executable(server ${server_SOURCE_FILES})
 
 #launcher
-add_executable(launcher ${launcher_SOURCE_FILES})
+add_executable(launcher ${launcher_SOURCE_FILES} ${network_SOURCE_FILES} ${core_SOURCE_FILES} ${physics_SOURCE_FILES})
 
 # init linkage variable
 set(SFML_STATIC_LIBRARIES False)

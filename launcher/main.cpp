@@ -7,11 +7,13 @@
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Texture.hpp>
+#include <SFML/Graphics/Font.hpp>
+#include <SFML/Graphics/Text.hpp>
 #include <iostream>
 #include <SFML/Graphics/Sprite.hpp>
 #include <fstream>
 #include "json.hpp"
-#include "MatchMaking.hpp"
+#include "Connection.hpp"
 
 using json = nlohmann::json;
 
@@ -75,6 +77,16 @@ int main(int ac, char **av) {
     json          config;
     file >> config;
 
+    sf::Font font;
+    if (!font.loadFromFile("assets/arial.ttf")) {
+        std::cout << "Cannot load ARIAL font" << std::endl;
+    }
+    sf::Text text;
+
+    text.setFont(font);
+    text.setCharacterSize(24);
+    text.setFillColor(sf::Color::White);
+    sf::FloatRect textRect;
 
     // run the program as long as the window is open
     while (window.isOpen()) {
@@ -99,8 +111,18 @@ int main(int ac, char **av) {
             }
 
             if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return) {
+                std::stringstream ss;
+
                 switch (selectedButtonIndex) {
                     case 0:
+                        ss << "Connecting to " << config["ip"].get<std::string>() << "...";
+                        text.setString(ss.str());
+
+                        textRect = text.getLocalBounds();
+                        text.setPosition(window.getSize().x / 2, window.getSize().y - 35);
+                        text.setOrigin(textRect.left + textRect.width/2.0f,
+                                       textRect.top  + textRect.height/2.0f);
+
                         mm.connect(config["ip"], 4242);
                         break;
                     case 1:
@@ -130,6 +152,7 @@ int main(int ac, char **av) {
                                           250 + (selectedButtonIndex * 75)));
         window.draw(selected);
 
+        window.draw(text);
 
         // end the current frame
         window.display();
