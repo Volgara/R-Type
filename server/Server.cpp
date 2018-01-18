@@ -101,7 +101,7 @@ void RType::Server::ThreadFunct() {
         else
             std::cout << "[" << player->getId() << "]: " << buffer << std::endl;
         if (strncmp(buffer, "list", 4) == 0)
-            _gameManager->listRoom();
+            _gameManager->listRoom(player);
         if (strncmp(buffer, "join", 4) == 0)
             if (!_gameManager->join(player, buffer))
                 std::cout << "Failed to " << buffer << std::endl;

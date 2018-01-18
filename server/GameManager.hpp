@@ -17,7 +17,7 @@ public:
     GameManager();
     ~GameManager();
     bool join(Player *, std::string);
-    void listRoom();
+    void listRoom(Player *);
     bool start(std::string roomName);
     bool leave(Player *);
 };

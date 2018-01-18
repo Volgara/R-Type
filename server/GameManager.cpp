@@ -6,6 +6,7 @@
 #include <iostream>
 #include <cstring>
 #include <network/Socket.hpp>
+#include <sys/socket.h>
 #include "GameManager.hpp"
 
 GameManager::GameManager() {
@@ -43,11 +44,18 @@ bool GameManager::join(Player *p, std::string roomname) {
     return (false);
 }
 
-void GameManager::listRoom() {
+void GameManager::listRoom(Player *p) {
+    std::string data = " ";
     for (auto it : _room)
     {
+        data += it->getName();
+        data += ",";
+        data += it->getNbrPlayer();
+        data += "|";
         std::cout << it->getName() << std::endl;
     }
+    std::cout << "Data send: " << data << std::endl;
+    send(p->getFd(), data.c_str(), data.size(), 0);
 }
 
 bool GameManager::start(std::string roomName) {
