@@ -20,7 +20,7 @@ namespace engine {
 
         protected:
             std::function<void (Message)> getNotifyFunc();
-            void send(Message message);
+            void sendMsg(Message message);
 
             virtual void onNotify(Message message) = 0;
         };

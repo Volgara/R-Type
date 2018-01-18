@@ -18,7 +18,7 @@ void engine::physics::PhysicsSystem::Update(float dt) {
     this->_debugCheck = 0;
     if (dt == 1) {
         engine::core::Message message(engine::core::MessageID::COLLISION);
-        send(message);
+        sendMsg(message);
         return;
     }
     this->clearMap();
