@@ -66,3 +66,11 @@ void engine::Network::Socket::Update(float dt) {
 
 }
 
+void engine::Network::Socket::write_socket(const char *data) {
+    _socket->write_socket(data);
+}
+
+std::string engine::Network::Socket::read_socket() {
+    return(_socket->read_socket());
+}
+

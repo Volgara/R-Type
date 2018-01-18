@@ -30,6 +30,9 @@ namespace engine {
             virtual void blind_Socket() = 0;
             virtual void listen_Socket() = 0;
             virtual unsigned int get_fd() const = 0;
+            virtual void write_socket(const char *) = 0;
+            virtual std::string read_socket() = 0;
+
         };
     }
 }

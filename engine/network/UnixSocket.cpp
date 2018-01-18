@@ -6,6 +6,7 @@
 #if defined(linux) || defined(__APPLE__)
 
 #include <memory.h>
+#include <zconf.h>
 #include "UnixSocket.hpp"
 #include "networkException.hpp"
 
@@ -80,6 +81,19 @@ void engine::Network::UnixSocket::onNotify(engine::core::Message message) {
 
 void engine::Network::UnixSocket::Update(float dt) {
 
+}
+
+void engine::Network::UnixSocket::write_socket(const char *data) {
+    write(fd, data, strlen(data));
+
+}
+
+std::string engine::Network::UnixSocket::read_socket() {
+    std::string res;
+    char data[512];
+    read(fd, data, 512);
+    res = data;
+    return(res);
 }
 
 #endif // linux and apple

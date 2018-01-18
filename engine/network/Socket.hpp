@@ -26,6 +26,8 @@ namespace engine {
             void Init(void) override;
             void onNotify(core::Message message) override;
             void Update(float dt) override;
+            void write_socket(const char *) override;
+            std::string read_socket() override;
         };
     }
 }
