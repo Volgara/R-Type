@@ -28,6 +28,11 @@ namespace engine {
             void Update(float dt) override;
             void write_socket(std::string) override;
             std::string read_socket() override;
+
+        private:
+            #if defined(linux) || defined(__APPLE__)
+            struct pollfd *poll_fd;
+            #endif
         };
     }
 }

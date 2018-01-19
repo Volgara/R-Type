@@ -4,6 +4,10 @@
 //
 
 #include <cstring>
+#if defined(linux) || defined(__APPLE__)
+#include <sys/poll.h>
+
+#endif
 #include "Socket.hpp"
 #include "WindowsSocket.hpp"
 #include "UnixSocket.hpp"
@@ -18,11 +22,18 @@ engine::Network::Socket::Socket(engine::Network::SocketType type) {
 #ifdef linux
     std::cout << "Running on linux" << std::endl;
     _socket = (ISocket *) new UnixSocket(type);
+    poll_fd = (pollfd * )malloc(sizeof(struct pollfd) * 1);
+    poll_fd[0].fd = this->get_fd();
+    poll_fd[0].events = POLLIN | POLLOUT;
+
 #endif
 
 #ifdef __APPLE__
     std::cout << "Runnin on Macos" << std::endl;
     _socket = (ISocket *) new UnixSocket(type);
+    poll_fd = (pollfd * )malloc(sizeof(struct pollfd) * 1);
+    poll_fd[0].fd = this->get_fd();
+    poll_fd[0].events = POLLIN | POLLOUT;
 #endif
 }
 
@@ -59,7 +70,16 @@ void engine::Network::Socket::Init(void) {
 }
 
 void engine::Network::Socket::onNotify(engine::core::Message message) {
+    #if defined(linux) || defined(__APPLE__)
+    char buffer[256];
+    poll(poll_fd, 1, 500);
+    if (poll_fd[0].revents & POLLIN)
+    {
+        recv(this->get_fd(), buffer, 256, 0);
+        //engine::core::Message msg();
 
+    }
+    #endif
 }
 
 void engine::Network::Socket::Update(float dt) {
