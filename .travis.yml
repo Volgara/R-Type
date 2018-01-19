@@ -1,6 +1,8 @@
 sudo: required
 before_install:
 #  - sudo apt-get install libao-dev
+
+sudo: required
   
 # Enable C++ support
 language: cpp
@@ -34,6 +36,12 @@ install:
   
   # Go to the Root directory  
   - cd ..
+
+before_script:
+  - wget https://www.sfml-dev.org/files/SFML-2.4.2-linux-gcc-64-bit.tar.gz -O /tmp/sfml.tar.gz
+  - tar -xvf /tmp/sfml.tar.gz
+  - sudo cp -r SFML-2.4.2/* /usr/
+  - sudo apt-get install -y libjpeg62-dev libsndfile1-dev libglew1.5 libglew1.5-dev libfreetype6 libjpeg-turbo8 libjpeg8 libopenal-data libopenal1  libxrandr2 libxrender1 libsoil1 libxcb-image0 libxcb-randr0 libudev1
 
 before_install:
   - sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
