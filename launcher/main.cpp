@@ -14,6 +14,7 @@
 #include "SceneManager.hpp"
 #include "Settings.hpp"
 #include "Menu.hpp"
+#include "Lobby.hpp"
 #include "ServerList.hpp"
 
 int main(int ac, char **av) {
@@ -32,20 +33,24 @@ int main(int ac, char **av) {
     if (!textureBg.loadFromFile("assets/bg.png")) {
         std::cout << "An error occurred." << std::endl;
     }
-    sf::Sprite  bg(textureBg);
+    sf::Sprite bg(textureBg);
     bg.setPosition(0, 0);
 
     sf::View fixed = window.getView();
 
     SceneManager sm;
 
+    sm.connection = new Connection();
+
     Menu       menu("menu", &window);
     Settings   settings("settings", &window);
     ServerList serverList("serverList", &window);
+    Lobby      lobby("lobby", &window);
 
     sm.addScene(&menu);
     sm.addScene(&settings);
     sm.addScene(&serverList);
+    sm.addScene(&lobby);
 
     sm.switchScene("menu");
 

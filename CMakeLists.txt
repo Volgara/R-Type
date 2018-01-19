@@ -98,7 +98,12 @@ set(launcher_SOURCE_FILES
         launcher/Settings.cpp
         launcher/Settings.hpp
         launcher/ServerList.cpp
-        launcher/ServerList.hpp launcher/Helper.cpp launcher/Helper.hpp)
+        launcher/ServerList.hpp
+        launcher/Lobby.cpp
+        launcher/Lobby.hpp
+        launcher/Helper.cpp
+        launcher/Helper.hpp
+        launcher/Room.cpp launcher/Room.hpp)
 
 set(launcher_unit_SOURCE_FILES)
 

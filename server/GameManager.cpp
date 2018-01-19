@@ -23,9 +23,9 @@ GameManager::GameManager() {
     RType::Room *newRoom = new RType::Room("Room1");
     _room.push_back(newRoom);
     RType::Room *newRoom2 = new RType::Room("Room2");
-    _room.push_back(newRoom);
-    RType::Room *newRoom3 = new RType::Room("cara#~#{#[#|");
-    _room.push_back(newRoom);
+    _room.push_back(newRoom2);
+    RType::Room *newRoom3 = new RType::Room("cara#~#{#[#");
+    _room.push_back(newRoom3);
 }
 
 GameManager::~GameManager() {
@@ -61,7 +61,7 @@ bool GameManager::join(Player *p, std::string roomname) {
 }
 
 void GameManager::listRoom(Player *p) {
-    std::string data = " ";
+    std::string data = "";
     int a = 0;
     for (auto it : _room)
     {

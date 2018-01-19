@@ -7,20 +7,21 @@
 #include "Connection.hpp"
 #include "../engine/network/Socket.hpp"
 #include "../engine/network/networkException.hpp"
+#include "Room.hpp"
 
-Connection::Connection(const std::string &ip, int port) {
-    std::cout << "Registering Connection to " << ip << ":" << port << std::endl;
-
-    this->_ip   = ip;
-    this->_port = port;
+Connection::Connection() {
     sok = new engine::Network::Socket(engine::Network::Tcp);
 
 }
 Connection::~Connection() {
 }
 
-bool Connection::connect() {
+bool Connection::connect(const std::string &ip, int port) {
+    this->_ip   = ip;
+    this->_port = port;
+
     std::cout << "Connecting to " << this->_ip << ":" << this->_port << std::endl;
+
     try {
         sok->connect_socket(this->_ip, this->_port);
         std::cout << "Success!" << std::endl;
@@ -37,7 +38,16 @@ std::string Connection::getList() {
 }
 
 std::string Connection::createAndJoin(const std::string &str) {
+    std::cout << "Joining " << str << " room." << std::endl;
     sok->write_socket("join " + str);
     std::string res = sok->read_socket();
     return res;
+}
+void Connection::addRoomFound(const std::string &name, int nbPlayers) {
+    std::cout << "Adding room: " << name << ", " << nbPlayers << std::endl;
+    Room r(name, nbPlayers);
+    this->_roomsFound.push_back(r);
+}
+void Connection::emptyRoomsFound() {
+    this->_roomsFound.empty();
 }

@@ -65,15 +65,12 @@ void Menu::menuSelection(int index) {
             text.setString(ss.str());
             centerText(text);
 
-            this->_connection = new Connection(config["ip"].get<std::string>(), 4242);
-            if (!this->_connection->connect()) {
+            if (!this->_connection->connect(config["ip"].get<std::string>(), 4242)) {
                 text.setString("Server unreachable, please try again later...");
                 centerText(text);
             } else {
                 text.setString("Server found, entering lobby");
                 centerText(text);
-
-                std::cout << "Server availables: " << this->_connection->getList() << std::endl;
 
                 requestSceneSwitch("serverList");
             }
