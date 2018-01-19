@@ -14,16 +14,7 @@ Scene::Scene(std::string name, sf::RenderWindow *win) {
 Scene::~Scene() {
 
 }
-void Scene::init() {
 
-}
-
-void Scene::update() {
-
-}
-void Scene::onEvent(sf::Event &event) {
-
-}
 const std::string &Scene::getName() const {
     return _name;
 }

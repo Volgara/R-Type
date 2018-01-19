@@ -20,9 +20,6 @@ Menu::~Menu() {
 }
 
 void Menu::onEvent(sf::Event &event) {
-    if (event.type == sf::Event::Closed)
-        this->_win->close();
-
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
         if (this->selectedButtonIndex == 3)
             this->selectedButtonIndex = 0;
@@ -59,7 +56,7 @@ void Menu::onEvent(sf::Event &event) {
             case 1:
                 // play offline
             case 2:
-                // settings
+                this->requestSceneSwitch("settings");
                 break;
             case 3:
                 this->_win->close();
@@ -90,9 +87,6 @@ void Menu::init() {
         std::cout << "An error occurred." << std::endl;
     }
 
-    if (!textureBg.loadFromFile("assets/bg.png")) {
-        std::cout << "An error occurred." << std::endl;
-    }
 
 
     // Setting the texture for the sprites
@@ -102,7 +96,6 @@ void Menu::init() {
     button3.setTexture(texture3);
     button4.setTexture(texture4);
     selected.setTexture(textureSelected);
-    bg.setTexture(textureBg);
 
     // Setting space and position for the sprites
 
@@ -114,7 +107,6 @@ void Menu::init() {
                                      400));
     button4.setPosition(sf::Vector2f((this->_win->getSize().x / 2.0f) - (button1.getTexture()->getSize().x / 2.0f),
                                      475));
-    bg.setPosition(0, 0);
 
     this->selectedButtonIndex = 0;
 
@@ -131,7 +123,6 @@ void Menu::init() {
 }
 
 void Menu::update() {
-    this->_win->draw(bg);
     this->_win->draw(button1);
     this->_win->draw(button2);
     this->_win->draw(button3);

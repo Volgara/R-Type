@@ -30,8 +30,8 @@ class Menu : public Scene {
  private:
   int selectedButtonIndex;
 
-  sf::Texture texture1, texture2, texture3, texture4, textureSelected, textureBg;
-  sf::Sprite  button1, button2, button3, button4, selected, bg;
+  sf::Texture texture1, texture2, texture3, texture4, textureSelected;
+  sf::Sprite  button1, button2, button3, button4, selected;
 
   nlohmann::json config;
   sf::Font       font;

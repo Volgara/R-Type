@@ -14,6 +14,7 @@
 #include "SceneManager.hpp"
 #include "Settings.hpp"
 #include "Menu.hpp"
+#include "ServerList.hpp"
 
 int main(int ac, char **av) {
 
@@ -22,26 +23,44 @@ int main(int ac, char **av) {
     window.setMouseCursorVisible(false); // Hide cursor
 
     sf::Texture texture;
-    texture.loadFromFile("assets/cursor.png");
+    if (!texture.loadFromFile("assets/cursor.png")) {
+        std::cout << "An error occurred." << std::endl;
+    }
     sf::Sprite sprite(texture);
+
+    sf::Texture textureBg;
+    if (!textureBg.loadFromFile("assets/bg.png")) {
+        std::cout << "An error occurred." << std::endl;
+    }
+    sf::Sprite  bg(textureBg);
+    bg.setPosition(0, 0);
 
     sf::View fixed = window.getView();
 
     SceneManager sm;
 
-    Menu menu("menu", &window);
-    //Scene *settings = new Settings("menu", &window);
+    Menu       menu("menu", &window);
+    Settings   settings("settings", &window);
+    ServerList serverList("serverList", &window);
 
     sm.addScene(&menu);
-    //sm.addScene(settings);
+    sm.addScene(&settings);
+    sm.addScene(&serverList);
+
+    sm.switchScene("settings");
 
     while (window.isOpen()) {
-        sf::Event event;
+        sf::Event event{};
         while (window.pollEvent(event)) {
+            if (event.type == sf::Event::Closed)
+                window.close();
+
             sm.getCurrentScene()->onEvent(event);
         }
 
         window.clear(sf::Color::Black);
+
+        window.draw(bg);
 
         sm.getCurrentScene()->update();
 

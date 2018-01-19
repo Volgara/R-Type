@@ -17,9 +17,9 @@ class Scene {
 
   void setRequestSwitch(const std::string &string);
  public:
-  virtual void init();
-  virtual void update();
-  virtual void onEvent(sf::Event &event);
+  virtual void init() = 0;
+  virtual void update() = 0;
+  virtual void onEvent(sf::Event &event) = 0;
 
  public:
   const std::string &getName() const;

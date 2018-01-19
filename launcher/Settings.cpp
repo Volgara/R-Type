@@ -18,3 +18,6 @@ void Settings::init() {
 void Settings::update() {
 
 }
+void Settings::onEvent(sf::Event &event) {
+
+}

@@ -17,6 +17,7 @@ class Settings : public Scene {
  public:
   void init() override;
   void update() override;
+  void onEvent(sf::Event &event);
 };
 
 #endif //RTYPE_SETTINGS_HPP
