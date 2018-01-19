@@ -5,7 +5,7 @@
 
 #include "Scene.hpp"
 
-Scene::Scene(std::string name, sf::RenderWindow *win) {
+Scene::Scene(const std::string &name, sf::RenderWindow *win) {
     this->_name = name;
     this->_win = win;
     this->_requestSwitch = "";
@@ -26,4 +26,7 @@ const std::string &Scene::getRequestSwitch() {
 }
 void Scene::setRequestSwitch(const std::string &string) {
     this->_requestSwitch = string;
+}
+void Scene::setConnection(Connection *connection) {
+    this->_connection = connection;
 }

@@ -47,7 +47,7 @@ int main(int ac, char **av) {
     sm.addScene(&settings);
     sm.addScene(&serverList);
 
-    sm.switchScene("settings");
+    sm.switchScene("menu");
 
     while (window.isOpen()) {
         sf::Event event{};

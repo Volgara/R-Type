@@ -10,8 +10,9 @@
 #include "Menu.hpp"
 #include "Connection.hpp"
 #include "json.hpp"
+#include "Helper.hpp"
 
-Menu::Menu(std::string name, sf::RenderWindow *win) : Scene(name, win) {
+Menu::Menu(const std::string &name, sf::RenderWindow *win) : Scene(name, win) {
 
 }
 
@@ -35,34 +36,57 @@ void Menu::onEvent(sf::Event &event) {
     }
 
     if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return) {
-        std::stringstream ss;
+        menuSelection(this->selectedButtonIndex);
+    }
 
-        switch (this->selectedButtonIndex) {
-            case 0:
-                ss << "Connecting to " << config["ip"].get<std::string>() << "...";
-                text.setString(ss.str());
-                this->centerText(text);
+    if (Helper::isMouseHover(button1, *this->_win))
+        this->selectedButtonIndex = 0;
+    if (Helper::isMouseHover(button2, *this->_win))
+        this->selectedButtonIndex = 1;
+    if (Helper::isMouseHover(button3, *this->_win))
+        this->selectedButtonIndex = 2;
+    if (Helper::isMouseHover(button4, *this->_win))
+        this->selectedButtonIndex = 3;
 
-                if (!mm.connect(config["ip"].get<std::string>(), 4242)) {
-                    text.setString("Server unreachable, please try again later...");
-                    this->centerText(text);
-                } else {
-                    text.setString("Server found, entering lobby");
-                    this->centerText(text);
+    if (Helper::isSpriteClicked(button1, *this->_win))
+        menuSelection(0);
+    if (Helper::isSpriteClicked(button2, *this->_win))
+        menuSelection(1);
+    if (Helper::isSpriteClicked(button3, *this->_win))
+        menuSelection(2);
+    if (Helper::isSpriteClicked(button4, *this->_win))
+        menuSelection(3);
+}
+void Menu::menuSelection(int index) {
+    std::stringstream ss;
+    switch (index) {
+        case 0:
+            ss << "Connecting to " << config["ip"].get<std::string>() << "...";
+            text.setString(ss.str());
+            centerText(text);
 
-                    this->requestSceneSwitch("serverList");
-                }
-                break;
-            case 1:
-                // play offline
-            case 2:
-                this->requestSceneSwitch("settings");
-                break;
-            case 3:
-                this->_win->close();
-            default:
-                break;
-        }
+            this->_connection = new Connection(config["ip"].get<std::string>(), 4242);
+            if (!this->_connection->connect()) {
+                text.setString("Server unreachable, please try again later...");
+                centerText(text);
+            } else {
+                text.setString("Server found, entering lobby");
+                centerText(text);
+
+                std::cout << "Server availables: " << this->_connection->getList() << std::endl;
+
+                requestSceneSwitch("serverList");
+            }
+            break;
+        case 1:
+            // play offline
+        case 2:
+            requestSceneSwitch("settings");
+            break;
+        case 3:
+            _win->close();
+        default:
+            break;
     }
 }
 
@@ -141,4 +165,7 @@ void Menu::centerText(sf::Text &text) {
     text.setPosition(sf::Vector2f(this->_win->getSize().x / 2.0f, this->_win->getSize().y - 35));
     text.setOrigin(textRect.left + textRect.width / 2.0f,
                    textRect.top + textRect.height / 2.0f);
+}
+void Menu::onSwitch() {
+
 }

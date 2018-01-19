@@ -8,13 +8,21 @@
 
 #include <string>
 #include <SFML/Graphics/Text.hpp>
+#include <network/Socket.hpp>
 class Connection {
  public:
-  Connection();
+  Connection(const std::string &ip, int port);
   virtual ~Connection();
 
  public:
-  bool connect(const std::string &ip, int port);
+  bool connect();
+  std::string getList();
+  std::string createAndJoin(const std::string &str);
+
+ private:
+  std::string _ip;
+  int _port;
+  engine::Network::Socket *sok;
 };
 
 #endif //RTYPE_MATCHMAKING_HPP

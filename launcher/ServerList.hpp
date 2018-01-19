@@ -10,27 +10,36 @@
 #include <SFML/Graphics/Text.hpp>
 #include "ServerList.hpp"
 #include "Scene.hpp"
+#include "Connection.hpp"
 
 class ServerList : public Scene {
  public:
-  ServerList(std::string name, sf::RenderWindow *win);
+  ServerList(const std::string &name, sf::RenderWindow *win);
   virtual ~ServerList();
 
  public:
   void init() override;
   void update() override;
   void onEvent(sf::Event &event) override;
+  void onSwitch() override;
 
  private:
   sf::Font font;
   sf::Text text;
+  sf::Text textCurrentlyTyped;
 
   sf::Texture backButton_;
   sf::Texture lobbyView_;
+  sf::Texture CreateServer_;
+  sf::Texture InputText_;
 
   sf::Sprite backButton;
   sf::Sprite lobbyView;
+  sf::Sprite CreateServer;
+  sf::Sprite InputText;
 
+  bool canType;
+  std::string currentTyped;
 };
 
 #endif //RTYPE_SERVERLIST_HPP

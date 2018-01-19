@@ -8,27 +8,36 @@
 #include "../engine/network/Socket.hpp"
 #include "../engine/network/networkException.hpp"
 
-Connection::Connection() {}
-Connection::~Connection() {
+Connection::Connection(const std::string &ip, int port) {
+    std::cout << "Registering Connection to " << ip << ":" << port << std::endl;
+
+    this->_ip   = ip;
+    this->_port = port;
+    sok = new engine::Network::Socket(engine::Network::Tcp);
 
 }
-bool Connection::connect(const std::string &ip, int port) {
-    std::cout << "Connecting to " << ip << ":" << port << ", please wait..." << std::endl;
+Connection::~Connection() {
+}
 
-    engine::Network::Socket *sok = new engine::Network::Socket(engine::Network::Tcp);
-
+bool Connection::connect() {
+    std::cout << "Connecting to " << this->_ip << ":" << this->_port << std::endl;
     try {
-
-        sok->connect_socket(ip, port);
+        sok->connect_socket(this->_ip, this->_port);
+        std::cout << "Success!" << std::endl;
         return true;
-        /*sok->write_socket("join room1");
-        std::string res = sok->read_socket();
-        std::cout << "RES: " << res << std::endl;
-        sok->write_socket("list");
-        res = sok->read_socket();
-        std::cout << "RES: " << res << std::endl;*/
     } catch (std::exception &e) {
         std::cout << e.what() << std::endl;
         return false;
     }
+}
+std::string Connection::getList() {
+    sok->write_socket("list");
+    std::string res = sok->read_socket();
+    return res;
+}
+
+std::string Connection::createAndJoin(const std::string &str) {
+    sok->write_socket("join " + str);
+    std::string res = sok->read_socket();
+    return res;
 }

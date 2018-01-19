@@ -15,8 +15,10 @@ class Helper {
   virtual ~Helper();
 
  public:
-  static void centerElement(sf::Text &element, const sf::RenderWindow *win, bool = true, bool = true);
-  static void centerElement(sf::Sprite &element, const sf::RenderWindow *win, bool = true, bool = true);
+  static void centerElement(sf::Text &element, const sf::RenderWindow *win, bool horiz = true, bool vert = true);
+  static void centerElement(sf::Sprite &element, const sf::RenderWindow *win, bool horiz = true, bool vert = true);
+  static bool isSpriteClicked(const sf::Sprite &sprite, const sf::RenderWindow &window);
+  static bool isMouseHover(const sf::Sprite &sprite, const sf::RenderWindow &window);
 };
 
 #endif //RTYPE_HELPER_HPP
