@@ -7,6 +7,7 @@
 #include <SFML/Graphics/Sprite.hpp>
 #include "ServerList.hpp"
 #include "Helper.hpp"
+#include "GraphicalRoom.hpp"
 
 ServerList::ServerList(const std::string &name, sf::RenderWindow *win) : Scene(name, win) {
     this->canType = false;
@@ -15,7 +16,6 @@ ServerList::~ServerList() {
 
 }
 void ServerList::init() {
-    std::cout << "Init" << std::endl;
     if (!font.loadFromFile("assets/arial.ttf")) {
         std::cout << "Cannot load ARIAL font" << std::endl;
     }
@@ -46,6 +46,12 @@ void ServerList::init() {
     lobbyView.setTexture(lobbyView_);
     Helper::centerElement(lobbyView, this->_win);
 
+    if (!Cancel_.loadFromFile("assets/cancel.png")) {
+        std::cout << "An error occurred." << std::endl;
+    }
+    Cancel.setTexture(Cancel_);
+    Cancel.setPosition(645, 532);
+
     if (!InputText_.loadFromFile("assets/Field.png")) {
         std::cout << "An error occurred." << std::endl;
     }
@@ -57,7 +63,6 @@ void ServerList::init() {
 void ServerList::update() {
     this->_win->draw(backButton);
     this->_win->draw(lobbyView);
-    this->_win->draw(CreateServer);
 
     if (this->canType) {
         // update string typed
@@ -69,19 +74,42 @@ void ServerList::update() {
         textCurrentlyTyped.setPosition(0, 532);
         Helper::centerElement(textCurrentlyTyped, this->_win, true, false);
         this->_win->draw(textCurrentlyTyped);
+        this->_win->draw(Cancel);
+
+    } else {
+        this->_win->draw(CreateServer);
+    }
+
+    int       i = 0;
+    for (auto &room : this->graphicalRooms) {
+        room->sprite.setPosition(0, 100 + (50 * i));
+        Helper::centerElement(room->sprite, this->_win, true, false);
+        //this->_win->draw(room->sprite);
+
+        room->text.setPosition(120, 100 + (50 * i));
+        room->text.setString(room->displayText.str());
+        this->_win->draw(room->text);
+
+        i++;
     }
 }
 void ServerList::onEvent(sf::Event &event) {
-    if (Helper::isSpriteClicked(backButton, *this->_win))
-        this->requestSceneSwitch("menu");
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 
-    if (Helper::isSpriteClicked(CreateServer, *this->_win))
-        this->canType = true;
+        if (Helper::isSpriteClicked(backButton, *this->_win))
+            this->requestSceneSwitch("menu");
+
+        if (Helper::isSpriteClicked(Cancel, *this->_win))
+            this->canType = false;
+        if (Helper::isSpriteClicked(CreateServer, *this->_win))
+            this->canType = true;
+    }
 
     // concat string on input
     if (this->canType && event.type == sf::Event::TextEntered &&
-        event.text.unicode != 13 /* 13 = Enter key */ &&
-        event.text.unicode != 8 /* 8 = Return */) {
+        ((event.text.unicode >= 65 && event.text.unicode <= 90) ||
+            (event.text.unicode >= 97 && event.text.unicode <= 122))) {
+        std::cout << event.text.unicode << std::endl;
         this->currentTyped += static_cast<char>(event.text.unicode);
     }
 
@@ -99,6 +127,9 @@ void ServerList::onEvent(sf::Event &event) {
 void ServerList::onSwitch() {
     std::string list = this->_connection->getList();
 
+    this->_connection->emptyRoomsFound();
+    this->emptyGraphicalRoomsFound();
+
     auto      vecRooms = Helper::explode(list, '|');
     for (auto &r: vecRooms) {
 
@@ -109,4 +140,12 @@ void ServerList::onSwitch() {
             std::cout << "Bad formatted room!" << std::endl;
     }
 
+    for (auto &room : this->_connection->getRoomsFound()) {
+        auto *r = new GraphicalRoom(room);
+        this->graphicalRooms.push_back(r);
+    }
 }
+void ServerList::emptyGraphicalRoomsFound() {
+    this->graphicalRooms.clear();
+}
+

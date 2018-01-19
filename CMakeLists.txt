@@ -103,7 +103,7 @@ set(launcher_SOURCE_FILES
         launcher/Lobby.hpp
         launcher/Helper.cpp
         launcher/Helper.hpp
-        launcher/Room.cpp launcher/Room.hpp)
+        launcher/Room.cpp launcher/Room.hpp launcher/GraphicalRoom.cpp launcher/GraphicalRoom.hpp)
 
 set(launcher_unit_SOURCE_FILES)
 

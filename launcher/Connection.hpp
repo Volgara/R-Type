@@ -15,6 +15,7 @@ class Connection {
   Connection();
   virtual ~Connection();
 
+  std::vector<Room> getRoomsFound();
  public:
   void addRoomFound(const std::string &name, int nbPlayers);
   void emptyRoomsFound();

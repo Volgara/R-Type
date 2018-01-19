@@ -10,3 +10,15 @@ Room::Room(const std::string &name, int nbPlayers) {
 }
 
 Room::~Room() {}
+const std::string &Room::getName() const {
+    return _name;
+}
+void Room::setName(const std::string &_name) {
+    Room::_name = _name;
+}
+int Room::getNbPlayers() const {
+    return _nbPlayers;
+}
+void Room::setNbPlayers(int _nbPlayers) {
+    Room::_nbPlayers = _nbPlayers;
+}

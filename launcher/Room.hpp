@@ -14,6 +14,12 @@ class Room {
 
  private:
   std::string _name;
+ public:
+  const std::string &getName() const;
+  void setName(const std::string &_name);
+  int getNbPlayers() const;
+  void setNbPlayers(int _nbPlayers);
+ private:
   int         _nbPlayers;
 };
 

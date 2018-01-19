@@ -11,6 +11,7 @@
 #include "ServerList.hpp"
 #include "Scene.hpp"
 #include "Connection.hpp"
+#include "GraphicalRoom.hpp"
 
 class ServerList : public Scene {
  public:
@@ -31,15 +32,19 @@ class ServerList : public Scene {
   sf::Texture backButton_;
   sf::Texture lobbyView_;
   sf::Texture CreateServer_;
+  sf::Texture Cancel_;
   sf::Texture InputText_;
 
   sf::Sprite backButton;
   sf::Sprite lobbyView;
   sf::Sprite CreateServer;
+  sf::Sprite Cancel;
   sf::Sprite InputText;
 
   bool canType;
   std::string currentTyped;
+  std::vector<GraphicalRoom *> graphicalRooms;
+  void emptyGraphicalRoomsFound();
 };
 
 #endif //RTYPE_SERVERLIST_HPP

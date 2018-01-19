@@ -20,7 +20,7 @@ public:
     void listRoom(Player *);
     bool start(std::string roomName);
     bool leave(Player *);
-    void inforoom(Player *)
+    void inforoom(Player *);
 };
 
 

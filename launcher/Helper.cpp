@@ -33,19 +33,14 @@ void Helper::centerElement(sf::Sprite &element, const sf::RenderWindow *win, boo
 }
 
 bool Helper::isSpriteClicked(const sf::Sprite &sprite, const sf::RenderWindow &window) {
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-        // transform the mouse position from window coordinates to world coordinates
-        sf::Vector2f mouse = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+    // transform the mouse position from window coordinates to world coordinates
+    sf::Vector2f mouse = window.mapPixelToCoords(sf::Mouse::getPosition(window));
 
-        // retrieve the bounding box of the sprite
-        sf::FloatRect bounds = sprite.getGlobalBounds();
+    // retrieve the bounding box of the sprite
+    sf::FloatRect bounds = sprite.getGlobalBounds();
 
-        // hit test
-        if (bounds.contains(mouse)) {
-            return true;
-        }
-    }
-    return false;
+    // hit test
+    return bounds.contains(mouse);
 }
 
 bool Helper::isMouseHover(const sf::Sprite &sprite, const sf::RenderWindow &window) {
@@ -59,13 +54,11 @@ bool Helper::isMouseHover(const sf::Sprite &sprite, const sf::RenderWindow &wind
     return bounds.contains(mouse);
 }
 
-std::vector<std::string> Helper::explode(std::string const & s, char delim)
-{
+std::vector<std::string> Helper::explode(std::string const &s, char delim) {
     std::vector<std::string> result;
-    std::istringstream iss(s);
+    std::istringstream       iss(s);
 
-    for (std::string token; std::getline(iss, token, delim); )
-    {
+    for (std::string token; std::getline(iss, token, delim);) {
         result.push_back(std::move(token));
     }
 

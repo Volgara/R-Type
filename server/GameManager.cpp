@@ -101,7 +101,6 @@ bool GameManager::leave(Player *p) {
     }
     return false;
 }
-
 void GameManager::inforoom(Player *p) {
     if (!p->getRoomStatus())
         return;

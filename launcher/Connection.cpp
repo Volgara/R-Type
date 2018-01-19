@@ -49,5 +49,8 @@ void Connection::addRoomFound(const std::string &name, int nbPlayers) {
     this->_roomsFound.push_back(r);
 }
 void Connection::emptyRoomsFound() {
-    this->_roomsFound.empty();
+    this->_roomsFound.clear();
+}
+std::vector<Room> Connection::getRoomsFound() {
+    return this->_roomsFound;
 }
