@@ -38,13 +38,16 @@ install:
   - cd ..
 
 before_script:
-  - wget https://www.sfml-dev.org/files/SFML-2.4.2-linux-gcc-64-bit.tar.gz -O /tmp/sfml.tar.gz
-  - tar -xvf /tmp/sfml.tar.gz
-  - ls
-  - ls SFML-2.4.2
-  - sudo mkdir -p /usr/SFML
-  - sudo cp -r SFML-2.4.2/* /usr/SFML
-  - sudo cp -r SFML-2.4.2/* /usr/
+#  - wget https://www.sfml-dev.org/files/SFML-2.4.2-linux-gcc-64-bit.tar.gz -O /tmp/sfml.tar.gz
+#  - tar -xvf /tmp/sfml.tar.gz
+#  - ls
+#  - ls SFML-2.4.2
+#  - sudo mkdir -p /usr/SFML
+#  - sudo cp -r SFML-2.4.2/* /usr/SFML
+#  - sudo cp -r SFML-2.4.2/* /usr/
+#  - ls /usr/SFML
+#  - ls /usr/
+  - sudo apt-get install libsfml-dev
   - sudo apt-get install -y libjpeg62-dev libsndfile1-dev libglew1.5 libglew1.5-dev libfreetype6 libjpeg-turbo8 libjpeg8 libopenal-data libopenal1  libxrandr2 libxrender1 libsoil1 libxcb-image0 libxcb-randr0 libudev1
 
 before_install:
