@@ -20,7 +20,12 @@
 #include "GameManager.hpp"
 
 GameManager::GameManager() {
-
+    RType::Room *newRoom = new RType::Room("Room1");
+    _room.push_back(newRoom);
+    RType::Room *newRoom2 = new RType::Room("Room2");
+    _room.push_back(newRoom);
+    RType::Room *newRoom3 = new RType::Room("cara#~#{#[#|");
+    _room.push_back(newRoom);
 }
 
 GameManager::~GameManager() {
