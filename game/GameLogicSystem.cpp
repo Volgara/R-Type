@@ -23,7 +23,7 @@ void game::GameLogicSystem::Init() {}
 void game::GameLogicSystem::onNotify(engine::core::Message message) {
     if (message.id == engine::core::MessageID::COLLISION) {
         auto *eg = engine::core::Engine::GetInstance();
-        auto *collision2D = dynamic_cast<engine::core::Collision2D *>(&message);
+        auto *collision2D = static_cast<engine::core::Collision2D *>(&message);
 
         engine::core::GameObject *target = eg->getScene()->GetGameObject(collision2D->target);
         engine::core::GameObject *source = eg->getScene()->GetGameObject(collision2D->source);
