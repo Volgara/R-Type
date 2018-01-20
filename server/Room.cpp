@@ -81,6 +81,7 @@ bool RType::Room::leave(Player *p) {
         }
         pos += 1;
     }
+    send(p->getFd(), "Ko", 3, 0);
     std::cout << "Leave failed, player not found in the room" << std::endl;
     return false;
 }

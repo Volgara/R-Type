@@ -111,6 +111,7 @@ bool GameManager::leave(Player *p) {
             }
         }
     }
+    send(p->getFd(), "Ko", 3, 0);
     return false;
 }
 
