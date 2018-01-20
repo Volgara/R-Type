@@ -57,7 +57,8 @@ void Lobby::update() {
 void Lobby::onEvent(sf::Event &event) {
     if (Helper::isSpriteClicked(ready, *this->_win))
     {
-        _connection->SetReady();
+        std::string ready = _connection->SetReady();
+        std::cout << "Ready: " << ready << std::endl;
     }
 
     if (Helper::isSpriteClicked(back, *this->_win))
