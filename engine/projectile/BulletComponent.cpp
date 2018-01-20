@@ -24,3 +24,11 @@ void engine::projectile::BulletComponent::Init() {
 }
 
 void engine::projectile::BulletComponent::ShutDown() {}
+
+int engine::projectile::BulletComponent::getDamage() const {
+    return _damage;
+}
+
+void engine::projectile::BulletComponent::setDamage(int _damage) {
+    BulletComponent::_damage = _damage;
+}

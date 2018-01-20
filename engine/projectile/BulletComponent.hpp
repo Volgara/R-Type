@@ -14,6 +14,7 @@ namespace engine {
         class BulletComponent : public core::Component {
         private:
             physics::RigidBodyComponent *_body;
+            int _damage;
         public:
             BulletComponent();
 
@@ -25,7 +26,11 @@ namespace engine {
 
             void Init() override;
 
-            void ShutDown(void) override;
+            void ShutDown() override;
+
+            int getDamage() const;
+
+            void setDamage(int _damage);
         };
     }
 }

@@ -106,3 +106,7 @@ void engine::core::Scene::cleanUp() {
         }
     }
 }
+
+engine::core::GameObject *engine::core::Scene::GetGameObject(engine::core::GameObjectID owner) {
+    return this->objectsMap[owner];
+}
