@@ -23,7 +23,11 @@ engine::Network::WindowsSocket::~WindowsSocket() {
 
 void engine::Network::WindowsSocket::init_socket(int port) {
     if (WSAStartup(MAKEWORD(2,2), &wsaData) != 0)
+    {
+        std::cout << "Error 1" << std::endl;
         throw NetworkException("WSAStartup failed");
+    }
+
 
     // init socket
     ZeroMemory(&local, sizeof(local));
@@ -37,11 +41,16 @@ void engine::Network::WindowsSocket::init_socket(int port) {
 
     // Resolve the server address and port
     if (getaddrinfo(NULL, std::to_string(port).c_str(), &local, &result) != 0)
+    {
+        std::cout << "Error 2" << std::endl;
         throw NetworkException("getaddrinfo failed");
+    }
+
 
     // Create socket
     fd = socket(result->ai_family, result->ai_socktype, result->ai_protocol);
     if (fd  == INVALID_SOCKET) {
+        std::cout << "Error 3" << std::endl;
         freeaddrinfo(result);
         WSACleanup();
         throw NetworkException("Socket creation failed");
