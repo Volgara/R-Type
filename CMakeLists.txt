@@ -48,7 +48,8 @@ set(projectile_SOURCE_FILES
         engine/projectile/BulletComponent.cpp
         engine/projectile/BulletSystem.hpp
         engine/projectile/BulletSystem.cpp)
-set(projectile_unit_SOURCE_FILES)
+set(projectile_unit_SOURCE_FILES
+        unit/engine/projectile/BulletSystemUnit.cpp)
 
 # Engine : Graphics
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/find/") #add FindSFML file
@@ -192,6 +193,8 @@ add_executable(engine_core_unit ${server_MODULES} ${core_unit_SOURCE_FILES})
 
 add_executable(engine_physics_unit ${server_MODULES} ${physics_unit_SOURCE_FILES})
 
+add_executable(engine_projectile_unit ${server_MODULES} ${projectile_unit_SOURCE_FILES})
+
 add_executable(engine_graphics_unit ${client_MODULES} ${graphics_unit_SOURCE_FILES})
 
 set_target_properties(engine_graphics_unit PROPERTIES COMPILE_DEFINITIONS GRAPHICS=1)
@@ -201,18 +204,21 @@ set(GOOGLE_TESTS_LIBS gtest gmock ${CMAKE_THREAD_LIBS_INIT})
 if (MSVC)
     target_compile_options(engine_core_unit PRIVATE /std:c++14 /W4 /WX)
     target_compile_options(engine_physics_unit PRIVATE /std:c++14 /W4 /WX)
+    target_compile_options(engine_projectile_unit PRIVATE /std:c++14 /W4 /WX)
     target_compile_options(engine_graphics_unit PRIVATE /std:c++14 /W4 /WX)
 
     set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /Ox")
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /Od")
     target_link_libraries(engine_core_unit ${GOOGLE_TESTS_LIBS})
     target_link_libraries(engine_physics_unit ${GOOGLE_TESTS_LIBS})
+    target_link_libraries(engine_projectile_unit ${GOOGLE_TESTS_LIBS})
     target_link_libraries(engine_graphics_unit ${GOOGLE_TESTS_LIBS} ${SFML_LIBRARIES})
     # VS 2017 removed tr1
     add_definitions(-DGTEST_HAS_TR1_TUPLE=0)
 else ()
     target_compile_options(engine_core_unit PRIVATE -g -Wall -Wextra -Wpedantic -Wconversion -Wswitch-default -Wswitch-enum -Wunreachable-code -Wwrite-strings -Wcast-align -Wshadow -Wundef)
     target_compile_options(engine_physics_unit PRIVATE -g -Wall -Wextra -Wpedantic -Wconversion -Wswitch-default -Wswitch-enum -Wunreachable-code -Wwrite-strings -Wcast-align -Wshadow -Wundef)
+    target_compile_options(engine_projectile_unit PRIVATE -g -Wall -Wextra -Wpedantic -Wconversion -Wswitch-default -Wswitch-enum -Wunreachable-code -Wwrite-strings -Wcast-align -Wshadow -Wundef)
     target_compile_options(engine_graphics_unit PRIVATE -g -Wall -Wextra -Wpedantic -Wconversion -Wswitch-default -Wswitch-enum -Wunreachable-code -Wwrite-strings -Wcast-align -Wshadow -Wundef)
     if (COVERAGE)
         # Travis-CI
@@ -220,11 +226,14 @@ else ()
         target_link_libraries(engine_core_unit PRIVATE --coverage ${GOOGLE_TESTS_LIBS})
         target_compile_options(engine_physics_unit PRIVATE --coverage)
         target_link_libraries(engine_physics_unit PRIVATE --coverage ${GOOGLE_TESTS_LIBS})
+        target_compile_options(engine_projectile_unit PRIVATE --coverage)
+        target_link_libraries(engine_projectile_unit PRIVATE --coverage ${GOOGLE_TESTS_LIBS})
         #target_compile_options(engine_graphics_unit PRIVATE --coverage)
         #target_link_libraries(engine_graphics_unit PRIVATE --coverage ${GOOGLE_TESTS_LIBS})
     else ()
         target_link_libraries(engine_core_unit ${GOOGLE_TESTS_LIBS})
         target_link_libraries(engine_physics_unit ${GOOGLE_TESTS_LIBS})
+        target_link_libraries(engine_projectile_unit ${GOOGLE_TESTS_LIBS})
         target_link_libraries(engine_graphics_unit ${GOOGLE_TESTS_LIBS} ${SFML_LIBRARIES})
     endif ()
 endif ()

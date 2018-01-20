@@ -14,16 +14,18 @@
 
 namespace engine {
     namespace projectile {
-        class BulletSystem : core::ASystem {
+        class BulletSystem : public core::ASystem {
+        private:
+            int _width;
+            int _height;
         public:
-            BulletSystem();
+            BulletSystem(int width, int height);
 
             virtual ~BulletSystem();
 
-        private:
             void Update(float dt) override;
 
-            void Init(void) override;
+            void Init() override;
 
             void onNotify(core::Message message) override;
         };
