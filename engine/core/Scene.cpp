@@ -14,7 +14,7 @@
 #include <physics/RigidBodyComponent.hpp>
 #include "Scene.hpp"
 #include "GameObject.hpp"
-#include "Component.hpp"
+#include "../network/NetworkComponent.hpp"
 
 engine::core::Component *engine::core::Scene::CreateComponent(engine::core::ComponentID type) {
     // TODO : Replace by Class based factory
@@ -29,6 +29,9 @@ engine::core::Component *engine::core::Scene::CreateComponent(engine::core::Comp
             break;
         case PHY_RIGIDBODY:
             component = new engine::physics::RigidBodyComponent();
+            break;
+        case NET:
+            component = new engine::network::NetworkComponent();
             break;
         default:
             throw  std::runtime_error("Replace by Class based factory");

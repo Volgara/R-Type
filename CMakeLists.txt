@@ -81,6 +81,8 @@ set(network_SOURCE_FILES engine/network/Socket.cpp
         engine/network/WindowsSocket.hpp
         engine/network/UnixSocket.cpp
         engine/network/UnixSocket.hpp
+        engine/network/NetworkComponent.cpp
+        engine/network/NetworkComponent.hpp
         engine/network/ISocket.hpp)
 set(network_unit_SOURCE_FILES)
 
