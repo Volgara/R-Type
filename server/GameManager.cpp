@@ -104,7 +104,11 @@ bool GameManager::leave(Player *p) {
 
 void GameManager::inforoom(Player *p) {
     if (!p->getRoomStatus())
+    {
+        std::cout << "Error player not in a room" << std::endl;
         return;
+    }
+
     for (auto it : _room)
     {
         if (it->getName() == p->getRoomName())
@@ -115,6 +119,6 @@ void GameManager::inforoom(Player *p) {
             return;
         }
     }
-    std::cout << "No romm found"<< std::endl;
+    std::cout << "No room found"<< std::endl;
 }
 

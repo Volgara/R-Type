@@ -75,10 +75,10 @@ Player* player = _connectedUser.back();
             else
                 send(player->getFd(), "ok", 3, 0);
         }
-        else if (strncmp(buffer, "roominfo", 8)){
+        else if (strncmp(buffer, "roominfo", 8) == 0){
             _gameManager->inforoom(player);
         }
-        else if (strncmp(buffer, "leave", 5)){
+        else if (strncmp(buffer, "leave", 5) == 0){
             _gameManager->leave(player);
         }
     }
@@ -126,10 +126,10 @@ void RType::Server::ThreadFunct() {
             else
                 send(player->getFd(), "ok", 3, 0);
         }
-        else if (strncmp(buffer, "roominfo", 8)){
+        else if (strncmp(buffer, "roominfo", 8) == 0){
             _gameManager->inforoom(player);
         }
-        else if (strncmp(buffer, "leave", 5)){
+        else if (strncmp(buffer, "leave", 5) == 0){
             _gameManager->leave(player);
         }
     }
