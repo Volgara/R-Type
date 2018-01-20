@@ -24,7 +24,6 @@ engine::Network::WindowsSocket::~WindowsSocket() {
 void engine::Network::WindowsSocket::init_socket(int port) {
     if (WSAStartup(MAKEWORD(2,2), &wsaData) != 0)
     {
-        std::cout << "Error 1" << std::endl;
         throw NetworkException("WSAStartup failed");
     }
 
@@ -42,7 +41,6 @@ void engine::Network::WindowsSocket::init_socket(int port) {
     // Resolve the server address and port
     if (getaddrinfo(NULL, std::to_string(port).c_str(), &local, &result) != 0)
     {
-        std::cout << "Error 2" << std::endl;
         throw NetworkException("getaddrinfo failed");
     }
 
@@ -54,7 +52,6 @@ void engine::Network::WindowsSocket::init_socket(int port) {
     else if (_socketType == Udp)
         fd = socket(AF_INET , SOCK_DGRAM , 0 );
     if (fd  == INVALID_SOCKET) {
-        std::cout << "Error 3" << std::endl;
         freeaddrinfo(result);
         WSACleanup();
         throw NetworkException("Socket creation failed");
