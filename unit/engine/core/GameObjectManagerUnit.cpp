@@ -45,7 +45,7 @@ TEST(Scene, RemoveObject) {
     auto *scene = gameEngine->getScene();
     scene->RemoveGameObject(g_empty);
     scene->cleanUp();
-    // ASSERT_EQ(scene->GetComponents<Component>(PHY_RIGIDBODY)->size(), 0);
+    ASSERT_EQ(scene->GetComponents<Component>(PHY_RIGIDBODY)->size(), 0);
 }
 
 TEST(Scene, AddObject2) {
@@ -66,6 +66,6 @@ TEST(Scene, RemoveObject2) {
     auto *scene = gameEngine->getScene();
     scene->RemoveGameObject(g_empty->guid);
     scene->cleanUp();
-    // ASSERT_EQ(scene->GetComponents<Component>(PHY_RIGIDBODY)->size(), 0);
+    ASSERT_EQ(scene->GetComponents<Component>(PHY_RIGIDBODY)->size(), 0);
 }
 

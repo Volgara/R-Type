@@ -45,7 +45,7 @@ engine::core::Component *engine::core::Scene::CreateComponent(engine::core::Comp
 }
 
 void engine::core::Scene::RemoveComponent(engine::core::Component *c) {
-    if (handlesComponents->size() == 0)
+    if (handlesComponents[c->id].size() == 0)
         return;
     for (auto it = handlesComponents[c->id].begin(); it != handlesComponents[c->id].end(); ++it) {
         if (*it == c) {
@@ -88,12 +88,8 @@ engine::core::Scene::GetComponent(engine::core::ComponentID type, engine::core::
  * Clean detached component
  */
 void engine::core::Scene::cleanUp() {
-    /*
-    for (auto it = components.begin(); it != components.end(); it++) {
+    for (auto it = components.begin(); it != components.end();) {
         Component *component = *it;
-
-        if (component == nullptr)
-            continue;
 
         RemoveComponent(component);
 
@@ -101,7 +97,8 @@ void engine::core::Scene::cleanUp() {
             // component detached
             components.erase(it);
             delete component;
+        } else {
+            it++;
         }
     }
-     */
 }
