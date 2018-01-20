@@ -24,8 +24,6 @@ set(core_SOURCE_FILES
         engine/core/ID.hpp
         engine/core/Vector2D.hpp
         engine/core/Vector2D.cpp
-        engine/core/InputSystem.cpp
-        engine/core/InputSystem.hpp
         engine/core/MessageBus.hpp
         engine/core/MessageBus.cpp
         engine/core/BusNode.hpp
@@ -98,6 +96,13 @@ set(network_SOURCE_FILES engine/network/Socket.cpp
         engine/network/ISocket.hpp)
 set(network_unit_SOURCE_FILES)
 
+# Engine : input
+set(input_SOURCE_FILES
+        engine/input/InputSystem.cpp
+        engine/input/InputSystem.hpp
+        engine/input/Command.hpp engine/input/InputComponent.cpp engine/input/InputComponent.hpp)
+set(input_unit_SOURCE_FILES)
+
 # Launcher
 set(launcher_SOURCE_FILES
         launcher/main.cpp
@@ -125,6 +130,7 @@ set(launcher_unit_SOURCE_FILES)
 
 set(client_MODULES
         ${core_SOURCE_FILES}
+        ${input_SOURCE_FILES}
         ${game_SOURCE_FILES}
         ${graphics_SOURCE_FILES}
         ${physics_SOURCE_FILES}

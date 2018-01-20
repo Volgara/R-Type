@@ -9,7 +9,8 @@
 
 #include <iostream>
 #include "Engine.hpp"
-#include "GameObject.hpp"
+#include "Component.hpp"
+#include <input/InputComponent.hpp>
 
 /**
  * Get's system with ID
@@ -45,18 +46,6 @@ void engine::core::Engine::MainLoop(void) {
             _window.display();
             _clock.restart();
         }
-
-        sf::Event event;
-        while (_window.pollEvent(event)) {
-            switch (event.type) {
-                case sf::Event::Closed:
-                    this->Shutdown();
-                    exit(0); // TODO maybe it's not the behaviour wanted, added for simpler tests
-                case sf::Event::KeyPressed:
-                default:
-                    break;
-            }
-        }
     }
 #endif
 }
@@ -74,7 +63,11 @@ void engine::core::Engine::Init(void) {
 
     GameObject *object = _scene->CreateEmptyObject();
     Component *spriteComponent = _scene->CreateComponent(GRA_SPRITE);
+    input::InputComponent *inputComponent = static_cast<input::InputComponent *>(_scene->CreateComponent(INPUT_GENERATE));
+    inputComponent->attachAction(sf::Keyboard::A, new input::ActionDebug());
+    inputComponent->attachState(sf::Keyboard::B, new input::StateDebug());
     object->attachComponent(spriteComponent);
+    object->attachComponent(inputComponent);
 #endif
 
     for (auto sys : _systems) {
@@ -108,6 +101,7 @@ bool engine::core::Engine::isRunning() const {
 }
 
 void engine::core::Engine::Shutdown(void) {
+    _gameRunning = false;
 #ifdef GRAPHICS
     _window.close();
 #endif

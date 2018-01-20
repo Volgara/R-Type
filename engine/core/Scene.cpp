@@ -14,6 +14,7 @@
 #include <physics/RigidBodyComponent.hpp>
 #include <algorithm>
 #include <cassert>
+#include <input/InputComponent.hpp>
 #include "Scene.hpp"
 #include "GameObject.hpp"
 #include "projectile/BulletComponent.hpp"
@@ -27,6 +28,13 @@ engine::core::Component *engine::core::Scene::CreateComponent(engine::core::Comp
         case GRA_SPRITE:
 #ifdef GRAPHICS
             component = new engine::graphics::GraphicsComponent();
+#else
+            throw  std::runtime_error("Replace by Class based factory");
+#endif
+            break;
+        case INPUT_GENERATE:
+#ifdef GRAPHICS
+            component = new engine::input::InputComponent();
 #else
             throw  std::runtime_error("Replace by Class based factory");
 #endif
