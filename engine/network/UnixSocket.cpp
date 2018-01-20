@@ -33,7 +33,6 @@ void engine::Network::UnixSocket::init_socket(int port) {
 }
 
 int engine::Network::UnixSocket::connect_socket(const std::string &ip, int port) {
-    struct sockaddr_in serv_addr;
     struct hostent *server;
 
     if (_socketType == Tcp)

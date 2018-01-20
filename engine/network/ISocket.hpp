@@ -17,7 +17,7 @@ namespace engine {
         class ISocket  : public core::ASystem {
 
         protected:
-            unsigned int         fd;
+            int     fd;
             SocketType  _socketType;
 
         public:

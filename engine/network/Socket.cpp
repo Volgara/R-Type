@@ -23,7 +23,7 @@ engine::Network::Socket::Socket(engine::Network::SocketType type) {
     std::cout << "Running on linux" << std::endl;
     _socket = (ISocket *) new UnixSocket(type);
     poll_fd = (pollfd * )malloc(sizeof(struct pollfd) * 1);
-    poll_fd[0].fd = this->get_fd();
+    poll_fd[0].fd = (int)this->get_fd();
     poll_fd[0].events = POLLIN | POLLOUT;
 
 #endif
@@ -71,11 +71,12 @@ void engine::Network::Socket::Init(void) {
 
 void engine::Network::Socket::onNotify(engine::core::Message message) {
     #if defined(linux) || defined(__APPLE__)
+    (void) message;
     char buffer[256];
     poll(poll_fd, 1, 500);
     if (poll_fd[0].revents & POLLIN)
     {
-        recv(this->get_fd(), buffer, 256, 0);
+        recv((int)this->get_fd(), buffer, 256, 0);
         //engine::core::Message msg();
 
     }
@@ -84,7 +85,7 @@ void engine::Network::Socket::onNotify(engine::core::Message message) {
 
 
 void engine::Network::Socket::Update(float dt) {
-
+    (void) dt;
 }
 
 void engine::Network::Socket::write_socket(std::string data) {
