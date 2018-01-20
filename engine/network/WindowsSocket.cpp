@@ -48,7 +48,11 @@ void engine::Network::WindowsSocket::init_socket(int port) {
 
 
     // Create socket
-    fd = socket(result->ai_family, result->ai_socktype, result->ai_protocol);
+
+    if (_socketType == Tcp)
+          fd = socket(result->ai_family, result->ai_socktype, result->ai_protocol);
+    else if (_socketType == Udp)
+        fd = socket(AF_INET , SOCK_DGRAM , 0 );
     if (fd  == INVALID_SOCKET) {
         std::cout << "Error 3" << std::endl;
         freeaddrinfo(result);
