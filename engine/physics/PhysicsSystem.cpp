@@ -7,8 +7,6 @@
 #include "PhysicsSystem.hpp"
 
 engine::physics::PhysicsSystem::PhysicsSystem(int width, int height) {
-    this->_height = height;
-    this->_width = width;
     int hCell = height / CELL_SIZE;
     this->_wCell = width / CELL_SIZE;
     this->_sizeTab = hCell * this->_wCell;
@@ -76,14 +74,14 @@ void engine::physics::PhysicsSystem::onNotify(engine::core::Message message) {
 }
 
 void engine::physics::PhysicsSystem::checkCellCollision(std::vector<RigidBodyComponent *> vec) {
-    for (auto &i : vec) {
-        for (auto &it : this->_collisionList) {
-            if (i->checkIntersect(it)) {
-                if (this->addCollision(i, it)) {
+    for (size_t i = 0; i < vec.size(); ++i) {
+        for (size_t j = 0; j < i; ++j) {
+            if (vec[i]->checkIntersect(vec[j])) {
+                if (this->addCollision(vec[i], vec[j])) {
                     core::Collision2D msg;
-                    msg.source = i->owner;
-                    msg.target = it->owner;
-                    sendMsg(msg);
+                    msg.source = vec[i]->owner;
+                    msg.target = vec[j]->owner;
+                    //sendMsg(msg);
                     this->_debugNbCollision++;
                 }
             }
@@ -106,14 +104,9 @@ bool engine::physics::PhysicsSystem::addCollision(engine::physics::RigidBodyComp
 }
 
 int engine::physics::PhysicsSystem::get_debugNbColision() const {
-    return _debugNbCollision;
+    return this->_debugNbCollision;
 }
 
 int engine::physics::PhysicsSystem::get_debugCheck() const {
-    return _debugCheck;
+    return this->_debugCheck;
 }
-
-void engine::physics::PhysicsSystem::setBodyCollision(engine::physics::RigidBodyComponent *body) {
-    this->_collisionList.push_back(body);
-}
-

@@ -14,15 +14,7 @@ namespace engine {
             PhysicsSystem *physicsSystem = new PhysicsSystem(800, 600);
 
             core::Vector2d size(10, 10);
-            core::Vector2d pos2(10, 10);
-            core::GameObject *game2 = new core::GameObject();
-            game2->pos = pos2;
-            RigidBodyComponent *comp2 = new RigidBodyComponent();
-            comp2->ownerRef = game2;
-            comp2->setSize(size);
-            comp2->setVelocity(core::Vector2d(2, 2));
-            comp2->Init();
-            physicsSystem->setBodyCollision(comp2);
+
             for (int i = 0; i < 100; ++i) {
                 core::Vector2d pos(i * 2, i * 2);
 
@@ -36,10 +28,9 @@ namespace engine {
                 physicsSystem->debugAddComponent(comp);
             }
             physicsSystem->Update(-1);
-            ASSERT_EQ(6, physicsSystem->get_debugNbColision());
-            ASSERT_EQ(240, physicsSystem->get_debugCheck());
+            ASSERT_EQ(460, physicsSystem->get_debugNbColision());
+            ASSERT_EQ(1155, physicsSystem->get_debugCheck());
         }
-
         TEST(MessageBusTest, SimpleMessage) {
             PhysicsSystem *physicsSystem = new PhysicsSystem(800, 600);
             auto *ge = engine::core::Engine::GetInstance();
