@@ -40,6 +40,7 @@ bool RType::Room::leave(Player *p) {
         if (p->getId() == it->getId())
         {
             _player.erase(_player.begin() + pos);
+            p->cleanRoom();
             return (true);
         }
         pos += 1;

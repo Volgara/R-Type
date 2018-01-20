@@ -46,7 +46,7 @@ DWORD __stdcall startMethodInThread( LPVOID arg )
 }
 
 DWORD RType::Server::ThreadFunc() {
-    Player* player = _connectedUser.back();
+Player* player = _connectedUser.back();
     std::cout << "New player connected with id: " << player->getId() << std::endl;
     int a = 1;
     char buffer[256];
@@ -66,6 +66,7 @@ DWORD RType::Server::ThreadFunc() {
         if (strncmp(buffer, "list", 4) == 0)
             _gameManager->listRoom(player);
         else if (strncmp(buffer, "join", 4) == 0)
+        {
             if (!_gameManager->join(player, buffer))
             {
                 std::cout << "Failed to " << buffer << std::endl;
@@ -73,9 +74,13 @@ DWORD RType::Server::ThreadFunc() {
             }
             else
                 send(player->getFd(), "ok", 3, 0);
+        }
         else if (strncmp(buffer, "roominfo", 8)){
             _gameManager->inforoom(player);
-            }
+        }
+        else if (strncmp(buffer, "leave", 5)){
+            _gameManager->leave(player);
+        }
     }
     return(1);
 }
@@ -112,6 +117,7 @@ void RType::Server::ThreadFunct() {
         if (strncmp(buffer, "list", 4) == 0)
             _gameManager->listRoom(player);
         else if (strncmp(buffer, "join", 4) == 0)
+        {
             if (!_gameManager->join(player, buffer))
             {
                 std::cout << "Failed to " << buffer << std::endl;
@@ -119,11 +125,12 @@ void RType::Server::ThreadFunct() {
             }
             else
                 send(player->getFd(), "ok", 3, 0);
+        }
         else if (strncmp(buffer, "roominfo", 8)){
             _gameManager->inforoom(player);
         }
         else if (strncmp(buffer, "leave", 5)){
-            
+            _gameManager->leave(player);
         }
     }
 }

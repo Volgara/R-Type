@@ -28,10 +28,17 @@ std::string Player::getRoomName() const {
     return _roomName;
 }
 
+
+
 void Player::setRoom(std::string roomName) {
     if (!_inRoom)
     {
         _inRoom = true;
         _roomName = roomName;
     }
+}
+
+void Player::cleanRoom() {
+    _inRoom = false;
+    _roomName = "";
 }
