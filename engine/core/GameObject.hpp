@@ -28,11 +28,15 @@ namespace engine {
             bool active;
             Vector2d pos;
 
-            void AddComponent(Component *component);
+            GameObject();
 
-            void RemoveComponent(Component *component);
+            void attachComponent(Component *component);
 
-            void RemoveComponent(ComponentID type);
+            void detachComponent(Component *component);
+
+            void detachComponent(ComponentID type);
+
+            void detachComponents();
 
             Component *GetComponent(ComponentID type);
 

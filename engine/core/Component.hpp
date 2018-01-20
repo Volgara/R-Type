@@ -26,6 +26,8 @@ namespace engine {
 
             explicit Component(ComponentID id);
 
+            virtual ~Component() {};
+
             virtual void SendMessage(Message *message) = 0;
 
             virtual void Update(float dt) = 0;
@@ -33,6 +35,11 @@ namespace engine {
             virtual void Init() = 0;
 
             virtual void ShutDown(void) = 0;
+
+            void detachGameObject();
+
+            void attachGameObject(GameObject *object
+            );
         };
     }
 }

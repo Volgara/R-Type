@@ -5,7 +5,7 @@
 #include <core/GameObject.hpp>
 #include "RigidBodyComponent.hpp"
 
-engine::physics::RigidBodyComponent::RigidBodyComponent() : Component(engine::core::PHY_RIGIDBODY) {
+engine::physics::RigidBodyComponent::RigidBodyComponent() : Component(engine::core::PHY_RIGIDBODY), _box(nullptr) {
     this->_size = core::Vector2d(0, 0);
 }
 
