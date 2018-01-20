@@ -72,9 +72,9 @@ void engine::core::Engine::Init(void) {
         exit(EXIT_FAILURE);
     }
 
-    auto *object = _scene->CreateEmptyObject();
-    auto *spriteComponent = _scene->CreateComponent(GRA_SPRITE);
-    object->AddComponent(spriteComponent);
+    GameObject *object = _scene->CreateEmptyObject();
+    Component *spriteComponent = _scene->CreateComponent(GRA_SPRITE);
+    object->attachComponent(spriteComponent);
 #endif
 
     for (auto sys : _systems) {
