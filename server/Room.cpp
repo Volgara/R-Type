@@ -50,7 +50,7 @@ void RType::Room::start(Player *p) {
     udpSocket->blind_Socket();
     std::string initMessage;
     initMessage += "Game started with id: ";
-    initMessage += (4242 + p->getId());
+    initMessage += std::to_string(4242 + p->getId());
     for (auto it : _player)
     {
         send(it->getFd(), initMessage.c_str(), initMessage.size(), 0);

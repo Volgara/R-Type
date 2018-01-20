@@ -81,6 +81,17 @@ void engine::Network::Socket::onNotify(engine::core::Message message) {
 
     }
     #endif
+    #ifdef _Win32
+    struct pollfd *poll_fd;
+    char buffer[256];
+    poll_fd = (pollfd * )malloc(sizeof(struct pollfd) * 1);
+    poll_fd[0].fd = SOCKETFD;
+    poll_fd[0].events = POLLIN | POLLOUT;
+
+    poll(poll_fd, 1, 500);
+    if (poll_fd[0].revents & POLLIN)
+        recv(this->get_fd(), buffer, 256, 0);
+    #endif
 }
 
 
