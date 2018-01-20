@@ -96,9 +96,13 @@ bool GameManager::leave(Player *p) {
         for (auto it : _room)
         {
             if (it->getName() == p->getRoomName())
+            {
+                std::cout << "gamemanager leave found" << std::endl;
                 return(it->leave(p));
+            }
         }
     }
+    std::cout << "Leave error, don't know why" << std::endl;
     return false;
 }
 
