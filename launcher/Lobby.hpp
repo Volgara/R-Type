@@ -33,6 +33,7 @@ private:
 
     sf::Texture back_;
     sf::Sprite back;
+    bool inGame;
 };
 
 #endif //RTYPE_LOBBY_HPP

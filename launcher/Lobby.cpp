@@ -3,13 +3,19 @@
 ** Copyright (c) 2018 Armaldio - All rights reserved.            *
 *****************************************************************/
 
-//#include <Windows.h>
 #include <sstream>
+
+#ifdef _WIN32
+
+#include <Windows.h>
+
+#endif
+
 #include "Lobby.hpp"
 #include "Helper.hpp"
 
 Lobby::Lobby(const std::string &name, sf::RenderWindow *win) : Scene(name, win) {
-
+    this->inGame = false;
 }
 
 Lobby::~Lobby() {
@@ -49,26 +55,42 @@ void Lobby::init() {
 
 void Lobby::update() {
     this->_win->draw(text);
-    this->_win->draw(ready);
     this->_win->draw(refresh);
     this->_win->draw(back);
+
+    if (!this->inGame)
+        //this->_win->draw(ingame);
+        //else
+        this->_win->draw(ready);
 }
 
 void Lobby::onEvent(sf::Event &event) {
-    if (Helper::isSpriteClicked(ready, *this->_win))
-    {
-        std::string ready = _connection->SetReady();
-        std::cout << "Ready: " << ready << std::endl;
+    if (Helper::isSpriteClicked(ready, *this->_win)) {
+
+        this->inGame = true;
+
+        std::string port = _connection->SetReady();
+
+        std::stringstream parameters;
+
+        parameters << "-p " << port << " -ip " << this->_connection->getIp();
+
+#ifdef _WIN32
+        ShellExecute(NULL, "open", "client.exe", parameters.str().c_str(), NULL, SW_SHOWDEFAULT);
+#endif
+
+#if defined(linux) || defined(__APPLE__)
+        system("./client " + parameters);
+#endif
+
     }
 
-    if (Helper::isSpriteClicked(back, *this->_win))
-    {
+    if (Helper::isSpriteClicked(back, *this->_win)) {
         _connection->leaveRoom();
         this->requestSceneSwitch("serverList");
     }
 
-    if (Helper::isSpriteClicked(refresh, *this->_win))
-    {
+    if (Helper::isSpriteClicked(refresh, *this->_win)) {
         std::stringstream ss;
         std::string nb = _connection->getPlayerNumber();
 
@@ -88,8 +110,4 @@ void Lobby::onSwitch() {
     ss << "Waiting for players to join... (" << nb << "/" << "4)";
     text.setString(ss.str());
     Helper::centerElement(text, this->_win, true, true);
-
-    //#ifdef _WIN32
-    //ShellExecute(NULL, "open", "client.exe", "-p 0000 -ip 127.0.0.1", NULL, SW_SHOWDEFAULT);
-    //#endif
 }

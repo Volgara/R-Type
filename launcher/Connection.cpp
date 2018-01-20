@@ -4,13 +4,6 @@
 *****************************************************************/
 
 #include <iostream>
-
-/*#ifdef _WIN32//  ou #if defined(linux) || defined(__APPLE__)
-
-#include <WinSock2.h>
-
-#endif*/
-
 #include "Connection.hpp"
 #include "../engine/network/networkException.hpp"
 
@@ -84,4 +77,8 @@ void Connection::leaveRoom() {
     sok->write_socket("leave");
     std::string res = sok->read_socket();
     std::cout << "res: " << res << std::endl;
+}
+
+std::string Connection::getIp() {
+    return this->_ip;
 }

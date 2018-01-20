@@ -27,6 +27,9 @@ public:
   void addRoomFound(const std::string &name, int nbPlayers);
   void emptyRoomsFound();
   bool connect(const std::string &ip, int port);
+
+    std::string getIp();
+
   std::string getList();
   std::string createAndJoin(const std::string &str);
 
