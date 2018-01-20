@@ -4,7 +4,7 @@
 
 #include "PlayerComponent.hpp"
 
-game::PlayerComponent::PlayerComponent() : Component(engine::core::ComponentID::GAME_PLAYER), SpaceShip(50, 10, 30) {}
+game::PlayerComponent::PlayerComponent() : Component(engine::core::ComponentID::GAME_PLAYER), SpaceShip(50, 10, 30, 5) {}
 
 void game::PlayerComponent::SendMessage(engine::core::Message *) {}
 

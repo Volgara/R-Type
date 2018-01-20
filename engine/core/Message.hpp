@@ -16,9 +16,16 @@ namespace engine {
     namespace core {
         enum MessageID {
             COLLISION = 0,
-            SEND_BULLET
+            SEND_BULLET,
+            MOVE_PLAYER
         };
 
+        enum Direction {
+            UP = 0,
+            DOWN,
+            RIGHT,
+            LEFT
+        };
         struct Message {
             explicit Message(MessageID type) : id(type) {}
             MessageID id;
@@ -33,7 +40,12 @@ namespace engine {
         struct SendBullet : public Message {
             SendBullet() : Message(SEND_BULLET) {}
             GameObjectID source{0};
-            GameObjectID bullet{0};
+        };
+
+        struct MovePlayer : public Message {
+            MovePlayer() : Message(MOVE_PLAYER) {}
+            GameObjectID source{0};
+            Direction  direction{};
         };
     }
 }

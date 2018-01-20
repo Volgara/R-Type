@@ -11,8 +11,9 @@ namespace game {
         int _life;
         int _damage;
         int _shield;
+        int _speed;
     public:
-        SpaceShip(int _life, int _damage, int _shield);
+        SpaceShip(int _life, int _damage, int _shield, int _speed);
 
         int getLife() const;
 
@@ -21,6 +22,8 @@ namespace game {
         int getShield() const;
 
         void takeDamage(int damage);
+
+        int getSpeed() const;
     };
 }
 

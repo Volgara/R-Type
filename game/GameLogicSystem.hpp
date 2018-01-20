@@ -22,10 +22,12 @@ namespace game {
         private:
             int _height;
             int _width;
-
+            float _currentDt;
+            std::map<engine::core::Direction, engine::core::Vector2d> _map;
         private:
             void checkColision(engine::core::GameObject *, engine::core::GameObject *);
             void addDamageToPlayer(PlayerComponent *, engine::projectile::BulletComponent *);
+            void movePlayer(engine::core::GameObject *, engine::core::Direction dir);
         public:
             GameLogicSystem(int _height, int _width);
 
