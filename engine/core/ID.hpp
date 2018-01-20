@@ -18,7 +18,8 @@ namespace engine {
         enum ComponentID {
             GRA_SPRITE = 0,
             PHY_RIGIDBODY, // TODO : use RIGID Body
-            PRO_BULLET
+            PRO_BULLET,
+            GAME_PLAYER,
         };
 
         typedef unsigned GameObjectID;

@@ -9,18 +9,15 @@
 
 #include "GameLogicSystem.hpp"
 
-void engine::game::GameLogicSystem::Update(float d) {
-    (void) d;
-}
 
-void engine::game::GameLogicSystem::Init(void) {
+game::GameLogicSystem::GameLogicSystem(int _height, int _width) : _height(_height), _width(_width) {}
 
-}
 
-void engine::game::GameLogicSystem::Update(engine::core::Scene *) {
+void game::GameLogicSystem::Update(float) {
 
 }
 
-void engine::game::GameLogicSystem::onNotify(engine::core::Message) {
+void game::GameLogicSystem::Init() {}
 
-}
+
+void game::GameLogicSystem::onNotify(engine::core::Message) {}

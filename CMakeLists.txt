@@ -39,7 +39,12 @@ set(core_unit_SOURCE_FILES
 # Engine : Game
 set(game_SOURCE_FILES
         game/GameLogicSystem.cpp
-        game/GameLogicSystem.hpp)
+        game/GameLogicSystem.hpp
+        game/Player.cpp
+        game/Player.hpp
+        game/UserType.hpp
+        game/SpaceShip.hpp
+        game/SpaceShip.cpp)
 set(game_unit_SOURCE_FILES)
 
 # Engine : Projectile

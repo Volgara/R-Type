@@ -14,26 +14,24 @@
 #include <core/ASystem.hpp>
 #include <core/Scene.hpp>
 
-namespace engine {
-    namespace game {
-        class GameLogicSystem : public core::ASystem {
+namespace game {
+    class GameLogicSystem : public engine::core::ASystem {
         private:
-          //  std::vector<ILogicRule *> _rules;
-
+            int _height;
+            int _width;
         public:
+            GameLogicSystem(int _height, int _width);
+
             void Update(float d) override;
 
             void Init(void) override;
 
             ~GameLogicSystem() override = default;
 
-        private:
-            void Update(core::Scene *scene);
+            void Update(engine::core::Scene *scene) override;
 
-        protected:
-            void onNotify(core::Message message) override;
-        };
-    }
+            void onNotify(engine::core::Message message) override;
+    };
 }
 
 
