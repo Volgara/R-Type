@@ -71,9 +71,10 @@ DWORD RType::Server::ThreadFunc() {
                 std::cout << "Failed to " << buffer << std::endl;
                 send(player->getFd(), "ko", 3, 0);
             }
-
-        else
-            send(player->getFd(), "ok", 3, 0);
+            else
+                send(player->getFd(), "ok", 3, 0);
+        else if (strncmp(buffer, "roominfo", 8)){
+            _gameManager->inforoom(player);
     }
     return(1);
 }
@@ -117,7 +118,7 @@ void RType::Server::ThreadFunct() {
             }
             else
                 send(player->getFd(), "ok", 3, 0);
-        else if (strncmp(buffer, "roominfo", 4)){
+        else if (strncmp(buffer, "roominfo", 8)){
             _gameManager->inforoom(player);
         }
     }
