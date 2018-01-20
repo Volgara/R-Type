@@ -116,7 +116,7 @@ void RType::Server::ThreadFunct() {
                 send(player->getFd(), "ko", 3, 0);
             }
         }
-        else if (strncmp(buffer, "roominfo", 4){
+        else if (strncmp(buffer, "roominfo", 4)){
             _gameManager->inforoom(player);
 
         }
