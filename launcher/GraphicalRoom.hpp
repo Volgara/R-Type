@@ -12,25 +12,26 @@
 #include <SFML/Graphics/Text.hpp>
 #include <sstream>
 #include "Room.hpp"
+
 class GraphicalRoom {
- public:
-  GraphicalRoom(Room &r);
-  virtual ~GraphicalRoom();
+public:
+    GraphicalRoom(Room &r);
 
- public:
+    virtual ~GraphicalRoom();
 
- public: //TODO switch to private
-  sf::Texture texture;
-  sf::Sprite sprite;
-  sf::Font font;
-  sf::Text text;
+public:
 
-  int nbPlayer;
+public: //TODO switch to private
+    sf::Texture texture;
+    sf::Sprite sprite;
+    sf::Font font;
+    sf::Text text_left;
+    sf::Text text_right;
 
-  Room *r;
+    Room *r;
 
-  std::stringstream displayText;
-  std::string name;
+    int nbPlayer;
+    std::string name;
 };
 
 #endif //RTYPE_GRAPHICALROOM_HPP
