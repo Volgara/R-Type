@@ -45,12 +45,18 @@ void RType::Room::start(Player *p) {
     }
     std::cout << "All player are ready, code the game here" << std::endl;
     _gameStart = true;
+    std::cout << "debug1" << std::endl;
     engine::Network::Socket *udpSocket = new engine::Network::Socket(engine::Network::SocketType::Udp);
+    std::cout << "debug2" << std::endl;
     udpSocket->init_socket(4242 + p->getId());
+    std::cout << "debug3" << std::endl;
     udpSocket->blind_Socket();
+    std::cout << "debug4" << std::endl;
     std::string initMessage;
+    std::cout << "debug5" << std::endl;
     initMessage += "Game started with id: ";
     initMessage += std::to_string(4242 + p->getId());
+    std::cout << "debug6" << std::endl;
     for (auto it : _player)
     {
         send(it->getFd(), initMessage.c_str(), initMessage.size(), 0);
