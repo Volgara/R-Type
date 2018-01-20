@@ -24,26 +24,27 @@ RType::Room::Room(std::string name) {
 
 bool RType::Room::join(Player *p) {
     if (_player.size() >= 4 || _gameStart)
+    {
+        std::cout << "join error, too much player or game already started" << std::endl;
         return false;
+    }
+
     std::cout << "[" << p->getId() << "]: " << "joined " << _name << std::endl;
     _player.push_back(p);
     return (true);
 }
 
 void RType::Room::start(Player *p) {
-    _gameStart = true;
-
     p->isReady = true;
-    for (auto it : this->_player)
+    for (auto it : _player)
     {
         if (!it->isReady)
         {
-            std::cout << "Waiting for other player to be ready" << std::endl;
             return;
         }
     }
     std::cout << "All player are ready, code the game here" << std::endl;
-    //game started
+    _gameStart = true;
     engine::Network::Socket *udpSocket = new engine::Network::Socket(engine::Network::SocketType::Udp);
     udpSocket->init_socket(4242 + p->getId());
     udpSocket->blind_Socket();
@@ -52,8 +53,9 @@ void RType::Room::start(Player *p) {
     initMessage += (4242 + p->getId());
     for (auto it : _player)
     {
-        send(it->getFd(), initMessage.c_str(), initMessage.size() + 1, 0);
+        send(it->getFd(), initMessage.c_str(), initMessage.size(), 0);
     }
+    std::cout << "message send" << std::endl;
 }
 
 std::string RType::Room::getName() const {
@@ -73,6 +75,7 @@ bool RType::Room::leave(Player *p) {
         {
             _player.erase(_player.begin() + pos);
             p->cleanRoom();
+            p->isReady = false;
             send(p->getFd(), "ok", 3, 0);
             return (true);
         }

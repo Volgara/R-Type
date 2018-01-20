@@ -34,11 +34,19 @@ GameManager::~GameManager() {
 
 bool GameManager::join(Player *p, std::string roomname) {
     if (p->getRoomStatus())
+    {
+        std::cout << "join error, player aleady in room" << std::endl;
         return (false);
+    }
+
 
     roomname.erase(0, 5);
     if (roomname.length() == 0)
+    {
+        std::cout << "join error, bad room name" << std::endl;
         return (false);
+    }
+
     for (auto it : _room)
     {
         if (strcmp(it->getName().c_str(), roomname.c_str()) == 0)
@@ -57,6 +65,7 @@ bool GameManager::join(Player *p, std::string roomname) {
             return(it->join(p));
         }
     }
+    std::cout << "join failed, unknow error" << std::endl;
     return (false);
 }
 
@@ -70,7 +79,6 @@ void GameManager::listRoom(Player *p) {
         data += it->getName();
         data += ",";
         data += std::to_string(it->getNbrPlayer());
-        std::cout << it->getName() << std::endl;
         a += 1;
     }
     std::cout << "Data send: " << data << std::endl;
@@ -80,12 +88,11 @@ void GameManager::listRoom(Player *p) {
 bool GameManager::start(Player *p) {
     for (auto it : _room)
     {
-        if (strcmp(it->getName().c_str(), p->getRoomName().c_str()))
+        if (strcmp(it->getName().c_str(), p->getRoomName().c_str()) == 0)
         {
             it->start(p);
             return (true);
         }
-
     }
     return (false);
 }
@@ -97,12 +104,10 @@ bool GameManager::leave(Player *p) {
         {
             if (it->getName() == p->getRoomName())
             {
-                std::cout << "gamemanager leave found" << std::endl;
                 return(it->leave(p));
             }
         }
     }
-    std::cout << "Leave error, don't know why" << std::endl;
     return false;
 }
 
