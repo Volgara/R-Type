@@ -55,11 +55,11 @@ void RType::Room::start(Player *p) {
     std::string initMessage;
     std::cout << "debug5" << std::endl;
     initMessage += "Game started with id: ";
-    initMessage += std::to_string(4242 + p->getId());
+    initMessage += std::to_string(4243 + p->getId());
     std::cout << "debug6" << std::endl;
     for (auto it : _player)
     {
-        send(it->getFd(), initMessage.c_str(), initMessage.size(), 0);
+        send(it->getFd(), initMessage.c_str(), initMessage.size() + 1, 0);
     }
     std::cout << "message send" << std::endl;
 }
