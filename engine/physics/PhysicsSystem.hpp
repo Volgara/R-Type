@@ -20,9 +20,6 @@ namespace engine {
             std::map<int, std::vector<RigidBodyComponent *>> _listState;
             std::vector<std::pair<RigidBodyComponent *, RigidBodyComponent *>> _currentCollision;
             std::vector<RigidBodyComponent *> _listDebug;
-            std::vector<RigidBodyComponent *> _collisionList;
-            int _width;
-            int _height;
             int _wCell;
             int _sizeTab;
         private:
@@ -46,8 +43,6 @@ namespace engine {
             void Update(float dt) override;
 
             void Init() override;
-
-            void setBodyCollision(RigidBodyComponent *);
         public:
 
             void debugAddComponent(RigidBodyComponent *);
