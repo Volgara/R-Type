@@ -74,12 +74,15 @@ void GameManager::listRoom(Player *p) {
     int a = 0;
     for (auto it : _room)
     {
-        if (a != 0)
-            data += "|";
-        data += it->getName();
-        data += ",";
-        data += std::to_string(it->getNbrPlayer());
-        a += 1;
+        if (!it->_gameStart)
+        {
+            if (a != 0)
+                data += "|";
+            data += it->getName();
+            data += ",";
+            data += std::to_string(it->getNbrPlayer());
+            a += 1;
+        }
     }
     std::cout << "Data send: " << data << std::endl;
     send(p->getFd(), data.c_str(), data.size() + 1, 0);
