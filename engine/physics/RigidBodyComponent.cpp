@@ -41,7 +41,7 @@ void engine::physics::RigidBodyComponent::Update(float dt) {
     this->ownerRef->pos.setY(static_cast<int>((this->ownerRef->pos.getY() + this->_velocity.getY()) * dt));
 }
 
-void engine::physics::RigidBodyComponent::Init(void) {
+void engine::physics::RigidBodyComponent::Init() {
     this->_box = new Box(&this->ownerRef->pos, &this->_size);
 }
 

@@ -3,7 +3,7 @@
 ** Copyright (c) 2018 Armaldio - All rights reserved.            *
 *****************************************************************/
 
-#include <Windows.h>
+//#include <Windows.h>
 #include "Lobby.hpp"
 
 Lobby::Lobby(const std::string &name, sf::RenderWindow *win) : Scene(name, win)  {
@@ -24,5 +24,5 @@ void Lobby::onEvent(sf::Event &event) {
 }
 void Lobby::onSwitch() {
     std::cout << "Running current client for testing purposes" << std::endl;
-    ShellExecute(NULL, "open", "client.exe", "-p 0000 -ip 127.0.0.1", NULL, SW_SHOWDEFAULT);
+    //ShellExecute(NULL, "open", "client.exe", "-p 0000 -ip 127.0.0.1", NULL, SW_SHOWDEFAULT);
 }
