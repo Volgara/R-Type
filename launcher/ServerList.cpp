@@ -86,9 +86,14 @@ void ServerList::update() {
         Helper::centerElement(room->sprite, this->_win, true, false);
         //this->_win->draw(room->sprite);
 
-        room->text.setPosition(120, 100 + (50 * i));
-        room->text.setString(room->displayText.str());
-        this->_win->draw(room->text);
+        room->text_left.setPosition(120, 100 + (50 * i));
+        room->text_left.setString(room->name);
+
+        room->text_right.setPosition(670, 100 + (50 * i));
+        room->text_right.setString(std::to_string(room->nbPlayer));
+
+        this->_win->draw(room->text_left);
+        this->_win->draw(room->text_right);
 
         i++;
     }

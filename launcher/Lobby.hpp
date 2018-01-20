@@ -19,6 +19,10 @@ class Lobby : public Scene {
   void update() override;
   void onEvent(sf::Event &event);
   void onSwitch() override;
+
+private:
+    sf::Font font;
+    sf::Text text;
 };
 
 #endif //RTYPE_LOBBY_HPP
