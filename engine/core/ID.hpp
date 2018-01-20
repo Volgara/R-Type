@@ -19,7 +19,8 @@ namespace engine {
             GRA_SPRITE = 0,
             PHY_RIGIDBODY, // TODO : use RIGID Body
             PRO_BULLET,
-            GAME_PLAYER
+            GAME_PLAYER,
+            NET
         };
 
         typedef unsigned GameObjectID;

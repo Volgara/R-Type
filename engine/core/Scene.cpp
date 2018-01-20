@@ -18,7 +18,8 @@
 #include "GameObject.hpp"
 #include "projectile/BulletComponent.hpp"
 #include "../../game/PlayerComponent.hpp"
-#include "Component.hpp"
+#include "../network/NetworkComponent.hpp"
+
 
 engine::core::Component *engine::core::Scene::CreateComponent(engine::core::ComponentID type) {
     // TODO : Replace by Class based factory
@@ -39,6 +40,9 @@ engine::core::Component *engine::core::Scene::CreateComponent(engine::core::Comp
             break;
         case GAME_PLAYER:
             component = new game::PlayerComponent();
+            break;
+        case NET:
+            component = new engine::network::NetworkComponent();
             break;
         default:
             throw  std::runtime_error("Replace by Class based factory");
