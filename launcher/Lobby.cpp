@@ -39,12 +39,19 @@ void Lobby::init() {
     }
     refresh.setTexture(refresh_);
     refresh.setPosition(732, 20);
-    Helper::centerElement(refresh, this->_win, true, false);
+
+    if (!back_.loadFromFile("assets/Back.png")) {
+        std::cout << "An error occurred." << std::endl;
+    }
+    back.setTexture(back_);
+    back.setPosition(5, 532);
 }
 
 void Lobby::update() {
     this->_win->draw(text);
     this->_win->draw(ready);
+    this->_win->draw(refresh);
+    this->_win->draw(back);
 }
 
 void Lobby::onEvent(sf::Event &event) {
@@ -53,13 +60,20 @@ void Lobby::onEvent(sf::Event &event) {
         _connection->SetReady();
     }
 
+    if (Helper::isSpriteClicked(back, *this->_win))
+    {
+        _connection->leaveRoom();
+        this->requestSceneSwitch("serverList");
+    }
+
     if (Helper::isSpriteClicked(refresh, *this->_win))
     {
-        /*std::stringstream ss;
+        std::stringstream ss;
         std::string nb = _connection->getPlayerNumber();
 
-        ss << "Waiting for players to join... (" << nb << "/" << "4";
-        text.setString(ss.str());*/
+        ss << "Waiting for players to join... (" << nb << "/" << "4)";
+        text.setString(ss.str());
+        Helper::centerElement(text, this->_win, true, true);
 
     }
 }
@@ -70,8 +84,11 @@ void Lobby::onSwitch() {
     std::stringstream ss;
     std::string nb = _connection->getPlayerNumber();
 
-    ss << "Waiting for players to join... (" << nb << "/" << "4";
+    ss << "Waiting for players to join... (" << nb << "/" << "4)";
     text.setString(ss.str());
+    Helper::centerElement(text, this->_win, true, true);
 
+    //#ifdef _WIN32
     //ShellExecute(NULL, "open", "client.exe", "-p 0000 -ip 127.0.0.1", NULL, SW_SHOWDEFAULT);
+    //#endif
 }

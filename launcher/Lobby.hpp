@@ -30,6 +30,9 @@ private:
 
     sf::Texture refresh_;
     sf::Sprite refresh;
+
+    sf::Texture back_;
+    sf::Sprite back;
 };
 
 #endif //RTYPE_LOBBY_HPP

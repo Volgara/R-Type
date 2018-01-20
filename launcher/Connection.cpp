@@ -4,7 +4,13 @@
 *****************************************************************/
 
 #include <iostream>
+
+/*#ifdef _WIN32//  ou #if defined(linux) || defined(__APPLE__)
+
 #include <WinSock2.h>
+
+#endif*/
+
 #include "Connection.hpp"
 #include "../engine/network/networkException.hpp"
 
@@ -62,17 +68,6 @@ std::vector<Room> Connection::getRoomsFound() {
 std::string Connection::SetReady() {
     std::cout << "You are ready" << std::endl;
     sok->write_socket("start");
-
-    struct pollfd *poll_fd;
-    char buffer[256];
-    poll_fd = (pollfd *) malloc(sizeof(struct pollfd) * 1);
-    poll_fd[0].fd = sok->get_fd();
-    poll_fd[0].events = POLLIN | POLLOUT;
-
-    WSAPoll(poll_fd, 1, 500);
-    if (poll_fd[0].revents & POLLIN)
-        recv(this->sok->get_fd(), buffer, 256, 0);
-
     std::string res = sok->read_socket();
     return res;
 }
@@ -82,4 +77,11 @@ std::string Connection::getPlayerNumber() {
     sok->write_socket("roominfo");
     std::string res = sok->read_socket();
     return res;
+}
+
+void Connection::leaveRoom() {
+    std::cout << "Requesting to leave current room" << std::endl;
+    sok->write_socket("leave");
+    std::string res = sok->read_socket();
+    std::cout << "res: " << res << std::endl;
 }

@@ -60,6 +60,12 @@ void ServerList::init() {
     InputText.setTexture(InputText_);
     InputText.setPosition(0, 532);
     Helper::centerElement(InputText, this->_win, true, false);
+
+    if (!selectedServer_.loadFromFile("assets/SelectedServer.png")) {
+        std::cout << "An error occurred." << std::endl;
+    }
+    selectedServer.setTexture(selectedServer_);
+    selectedServer.setPosition(0, 0);
 }
 
 void ServerList::update() {
@@ -86,7 +92,7 @@ void ServerList::update() {
     for (auto &room : this->graphicalRooms) {
         room->sprite.setPosition(0, 100 + (50 * i));
         Helper::centerElement(room->sprite, this->_win, true, false);
-        //this->_win->draw(room->sprite);
+        this->_win->draw(room->sprite);
 
         room->text_left.setPosition(120, 100 + (50 * i));
         room->text_left.setString(room->name);
@@ -97,6 +103,12 @@ void ServerList::update() {
         this->_win->draw(room->text_left);
         this->_win->draw(room->text_right);
 
+        if (Helper::isMouseHover(room->sprite, *this->_win)) {
+            selectedServer.setPosition(0, 100 + (50 * i));
+            Helper::centerElement(selectedServer, this->_win, true, false);
+            this->_win->draw(selectedServer);
+        }
+
         i++;
     }
 }
@@ -106,10 +118,6 @@ void ServerList::onEvent(sf::Event &event) {
         if (Helper::isSpriteClicked(room->sprite, *this->_win)) {
             _connection->createAndJoin(room->name);
             this->requestSceneSwitch("lobby");
-        }
-
-        if (Helper::isMouseHover(room->sprite, *this->_win)) {
-            std::cout << "I'm hovering " << room->name << std::endl;
         }
     }
 
@@ -124,7 +132,8 @@ void ServerList::onEvent(sf::Event &event) {
     // concat string on input
     if (this->canType && event.type == sf::Event::TextEntered &&
         ((event.text.unicode >= 65 && event.text.unicode <= 90) ||
-         (event.text.unicode >= 97 && event.text.unicode <= 122))) {
+         (event.text.unicode >= 97 && event.text.unicode <= 122) ||
+         (event.text.unicode >= 48 && event.text.unicode <= 57))) {
         std::cout << event.text.unicode << std::endl;
         this->currentTyped += static_cast<char>(event.text.unicode);
     }

@@ -21,6 +21,8 @@ class Connection {
 
     std::string getPlayerNumber();
 
+    void leaveRoom();
+
 public:
   void addRoomFound(const std::string &name, int nbPlayers);
   void emptyRoomsFound();

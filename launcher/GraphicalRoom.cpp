@@ -23,7 +23,7 @@ GraphicalRoom::GraphicalRoom(Room &room) {
 
     this->nbPlayer = room.getNbPlayers();
 
-    if (!texture.loadFromFile("assets/Field.png")) { // TODO change resource
+    if (!texture.loadFromFile("assets/NotSelectedServer.png")) { // TODO change resource
         std::cout << "An error occurred." << std::endl;
     }
     sprite.setTexture(texture);
