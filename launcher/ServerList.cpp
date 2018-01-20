@@ -12,9 +12,11 @@
 ServerList::ServerList(const std::string &name, sf::RenderWindow *win) : Scene(name, win) {
     this->canType = false;
 }
+
 ServerList::~ServerList() {
 
 }
+
 void ServerList::init() {
     if (!font.loadFromFile("assets/arial.ttf")) {
         std::cout << "Cannot load ARIAL font" << std::endl;
@@ -80,7 +82,7 @@ void ServerList::update() {
         this->_win->draw(CreateServer);
     }
 
-    int       i = 0;
+    int i = 0;
     for (auto &room : this->graphicalRooms) {
         room->sprite.setPosition(0, 100 + (50 * i));
         Helper::centerElement(room->sprite, this->_win, true, false);
@@ -98,22 +100,31 @@ void ServerList::update() {
         i++;
     }
 }
+
 void ServerList::onEvent(sf::Event &event) {
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+    for (auto &room : this->graphicalRooms) {
+        if (Helper::isSpriteClicked(room->sprite, *this->_win)) {
+            _connection->createAndJoin(room->name);
+            this->requestSceneSwitch("lobby");
+        }
 
-        if (Helper::isSpriteClicked(backButton, *this->_win))
-            this->requestSceneSwitch("menu");
-
-        if (Helper::isSpriteClicked(Cancel, *this->_win))
-            this->canType = false;
-        if (Helper::isSpriteClicked(CreateServer, *this->_win))
-            this->canType = true;
+        if (Helper::isMouseHover(room->sprite, *this->_win)) {
+            std::cout << "I'm hovering " << room->name << std::endl;
+        }
     }
+
+    if (Helper::isSpriteClicked(backButton, *this->_win))
+        this->requestSceneSwitch("menu");
+
+    if (Helper::isSpriteClicked(Cancel, *this->_win))
+        this->canType = false;
+    if (Helper::isSpriteClicked(CreateServer, *this->_win))
+        this->canType = true;
 
     // concat string on input
     if (this->canType && event.type == sf::Event::TextEntered &&
         ((event.text.unicode >= 65 && event.text.unicode <= 90) ||
-            (event.text.unicode >= 97 && event.text.unicode <= 122))) {
+         (event.text.unicode >= 97 && event.text.unicode <= 122))) {
         std::cout << event.text.unicode << std::endl;
         this->currentTyped += static_cast<char>(event.text.unicode);
     }
@@ -135,7 +146,7 @@ void ServerList::onSwitch() {
     this->_connection->emptyRoomsFound();
     this->emptyGraphicalRoomsFound();
 
-    auto      vecRooms = Helper::explode(list, '|');
+    auto vecRooms = Helper::explode(list, '|');
     for (auto &r: vecRooms) {
 
         auto room = Helper::explode(r, ',');
@@ -150,6 +161,7 @@ void ServerList::onSwitch() {
         this->graphicalRooms.push_back(r);
     }
 }
+
 void ServerList::emptyGraphicalRoomsFound() {
     this->graphicalRooms.clear();
 }

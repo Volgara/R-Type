@@ -16,7 +16,12 @@ class Connection {
   virtual ~Connection();
 
   std::vector<Room> getRoomsFound();
- public:
+
+    std::string SetReady();
+
+    std::string getPlayerNumber();
+
+public:
   void addRoomFound(const std::string &name, int nbPlayers);
   void emptyRoomsFound();
   bool connect(const std::string &ip, int port);

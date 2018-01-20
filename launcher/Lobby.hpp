@@ -6,6 +6,7 @@
 #ifndef RTYPE_LOBBY_HPP
 #define RTYPE_LOBBY_HPP
 
+#include <SFML/Graphics/Sprite.hpp>
 #include "Lobby.hpp"
 #include "Scene.hpp"
 
@@ -23,6 +24,12 @@ class Lobby : public Scene {
 private:
     sf::Font font;
     sf::Text text;
+
+    sf::Texture ready_;
+    sf::Sprite ready;
+
+    sf::Texture refresh_;
+    sf::Sprite refresh;
 };
 
 #endif //RTYPE_LOBBY_HPP
