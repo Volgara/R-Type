@@ -80,7 +80,9 @@ void Lobby::onEvent(sf::Event &event) {
 #endif
 
 #if defined(linux) || defined(__APPLE__)
-        system("./client " + parameters);
+        std::string params("./client ");
+        params += parameters.str();
+        system(params.c_str());
 #endif
 
     }
