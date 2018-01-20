@@ -24,9 +24,9 @@ namespace engine {
 
             void Update(float dt) override;
 
-            void Init(void) override;
+            void Init() override;
 
-            void ShutDown(void) override;
+            void ShutDown() override;
 
             bool checkIntersect(const RigidBodyComponent *body);
 

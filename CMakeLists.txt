@@ -38,9 +38,17 @@ set(core_unit_SOURCE_FILES
 
 # Engine : Game
 set(game_SOURCE_FILES
-        engine/game/GameLogicSystem.cpp
-        engine/game/GameLogicSystem.hpp)
+        game/GameLogicSystem.cpp
+        game/GameLogicSystem.hpp)
 set(game_unit_SOURCE_FILES)
+
+# Engine : Projectile
+set(projectile_SOURCE_FILES
+        engine/projectile/BulletComponent.hpp
+        engine/projectile/BulletComponent.cpp
+        engine/projectile/BulletSystem.hpp
+        engine/projectile/BulletSystem.cpp)
+set(projectile_unit_SOURCE_FILES)
 
 # Engine : Graphics
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/find/") #add FindSFML file
@@ -114,13 +122,15 @@ set(client_MODULES
         ${game_SOURCE_FILES}
         ${graphics_SOURCE_FILES}
         ${physics_SOURCE_FILES}
-        ${network_SOURCE_FILES})
+        ${network_SOURCE_FILES}
+        ${projectile_SOURCE_FILES})
 
 set(server_MODULES
         ${core_SOURCE_FILES}
         ${game_SOURCE_FILES}
         ${physics_SOURCE_FILES}
-        ${network_SOURCE_FILES})
+        ${network_SOURCE_FILES}
+        ${projectile_SOURCE_FILES})
 
 # Software : Client
 set(client_SOURCE_FILES ${client_MODULES}

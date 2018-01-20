@@ -14,6 +14,7 @@
 #include <physics/RigidBodyComponent.hpp>
 #include "Scene.hpp"
 #include "GameObject.hpp"
+#include "projectile/BulletComponent.hpp"
 #include "Component.hpp"
 
 engine::core::Component *engine::core::Scene::CreateComponent(engine::core::ComponentID type) {
@@ -29,6 +30,9 @@ engine::core::Component *engine::core::Scene::CreateComponent(engine::core::Comp
             break;
         case PHY_RIGIDBODY:
             component = new engine::physics::RigidBodyComponent();
+            break;
+        case PRO_BULLET:
+            component = new engine::projectile::BulletComponent();
             break;
         default:
             throw  std::runtime_error("Replace by Class based factory");
