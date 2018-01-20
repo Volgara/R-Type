@@ -24,11 +24,9 @@ namespace game {
 
             void Update(float d) override;
 
-            void Init(void) override;
+            void Init() override;
 
             ~GameLogicSystem() override = default;
-
-            void Update(engine::core::Scene *scene) override;
 
             void onNotify(engine::core::Message message) override;
     };

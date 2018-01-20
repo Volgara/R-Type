@@ -40,8 +40,8 @@ set(core_unit_SOURCE_FILES
 set(game_SOURCE_FILES
         game/GameLogicSystem.cpp
         game/GameLogicSystem.hpp
-        game/Player.cpp
-        game/Player.hpp
+        game/PlayerComponent.cpp
+        game/PlayerComponent.hpp
         game/UserType.hpp
         game/SpaceShip.hpp
         game/SpaceShip.cpp)

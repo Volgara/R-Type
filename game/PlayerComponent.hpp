@@ -11,11 +11,9 @@
 #include "SpaceShip.hpp"
 
 namespace game {
-    class Player : public engine::core::Component, public SpaceShip {
-    private:
-        int _life;
+    class PlayerComponent : public engine::core::Component, public SpaceShip {
     public:
-        Player();
+        PlayerComponent();
 
         void SendMessage(engine::core::Message *message) override;
 

@@ -11,6 +11,8 @@ engine::projectile::BulletComponent::~BulletComponent() {}
 void engine::projectile::BulletComponent::SendMessage(engine::core::Message *) {}
 
 void engine::projectile::BulletComponent::Update(float dt) {
+    if (this->_body == nullptr)
+        return;
     this->_body->Update(dt);
 }
 
@@ -18,7 +20,7 @@ void engine::projectile::BulletComponent::Init() {
     if (this->ownerRef && this->ownerRef->HasComponent(core::ComponentID::PHY_RIGIDBODY))
         this->_body = dynamic_cast<physics::RigidBodyComponent *>(this->ownerRef->GetComponent(core::ComponentID::PHY_RIGIDBODY));
     else
-        throw std::runtime_error("Cannot use BulletComponent without RigidBodyComponent");
+        this->_body = nullptr;
 }
 
 void engine::projectile::BulletComponent::ShutDown() {}

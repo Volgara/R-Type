@@ -10,7 +10,7 @@
 #ifndef RTYPE_ID_HPP
 #define RTYPE_ID_HPP
 
-#define EComponentID_NUMBER 3
+#define EComponentID_NUMBER 4
 
 namespace engine {
     namespace core {
@@ -19,7 +19,7 @@ namespace engine {
             GRA_SPRITE = 0,
             PHY_RIGIDBODY, // TODO : use RIGID Body
             PRO_BULLET,
-            GAME_PLAYER,
+            GAME_PLAYER
         };
 
         typedef unsigned GameObjectID;
