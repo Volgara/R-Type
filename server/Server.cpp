@@ -28,7 +28,7 @@ RType::Server::~Server() {
 
 void RType::Server::configure() {
     _socket = new engine::Network::Socket(engine::Network::SocketType::Tcp);
-    _socket->init_socket();
+    _socket->init_socket(4242);
     _socket->blind_Socket();
     _socket->listen_Socket();
     _nbrPlayer = 0;
@@ -81,6 +81,9 @@ Player* player = _connectedUser.back();
         else if (strncmp(buffer, "leave", 5) == 0){
             _gameManager->leave(player);
         }
+        else if (strncmp(buffer, "start", 5) == 0){
+            _gameManager->start(player);
+        }
     }
     return(1);
 }
@@ -131,6 +134,9 @@ void RType::Server::ThreadFunct() {
         }
         else if (strncmp(buffer, "leave", 5) == 0){
             _gameManager->leave(player);
+        }
+        else if (strncmp(buffer, "start", 5) == 0){
+            _gameManager->start(player);
         }
     }
 }

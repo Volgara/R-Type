@@ -21,7 +21,7 @@ engine::Network::WindowsSocket::~WindowsSocket() {
 
 }
 
-void engine::Network::WindowsSocket::init_socket() {
+void engine::Network::WindowsSocket::init_socket(int port) {
     if (WSAStartup(MAKEWORD(2,2), &wsaData) != 0)
         throw NetworkException("WSAStartup failed");
 
@@ -36,7 +36,7 @@ void engine::Network::WindowsSocket::init_socket() {
     local.ai_flags = AI_PASSIVE;
 
     // Resolve the server address and port
-    if (getaddrinfo(NULL, "4242", &local, &result) != 0)
+    if (getaddrinfo(NULL, std::to_string(port).c_str(), &local, &result) != 0)
         throw NetworkException("getaddrinfo failed");
 
     // Create socket

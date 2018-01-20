@@ -23,7 +23,7 @@ namespace RType
         std::string getName() const;
         bool join(Player *);
         bool leave(Player *);
-        void start();
+        void start(Player *);
         int getNbrPlayer() const;
     };
 }

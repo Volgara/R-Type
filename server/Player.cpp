@@ -9,6 +9,7 @@ Player::Player(int fd, int id) {
     _fd = fd;
     _id = id;
     _inRoom = false;
+    isReady = false;
     _roomName = "";
 }
 
@@ -41,4 +42,5 @@ void Player::setRoom(std::string roomName) {
 void Player::cleanRoom() {
     _inRoom = false;
     _roomName = "";
+    isReady = false;
 }

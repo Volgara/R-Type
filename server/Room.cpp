@@ -4,6 +4,8 @@
 //
 
 #include <iostream>
+#include <network/Socket.hpp>
+#include <sys/socket.h>
 #include "Room.hpp"
 
 RType::Room::Room(std::string name) {
@@ -19,9 +21,30 @@ bool RType::Room::join(Player *p) {
     return (true);
 }
 
-void RType::Room::start() {
+void RType::Room::start(Player *p) {
     _gameStart = true;
+
+    p->isReady = true;
+    for (auto it : this->_player)
+    {
+        if (!it->isReady)
+        {
+            std::cout << "Waiting for other player to be ready" << std::endl;
+            return;
+        }
+    }
+    std::cout << "All player are ready, code the game here" << std::endl;
     //game started
+    engine::Network::Socket *udpSocket = new engine::Network::Socket(engine::Network::SocketType::Udp);
+    udpSocket->init_socket(4242 + p->getId());
+    udpSocket->blind_Socket();
+    std::string initMessage;
+    initMessage += "Game started with id: ";
+    initMessage += (4242 + p->getId());
+    for (auto it : _player)
+    {
+        send(it->getFd(), initMessage.c_str(), initMessage.size() + 1, 0);
+    }
 }
 
 std::string RType::Room::getName() const {

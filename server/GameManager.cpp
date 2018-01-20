@@ -77,12 +77,12 @@ void GameManager::listRoom(Player *p) {
     send(p->getFd(), data.c_str(), data.size() + 1, 0);
 }
 
-bool GameManager::start(std::string roomName) {
+bool GameManager::start(Player *p) {
     for (auto it : _room)
     {
-        if (strcmp(it->getName().c_str(), roomName.c_str()))
+        if (strcmp(it->getName().c_str(), p->getRoomName().c_str()))
         {
-            it->start();
+            it->start(p);
             return (true);
         }
 

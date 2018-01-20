@@ -19,7 +19,7 @@ engine::Network::UnixSocket::~UnixSocket() {
 
 }
 
-void engine::Network::UnixSocket::init_socket() {
+void engine::Network::UnixSocket::init_socket(int port) {
     if (_socketType == Tcp)
         fd = socket(AF_INET, SOCK_STREAM, 0);
     else if (_socketType == Udp)
@@ -29,7 +29,7 @@ void engine::Network::UnixSocket::init_socket() {
     }
     serv_addr.sin_family = AF_INET;
     serv_addr.sin_addr.s_addr = INADDR_ANY;
-    serv_addr.sin_port = htons(4242);
+    serv_addr.sin_port = htons(port);
 }
 
 int engine::Network::UnixSocket::connect_socket(const std::string &ip, int port) {

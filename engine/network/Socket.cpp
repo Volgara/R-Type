@@ -41,8 +41,8 @@ engine::Network::Socket::~Socket() {
 
 }
 
-void engine::Network::Socket::init_socket() {
-    _socket->init_socket();
+void engine::Network::Socket::init_socket(int p) {
+    _socket->init_socket(p);
 }
 
 int engine::Network::Socket::connect_socket(const std::string &ip, int port) {
