@@ -75,6 +75,7 @@ DWORD RType::Server::ThreadFunc() {
                 send(player->getFd(), "ok", 3, 0);
         else if (strncmp(buffer, "roominfo", 8)){
             _gameManager->inforoom(player);
+            }
     }
     return(1);
 }
@@ -120,6 +121,9 @@ void RType::Server::ThreadFunct() {
                 send(player->getFd(), "ok", 3, 0);
         else if (strncmp(buffer, "roominfo", 8)){
             _gameManager->inforoom(player);
+        }
+        else if (strncmp(buffer, "leave", 5)){
+            
         }
     }
 }
