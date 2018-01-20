@@ -64,6 +64,7 @@ bool RType::Room::leave(Player *p) {
         {
             _player.erase(_player.begin() + pos);
             p->cleanRoom();
+            send(p->getFd(), "ok", 3, 0);
             return (true);
         }
         pos += 1;
