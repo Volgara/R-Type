@@ -12,7 +12,6 @@
 
 
 #include "PlayerComponent.hpp"
-#include <projectile/BulletComponent.hpp>
 
 namespace game {
     class GameLogicSystem : public engine::core::ASystem {

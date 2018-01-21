@@ -9,7 +9,7 @@
 #include <network/Socket.hpp>
 #include <sys/socket.h>
 #include <physics/PhysicsSystem.hpp>
-//#include "GameLogicSystem.hpp"
+#include "GameLogicSystem.hpp"
 
 namespace game {
     class GameServer {

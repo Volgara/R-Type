@@ -12,11 +12,11 @@ void game::GameServer::startGameServer() {
     auto *eg = engine::core::Engine::GetInstance();
     engine::Network::Socket *udp = this->initSocketSytem();
     engine::physics::PhysicsSystem *physicsSystem = new engine::physics::PhysicsSystem(800, 800);
-    //GameLogicSystem *gameLogicSystem = new GameLogicSystem(800, 800);
+    game::GameLogicSystem *gameLogicSystem = new game::GameLogicSystem(800, 800);
 
     eg->addSystem("socketUdp", udp);
     eg->addSystem("physics", physicsSystem);
-    //eg->addSystem("gameLogic", gameLogicSystem);
+    eg->addSystem("gameLogic", gameLogicSystem);
 }
 
 engine::Network::Socket *game::GameServer::initSocketSytem() {
