@@ -24,4 +24,4 @@ void engine::projectile::BulletSystem::Update(float dt) {
 
 void engine::projectile::BulletSystem::Init() {}
 
-void engine::projectile::BulletSystem::onNotify(core::Message) {}
+void engine::projectile::BulletSystem::onNotify(core::Message *) {}

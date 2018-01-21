@@ -18,13 +18,13 @@ namespace engine {
             MessageBus();
             virtual ~MessageBus();
 
-            void addReceiver(std::function<void (Message)> messageReceiver);
-            void sendMessage(Message &message);
+            void addReceiver(std::function<void (Message *)> messageReceiver);
+            void sendMessage(Message *message);
             void notify();
 
         private:
-            std::vector<std::function<void (Message)>> _receivers;
-            std::queue<Message> _messages;
+            std::vector<std::function<void (Message *)>> _receivers;
+            std::queue<Message *> _messages;
         };
     }
 }

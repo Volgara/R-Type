@@ -8,14 +8,14 @@ engine::core::MessageBus::MessageBus() = default;
 
 engine::core::MessageBus::~MessageBus() = default;
 
-void engine::core::MessageBus::addReceiver(std::function<void(Message)> messageReceiver) {
+void engine::core::MessageBus::addReceiver(std::function<void(Message *)> messageReceiver) {
 #ifdef DEBUG_MESSAGE_BUSS
     std::cout << "MessageBus::addReceiver" << std::endl;
 #endif
     this->_receivers.push_back(messageReceiver);
 }
 
-void engine::core::MessageBus::sendMessage(Message &message) {
+void engine::core::MessageBus::sendMessage(Message *message) {
 #ifdef DEBUG_MESSAGE_BUSS
     std::cout << "MessageBus::sendMessage: type = " << message.id << std::endl;
 #endif

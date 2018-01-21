@@ -20,8 +20,8 @@ void game::GameLogicSystem::Update(float dt) {
 
 void game::GameLogicSystem::Init() {}
 
-void game::GameLogicSystem::onNotify(engine::core::Message message) {
-    if (message.id == engine::core::InternalMessageID::COLLISION) {
+void game::GameLogicSystem::onNotify(engine::core::Message *message) {
+    if (message->id == engine::core::InternalMessageID::COLLISION) {
         auto *eg = engine::core::Engine::GetInstance();
         auto *collision2D = static_cast<engine::core::Collision2D *>(&message);
 
@@ -29,7 +29,7 @@ void game::GameLogicSystem::onNotify(engine::core::Message message) {
         engine::core::GameObject *source = eg->getScene()->GetGameObject(collision2D->source);
         this->checkColision(target, source);
     }
-    else if (message.id == game::GameMessageID::PLAYER_ACTION) {
+    else if (message->id == game::GameMessageID::PLAYER_ACTION) {
         auto *eg = engine::core::Engine::GetInstance();
         auto *movePlayer = static_cast<game::PlayerActionMessage *>(&message);
 

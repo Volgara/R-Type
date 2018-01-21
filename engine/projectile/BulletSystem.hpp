@@ -27,7 +27,7 @@ namespace engine {
 
             void Init() override;
 
-            void onNotify(core::Message message) override;
+            void onNotify(core::Message *message) override;
         };
     }
 }

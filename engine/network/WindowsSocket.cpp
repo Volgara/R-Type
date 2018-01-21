@@ -117,7 +117,7 @@ void engine::Network::WindowsSocket::Init(void) {
 
 }
 
-void engine::Network::WindowsSocket::onNotify(engine::core::Message message) {
+void engine::Network::WindowsSocket::onNotify(engine::core::Message *) {
 
 }
 

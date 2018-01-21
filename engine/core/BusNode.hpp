@@ -19,10 +19,10 @@ namespace engine {
             MessageBus *_messageBus;
 
         protected:
-            std::function<void (Message)> getNotifyFunc();
-            void sendMsg(Message message);
+            std::function<void (Message *)> getNotifyFunc();
+            void sendMsg(Message *message);
 
-            virtual void onNotify(Message message) = 0;
+            virtual void onNotify(Message *message) = 0;
         };
     }
 }

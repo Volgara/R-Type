@@ -24,7 +24,7 @@ namespace engine {
             unsigned int get_fd() const override;
             void send_data(char *);
             void Init(void) override;
-            void onNotify(core::Message message) override;
+            void onNotify(core::Message *message) override;
             void Update(float dt) override;
             void write_socket(std::string) override;
             std::string read_socket() override;

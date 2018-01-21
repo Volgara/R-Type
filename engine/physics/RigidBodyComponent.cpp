@@ -32,16 +32,12 @@ void engine::physics::RigidBodyComponent::setSize(const engine::core::Vector2d &
     this->_size.setX(size.getX());
 }
 
-void engine::physics::RigidBodyComponent::SendMessage(engine::core::Message *message) {
-    std::cout << "I get message in RigidBodyComponent : " << message->id << std::endl;
+void engine::physics::RigidBodyComponent::SendMessage(engine::core::Message *) {
 }
 
 void engine::physics::RigidBodyComponent::Update(float dt) {
-    std::cout << "In update body" << std::endl;
     this->ownerRef->pos.setX(static_cast<int>((this->ownerRef->pos.getX() + this->_velocity.getX()) * dt));
-    std::cout << "In update body 2" << std::endl;
     this->ownerRef->pos.setY(static_cast<int>((this->ownerRef->pos.getY() + this->_velocity.getY()) * dt));
-    std::cout << "In update body 3" << std::endl;
 }
 
 void engine::physics::RigidBodyComponent::Init() {

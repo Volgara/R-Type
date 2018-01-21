@@ -39,7 +39,7 @@ namespace engine {
             void addKeyCallback(Callback callback);
 
         protected:
-            void onNotify(core::Message message) override;
+            void onNotify(core::Message *message) override;
         };
     }
 }

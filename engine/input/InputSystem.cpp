@@ -33,7 +33,7 @@ void engine::input::InputSystem::Init() {
 
 }
 
-void engine::input::InputSystem::onNotify(engine::core::Message) {
+void engine::input::InputSystem::onNotify(engine::core::Message *) {
 
 }
 

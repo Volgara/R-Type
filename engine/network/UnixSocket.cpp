@@ -75,7 +75,7 @@ void engine::Network::UnixSocket::Init(void) {
 
 }
 
-void engine::Network::UnixSocket::onNotify(engine::core::Message) {
+void engine::Network::UnixSocket::onNotify(engine::core::Message *) {
 
 }
 

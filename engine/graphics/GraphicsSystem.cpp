@@ -98,10 +98,10 @@ engine::graphics::GraphicSystem::GraphicSystem() {
 
 }
 
-void engine::graphics::GraphicSystem::onNotify(engine::core::Message msg) {
+void engine::graphics::GraphicSystem::onNotify(engine::core::Message *msg) {
     auto      *eg = engine::core::Engine::GetInstance();
     for (auto sprite : *eg->getScene()->GetComponents<GraphicsComponent>(core::ComponentID::GRA_SPRITE)) {
-        sprite->SendMessage(&msg);
+        sprite->SendMessage(msg);
     }
 }
 

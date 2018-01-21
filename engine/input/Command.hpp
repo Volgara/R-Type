@@ -94,7 +94,7 @@ namespace engine {
       std::cout << "StateSendMessage: actor:" << actor->guid << " message_id: " << m_message->id << std::endl;
 #endif
                 m_message->m_ref = actor;
-                m_bus->sendMessage(*m_message);
+                m_bus->sendMessage(m_message);
             }
         };
     }

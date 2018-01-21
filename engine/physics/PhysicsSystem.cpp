@@ -69,8 +69,7 @@ void engine::physics::PhysicsSystem::addComponentInMap(engine::physics::RigidBod
     }
 }
 
-void engine::physics::PhysicsSystem::onNotify(engine::core::Message message) {
-    std::cout << "PhysicsSystem receive Message : " << message.id << std::endl;
+void engine::physics::PhysicsSystem::onNotify(engine::core::Message *) {
 }
 
 void engine::physics::PhysicsSystem::checkCellCollision(std::vector<RigidBodyComponent *> vec) {
@@ -81,7 +80,7 @@ void engine::physics::PhysicsSystem::checkCellCollision(std::vector<RigidBodyCom
                     core::Collision2D msg;
                     msg.source = vec[i]->owner;
                     msg.target = vec[j]->owner;
-                    //sendMsg(msg);
+                    sendMsg(&msg);
                     this->_debugNbCollision++;
                 }
             }

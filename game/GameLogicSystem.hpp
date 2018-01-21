@@ -33,7 +33,7 @@ namespace game {
 
             ~GameLogicSystem() override = default;
 
-            void onNotify(engine::core::Message message) override;
+            void onNotify(engine::core::Message *message) override;
     };
 }
 

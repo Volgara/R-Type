@@ -35,7 +35,7 @@ namespace engine {
             void createHasheMapDebug();
 
         protected:
-            void onNotify(core::Message message) override;
+            void onNotify(core::Message *message) override;
 
         public:
             PhysicsSystem(int width, int height);

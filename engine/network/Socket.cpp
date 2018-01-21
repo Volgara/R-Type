@@ -70,11 +70,11 @@ void engine::Network::Socket::Init(void) {
 
 }
 
-void engine::Network::Socket::onNotify(engine::core::Message message) {
+void engine::Network::Socket::onNotify(engine::core::Message *message) {
     std::stringstream Buffer(std::iostream::in | std::iostream::out);
     char null = '\0';
 
-    Buffer.write((char*)&message, sizeof(message));
+    Buffer.write((char*)message, sizeof(message));
     Buffer.write(&null, 1);
     _queue.push_back(Buffer.str().c_str());
 }

@@ -13,36 +13,27 @@ void game::GameLogicClientSystem::Update(float dt) {
 
 void game::GameLogicClientSystem::Init() {}
 
-void game::GameLogicClientSystem::onNotify(engine::core::Message message) {
-    std::cout << "In notify" << std::endl;
-    if (message.id == game::GameMessageID::PLAYER_ACTION) {
-        std::cout << "Player action" << std::endl;
+void game::GameLogicClientSystem::onNotify(engine::core::Message *message) {
+    if (message->id == game::GameMessageID::PLAYER_ACTION) {
         auto *eg = engine::core::Engine::GetInstance();
-        auto *movePlayer = static_cast<game::PlayerActionMessage *>(&message);
+        auto *movePlayer = static_cast<game::PlayerActionMessage *>(message);
 
-        std::cout << "Before gameObject" << std::endl;
         engine::core::GameObject *source = movePlayer->m_ref;
-        std::cout << "Before playAction" << std::endl;
         this->playAction(source, movePlayer->getAction());
     }
-    else if (message.id == game::GameMessageID::SERVER_ACTION) {
+    else if (message->id == game::GameMessageID::SERVER_ACTION) {
         auto *eg = engine::core::Engine::GetInstance();
-        auto *move = static_cast<game::ServerActionMessage *>(&message);
+        auto *move = static_cast<game::ServerActionMessage *>(message);
 
         engine::core::GameObject *source = eg->getScene()->GetGameObject(move->getSource());
         this->move(source, move->getPos().getX(), move->getPos().getY());
     }
-    std::cout << "End value" << std::endl;
 }
 
 void game::GameLogicClientSystem::playAction(engine::core::GameObject *source, PlayerActionMessage::Action action) {
-    std::cout << "In play action" <<  source->guid << std::endl;
     if (source->HasComponent(engine::core::ComponentID::PHY_RIGIDBODY)) {
-        std::cout << "In comment" << std::endl;
         auto *body = static_cast<engine::physics::RigidBodyComponent *>(source->GetComponent(engine::core::ComponentID::PHY_RIGIDBODY));
-        std::cout << "In comment 2" << std::endl;
         auto *player = static_cast<game::PlayerComponent *>(source->GetComponent(engine::core::ComponentID::GAME_PLAYER));
-        std::cout << "Before vectore" << std::endl;
         engine::core::Vector2d vel(0, 0);
         switch (action) {
             case game::PlayerActionMessage::Action::GO_UP:
@@ -58,11 +49,8 @@ void game::GameLogicClientSystem::playAction(engine::core::GameObject *source, P
                 vel.setX(-player->getSpeed());
                 break;
         }
-        std::cout << "Before velocity" << std::endl;
         body->setVelocity(vel);
-        std::cout << "Before update" << std::endl;
         body->Update(this->_currentDt);
-        std::cout << "Before end" << std::endl;
     }
 }
 
