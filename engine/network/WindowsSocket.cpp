@@ -130,7 +130,7 @@ void engine::Network::WindowsSocket::write_socket(std::string data) {
 }
 
 void write_socket_size(const char *data, size_t size){
-    send(fd, data, size, 0);
+    send(this->get_fd(), data, size, 0);
 }
 
 std::string engine::Network::WindowsSocket::read_socket() {
