@@ -5,7 +5,7 @@
 
 #include "Player.hpp"
 
-Player::Player(int fd, int id) {
+RTypeServer::Player::Player(int fd, int id) {
     _fd = fd;
     _id = id;
     _inRoom = false;
@@ -13,25 +13,25 @@ Player::Player(int fd, int id) {
     _roomName = "";
 }
 
-int Player::getId() const {
+int RTypeServer::Player::getId() const {
     return _id;
 }
 
-int Player::getFd() const {
+int RTypeServer::Player::getFd() const {
     return _fd;
 }
 
-bool Player::getRoomStatus() const {
+bool RTypeServer::Player::getRoomStatus() const {
     return _inRoom;
 }
 
-std::string Player::getRoomName() const {
+std::string RTypeServer::Player::getRoomName() const {
     return _roomName;
 }
 
 
 
-void Player::setRoom(std::string roomName) {
+void RTypeServer::Player::setRoom(std::string roomName) {
     if (!_inRoom)
     {
         _inRoom = true;
@@ -39,7 +39,7 @@ void Player::setRoom(std::string roomName) {
     }
 }
 
-void Player::cleanRoom() {
+void RTypeServer::Player::cleanRoom() {
     _inRoom = false;
     _roomName = "";
     isReady = false;

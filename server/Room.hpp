@@ -11,7 +11,7 @@
 #include "Player.hpp"
 
 
-namespace RType
+namespace RTypeServer
 {
     class Room {
     private:

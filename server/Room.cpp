@@ -17,12 +17,12 @@
 
 #include "Room.hpp"
 
-RType::Room::Room(std::string name) {
+RTypeServer::Room::Room(std::string name) {
     _name = name;
     _gameStart = false;
 }
 
-bool RType::Room::join(Player *p) {
+bool RTypeServer::Room::join(Player *p) {
     if (_player.size() >= 4 || _gameStart)
     {
         std::cout << "join error, too much player or game already started" << std::endl;
@@ -34,7 +34,7 @@ bool RType::Room::join(Player *p) {
     return (true);
 }
 
-void RType::Room::start(Player *p) {
+void RTypeServer::Room::start(Player *p) {
     p->isReady = true;
     for (auto it : _player)
     {
@@ -57,15 +57,15 @@ void RType::Room::start(Player *p) {
     std::cout << "message send" << std::endl;
 }
 
-std::string RType::Room::getName() const {
+std::string RTypeServer::Room::getName() const {
     return _name;
 }
 
-int RType::Room::getNbrPlayer() const {
+int RTypeServer::Room::getNbrPlayer() const {
     return _player.size();
 }
 
-bool RType::Room::leave(Player *p) {
+bool RTypeServer::Room::leave(Player *p) {
     int pos = 0;
 
     for (auto it : _player)

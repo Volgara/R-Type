@@ -44,7 +44,9 @@ set(game_SOURCE_FILES
         game/PlayerComponent.hpp
         game/UserType.hpp
         game/SpaceShip.hpp
-        game/SpaceShip.cpp)
+        game/SpaceShip.cpp
+        game/GameServer.hpp
+        game/GameServer.cpp)
 set(game_unit_SOURCE_FILES
         unit/game/GamePlayerUnit.cpp)
 

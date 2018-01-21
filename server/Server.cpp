@@ -18,15 +18,15 @@
 // #pragma comment (lib, "Mswsock.lib")
 
 
-RType::Server::Server() {
+RTypeServer::Server::Server() {
 
 }
 
-RType::Server::~Server() {
+RTypeServer::Server::~Server() {
     delete _socket;
 }
 
-void RType::Server::configure() {
+void RTypeServer::Server::configure() {
     _socket = new engine::Network::Socket(engine::Network::SocketType::Tcp);
     _socket->init_socket(4242);
     _socket->blind_Socket();
@@ -40,12 +40,12 @@ DWORD __stdcall startMethodInThread( LPVOID arg )
 {
     if(!arg)
         return 0;
-    RType::Server *yc_ptr = (RType::Server*)arg;
+    RTypeServer::Server *yc_ptr = (RTypeServer::Server*)arg;
     yc_ptr->ThreadFunc();
     return 1;
 }
 
-DWORD RType::Server::ThreadFunc() {
+DWORD RTypeServer::Server::ThreadFunc() {
 Player* player = _connectedUser.back();
     std::cout << "New player connected with id: " << player->getId() << std::endl;
     int a = 1;
@@ -94,12 +94,12 @@ void threadLinux(void *data)
 {
     if(!data)
         return;
-    RType::Server *yc_ptr = (RType::Server*)data;
+    RTypeServer::Server *yc_ptr = (RTypeServer::Server*)data;
     yc_ptr->ThreadFunct();
     return;
 }
 
-void RType::Server::ThreadFunct() {
+void RTypeServer::Server::ThreadFunct() {
     Player* player = _connectedUser.back();
     std::cout << "New player connected with id: " << player->getId() << std::endl;
     int a = 1;
@@ -142,7 +142,7 @@ void RType::Server::ThreadFunct() {
 }
 #endif
 
-void RType::Server::run() {
+void RTypeServer::Server::run() {
     int fd;
     Player *newPlayer;
 

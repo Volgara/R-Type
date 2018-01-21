@@ -20,7 +20,7 @@
 int main(int ac, char **av) {
 
     // create the window
-    sf::RenderWindow window(sf::VideoMode(800, 600), "RType Launcher", sf::Style::Titlebar | sf::Style::Close);
+    sf::RenderWindow window(sf::VideoMode(800, 600), "RTypeServer Launcher", sf::Style::Titlebar | sf::Style::Close);
     window.setMouseCursorVisible(false); // Hide cursor
 
     sf::Texture texture;
