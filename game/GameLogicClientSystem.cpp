@@ -4,7 +4,7 @@
 
 #include "GameLogicClientSystem.hpp"
 
-game::GameLogicClientSystem::GameLogicClientSystem() {}
+game::GameLogicClientSystem::GameLogicClientSystem(int width, int height) : _width(width), _height(height) {}
 
 
 void game::GameLogicClientSystem::Update(float dt) {

@@ -59,7 +59,9 @@ set(game_unit_SOURCE_FILES
 set(game_client_SOURCE_FILES
         ${game_SOURCE_FILE}
         game/GameLogicClientSystem.cpp
-        game/GameLogicClientSystem.hpp)
+        game/GameLogicClientSystem.hpp
+        game/GameClient.hpp
+        game/GameClient.cpp)
 
 # Engine : Projectile
 set(projectile_SOURCE_FILES

@@ -16,7 +16,7 @@ namespace game {
     private:
         std::vector<RTypeServer::Player *> _players;
 
-        engine::Network::Socket *initSocketSytem();
+        engine::Network::Socket *initSocketSystem();
 
         void createPlayer(engine::core::Scene *);
     public:

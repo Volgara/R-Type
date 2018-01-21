@@ -12,7 +12,7 @@ game::GameServer::~GameServer() {}
 
 void game::GameServer::startGameServer() {
     auto *eg = engine::core::Engine::GetInstance();
-    engine::Network::Socket *udp = this->initSocketSytem();
+    engine::Network::Socket *udp = this->initSocketSystem();
     engine::physics::PhysicsSystem *physicsSystem = new engine::physics::PhysicsSystem(800, 800);
     game::GameLogicSystem *gameLogicSystem = new game::GameLogicSystem(800, 800);
     engine::projectile::BulletSystem *bulletSystem = new engine::projectile::BulletSystem(800, 800);
@@ -30,7 +30,7 @@ void game::GameServer::startGameServer() {
     eg->Shutdown();
 }
 
-engine::Network::Socket *game::GameServer::initSocketSytem() {
+engine::Network::Socket *game::GameServer::initSocketSystem() {
     engine::Network::Socket *udp = new engine::Network::Socket(engine::Network::SocketType::Udp);
 
     RTypeServer::Player *p = this->_players[0];

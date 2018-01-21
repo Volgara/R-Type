@@ -17,12 +17,14 @@ namespace game {
     class GameLogicClientSystem : public engine::core::ASystem {
     private:
         float _currentDt;
+        int _width;
+        int _height;
     private:
         void playAction(engine::core::GameObject *, game::PlayerActionMessage::Action action);
 
         void move(engine::core::GameObject *, int x, int y);
     public:
-        GameLogicClientSystem();
+        GameLogicClientSystem(int, int);
 
         void Update(float d) override;
 
