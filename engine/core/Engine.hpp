@@ -13,6 +13,7 @@
 #ifdef GRAPHICS
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Event.hpp>
+#include <SFML/System/Clock.hpp>
 #endif
 
 #include <string>
@@ -22,6 +23,7 @@
 #include "ASystem.hpp"
 #include "Singleton.hpp"
 #include "Scene.hpp"
+#include "MessageBus.hpp"
 
 namespace engine {
     namespace core {
@@ -30,31 +32,68 @@ namespace engine {
             std::map<std::string, ASystem *> _systems;
             std::deque<Message *> _messages;
             Scene *_scene;
+            MessageBus *_messageBus;
             bool _gameRunning;
 
 #ifdef GRAPHICS
             sf::RenderWindow _window;
+            sf::Clock _clock;
 #endif
 
         public:
             void constructor() override;
 
         public:
+            /**
+             * Init each subsystem
+             */
             void Init(void);
 
+            /**
+             * Update each subsystem
+             * @param dt
+             */
             void Update(float dt);
 
+            /**
+             * Only for debug
+             */
             void MainLoop(void);
 
-            void addSystem(const std::string &systemId, ASystem *);
+            /**
+             * Insert a new system in engine list
+             * @param systemId
+             * @param system
+             */
+            void addSystem(const std::string &systemId, ASystem *system);
 
+            /**
+             * Get's system by name
+             * @param systemId
+             * @return
+             */
             ASystem *getSystem(const std::string &systemId);
+
+            /**
+             * Get's engine status
+             * @return true if is running
+             */
+            bool isRunning() const;
+
+            /**
+             * Before exit the application
+             */
+            void Shutdown(void);
+
+            MessageBus *getMessageBus() const;
 
 #ifdef GRAPHICS
             sf::RenderWindow &getWindow();
 #endif
 
             Scene *getScene();
+
+            void setScene(Scene *pScene);
         };
     }
 }

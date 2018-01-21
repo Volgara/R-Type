@@ -9,7 +9,7 @@
 
 #include <SFML/Window/Event.hpp>
 
-namespace RType {
+namespace RTypeServer {
     namespace Engine {
         class Event : public sf::Event {
         };

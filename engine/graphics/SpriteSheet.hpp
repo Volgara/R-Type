@@ -7,14 +7,34 @@
 #define RTYPE_SPRITESHEET_HPP
 
 #include <string>
+#include <SFML/Graphics/Texture.hpp>
 
 namespace engine {
     namespace graphics {
         class SpriteSheet {
         public:
             SpriteSheet(std::string file, int width, int height, int cols, int rows);
-
             ~SpriteSheet();
+
+        protected:
+            int _width;
+            int _height;
+            int _cols;
+            int _rows;
+            int _frameWidth;
+            int _frameHeight;
+            sf::Texture *_texture;
+
+        public:
+            int getFrameWidth() const;
+            void setFrameWidth(int _frameWidth);
+            int getFrameHeight() const;
+            void setFrameHeight(int _frameHeight);
+            int getCols() const;
+            void setCols(int _cols);
+            int getRows() const;
+            void setRows(int _rows);
+            const sf::Texture *getTexture() const;
         };
     }
 }

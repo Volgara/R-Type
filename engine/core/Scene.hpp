@@ -1,6 +1,6 @@
 //
 //-----------------------------------------------------------------------------
-//Filename:    Scene.hpp
+//Filename:    AScene.hpp
 //-----------------------------------------------------------------------------
 //
 // Created by bonett_w on 1/15/18.
@@ -15,6 +15,7 @@
 #include "ID.hpp"
 #include "NonCopyable.hpp"
 #include "AutoList.hpp"
+#include "MessageBus.hpp"
 
 namespace engine {
     namespace core {
@@ -24,14 +25,13 @@ namespace engine {
 
         struct Scene : public AutoList<Scene> {
             std::map<GameObjectID, GameObject *> objectsMap;
+            std::vector<Component *> components;
             std::vector<Component *> handlesComponents[EComponentID_NUMBER];
             unsigned guid = 0;
 
             Component *CreateComponent(ComponentID type);
 
             void RemoveComponent(Component *c);
-
-            void RemoveComponent(GameObjectID handle);
 
             GameObject *CreateEmptyObject(void);
 
@@ -43,6 +43,10 @@ namespace engine {
             std::vector<T *> *GetComponents(ComponentID type);
 
             Component *GetComponent(ComponentID type, GameObjectID owner);
+
+            GameObject *GetGameObject(GameObjectID);
+
+            void cleanUp();
         };
 
         template<typename T>

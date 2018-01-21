@@ -3,35 +3,35 @@
 //
 
 #include <iostream>
+#include <core/Engine.hpp>
 #include "PhysicsSystem.hpp"
 
 engine::physics::PhysicsSystem::PhysicsSystem(int width, int height) {
-    this->_width = width / CELL_SIZE;
-    this->_height = height / CELL_SIZE;
+    int hCell = height / CELL_SIZE;
+    this->_wCell = width / CELL_SIZE;
+    this->_sizeTab = hCell * this->_wCell;
     Init();
 }
 
-void engine::physics::PhysicsSystem::Update(float) {
+void engine::physics::PhysicsSystem::Update(float dt) {
     this->_debugNbCollision = 0;
-    this->_debugNb = 0;
-    this->_debugNbAdd = 0;
     this->_debugCheck = 0;
-
     this->clearMap();
-    this->createHasheMap();
+    if (dt == -1) {
+        this->_debug = true;
+        this->createHasheMapDebug();
+    }
+    else
+        this->createHasheMap();
     for (auto &it : this->_listState) {
-        this->checkCellColision(it.second);
+        this->checkCellCollision(it.second);
     }
 }
 
 void engine::physics::PhysicsSystem::Init() {
     this->_debugNbCollision = 0;
-    this->_debugNb = 0;
-    this->_debugNbAdd = 0;
-}
-
-void engine::physics::PhysicsSystem::SendMessage(Message *) {
-
+    this->_debugCheck = 0;
+    this->_debug = false;
 }
 
 void engine::physics::PhysicsSystem::debugAddComponent(engine::physics::RigidBodyComponent *c) {
@@ -43,56 +43,60 @@ void engine::physics::PhysicsSystem::clearMap() {
     this->_currentCollision.clear();
 }
 
-void engine::physics::PhysicsSystem::createHasheMap() {
+void engine::physics::PhysicsSystem::createHasheMapDebug() {
     for (auto &i : this->_listDebug) {
         addComponentInMap(i);
-        this->_debugNbAdd++;
+    }
+}
+
+void engine::physics::PhysicsSystem::createHasheMap() {
+    auto *eg = engine::core::Engine::GetInstance();
+
+    for (auto &body : *eg->getScene()->GetComponents<RigidBodyComponent>(core::ComponentID::PHY_RIGIDBODY)) {
+        addComponentInMap(body);
     }
 }
 
 void engine::physics::PhysicsSystem::addComponentInMap(engine::physics::RigidBodyComponent *comp) {
     Box *box = comp->getBox();
+    int cell = 0;
+
     core::Vector2d width(box->getLeft() / CELL_SIZE, box->getRight() / CELL_SIZE);
     core::Vector2d height(box->getTop() / CELL_SIZE, box->getBottom() / CELL_SIZE);
-
     for (int i = width.getX(); i <= width.getY(); i++) {
         for (int j = height.getX(); j <= height.getY(); j++) {
-            this->_listState[this->_width * i + j].push_back(comp);
-            this->_debugNb++;
+            cell = this->_wCell * i + j;
+            if (cell > 0 && cell < this->_sizeTab)
+                this->_listState[cell].push_back(comp);
         }
     }
 }
 
-void engine::physics::PhysicsSystem::checkCellColision(std::vector<RigidBodyComponent *> vec) {
+void engine::physics::PhysicsSystem::onNotify(engine::core::Message *) {
+}
+
+void engine::physics::PhysicsSystem::checkCellCollision(std::vector<RigidBodyComponent *> vec) {
     for (size_t i = 0; i < vec.size(); ++i) {
         for (size_t j = 0; j < i; ++j) {
             if (vec[i]->checkIntersect(vec[j])) {
-                if (this->addCollision(vec[i], vec[j]))
+                if (this->addCollision(vec[i], vec[j])) {
+                    core::Collision2D msg;
+                    msg.source = vec[i]->owner;
+                    msg.target = vec[j]->owner;
+                    if (!this->_debug)
+                        sendMsg(&msg);
                     this->_debugNbCollision++;
+                }
             }
             this->_debugCheck++;
         }
     }
 }
 
-int engine::physics::PhysicsSystem::get_debugNbAdd() const {
-    return _debugNbAdd;
-}
-
-int engine::physics::PhysicsSystem::get_debugNbColision() const {
-    return _debugNbCollision;
-}
-
-int engine::physics::PhysicsSystem::get_debugNb() const {
-    return _debugNb;
-}
-
-int engine::physics::PhysicsSystem::get_debugCheck() const {
-    return _debugCheck;
-}
-
 bool engine::physics::PhysicsSystem::addCollision(engine::physics::RigidBodyComponent *two,
                                                   engine::physics::RigidBodyComponent *one) {
+    if (two == one)
+        return false;
     for (auto &it : this->_currentCollision) {
         if ((it.first == one && it.second == two)
             || (it.second == one && it.first == two))
@@ -100,4 +104,12 @@ bool engine::physics::PhysicsSystem::addCollision(engine::physics::RigidBodyComp
     }
     this->_currentCollision.emplace_back(one, two);
     return true;
+}
+
+int engine::physics::PhysicsSystem::get_debugNbColision() const {
+    return this->_debugNbCollision;
+}
+
+int engine::physics::PhysicsSystem::get_debugCheck() const {
+    return this->_debugCheck;
 }

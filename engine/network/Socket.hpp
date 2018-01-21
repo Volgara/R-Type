@@ -7,24 +7,36 @@
 #define RTYPE_SOCKET_HPP
 
 #include "ISocket.hpp"
+#include "core/MessageBus.hpp"
 
-namespace RType
-{
-    class Socket : public ISocket {
-    public:
-        ISocket *_socket;
+namespace engine {
+    namespace Network {
+        class Socket : public ISocket {
+        public:
+            ISocket *_socket;
+        public:
+            Socket(SocketType);
+            ~Socket() override;
+            void init_socket(int port) override;
+            int connect_socket(const  std::string &ip, int port) override;
+            void bind_Socket() override;
+            void listen_Socket() override;
+            unsigned int get_fd() const override;
+            void send_data(char *);
+            void Init(void) override;
+            void onNotify(core::Message *message) override;
+            void Update(float dt) override;
+            void write_socket(std::string) override;
+            std::string read_socket() override;
+            void write_socket_size(const char *, size_t) override ;
 
-    public:
-        Socket();
-        ~Socket() override;
-
-        void init_socket();
-        int connect_socket();
-        int blind_Socket();
-        int listen_Socket();
-        int get_fd() const;
-    };
+        private:
+            #if defined(linux) || defined(__APPLE__)
+            struct pollfd *poll_fd;
+            #endif
+            std::vector<const char *> _queue;
+        };
+    }
 }
-
 
 #endif //RTYPE_SOCKET_HPP

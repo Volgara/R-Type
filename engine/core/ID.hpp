@@ -10,14 +10,18 @@
 #ifndef RTYPE_ID_HPP
 #define RTYPE_ID_HPP
 
-#define EComponentID_NUMBER 2
+#define EComponentID_NUMBER 6
 
 namespace engine {
     namespace core {
 
         enum ComponentID {
             GRA_SPRITE = 0,
-            PHY_RIGIDBODY // TODO : use RIGID Body
+            PHY_RIGIDBODY, // TODO : use RIGID Body
+            PRO_BULLET,
+            GAME_PLAYER,
+            INPUT_GENERATE,
+            NET
         };
 
         typedef unsigned GameObjectID;

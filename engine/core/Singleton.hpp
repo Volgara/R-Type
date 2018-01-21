@@ -21,7 +21,7 @@ namespace engine {
             virtual void constructor() {};
 
         protected:
-            static T* _instance;
+            static thread_local T* _instance;
             static void buildInstance();
 
             Singleton(){}
@@ -29,7 +29,7 @@ namespace engine {
         };
 
         template<typename T>
-        T* Singleton<T>::_instance = 0;
+        thread_local T* Singleton<T>::_instance = 0;
 
         template<typename T>
         void Singleton<T>::buildInstance()

@@ -21,19 +21,19 @@ namespace engine {
             return components[type];
         }
 
-        void GameObject::AddComponent(Component *component) {
-            component->owner = guid;
+        void GameObject::attachComponent(Component *component) {
+            component->attachGameObject(this);
             components[component->id] = component;
         }
 
-        void GameObject::RemoveComponent(Component *component) {
-            component->owner = static_cast<GameObjectID>(-1); // Debug
+        void GameObject::detachComponent(Component *component) {
+            component->detachGameObject();
             components[component->id] = nullptr;
         }
 
-        void GameObject::RemoveComponent(ComponentID type) {
+        void GameObject::detachComponent(ComponentID type) {
             auto *component = components[type];
-            component->owner = static_cast<GameObjectID>(-1); // Debug
+            component->detachGameObject();
             components[component->id] = nullptr;
         }
 
@@ -50,6 +50,19 @@ namespace engine {
         void GameObject::Init(void) {
             for (auto component : components) {
                 component->Init();
+            }
+        }
+
+        void GameObject::detachComponents() {
+            for (auto *component : components) {
+                if (component == nullptr) continue;
+                component->detachGameObject();
+            }
+        }
+
+        GameObject::GameObject() {
+            for (int i = 0; i < EComponentID_NUMBER; ++i) {
+                components[i] = nullptr;
             }
         }
     }

@@ -6,22 +6,46 @@
 #ifndef RTYPE_WINDOWSSOCKET_HPP
 #define RTYPE_WINDOWSSOCKET_HPP
 
-#include "Socket.hpp"
+#ifdef _WIN32
 
-namespace RType
-{
-    class WindowsSocket : public ISocket {
+#include <winsock2.h>
+#include "Socket.hpp"
+#include <windows.h>
+#include <ws2tcpip.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <sstream>
+
+#pragma comment (lib, "Ws2_32.lib")
+
+namespace engine {
+    namespace Network{
+        class WindowsSocket : public ISocket {
+    private:
+        WSADATA wsaData;
+        struct addrinfo local;
+        struct addrinfo *result = NULL;
+
     public:
-        WindowsSocket();
+        WindowsSocket(SocketType);
 
         ~WindowsSocket() override;
 
-        void init_socket();
-        int connect_socket();
-        int blind_Socket();
-        int listen_Socket();
-        int get_fd() const;
+        void init_socket(int port) override;
+        int connect_socket(const std::string &ip, int port) override;
+        void bind_Socket() override;
+        void listen_Socket() override;
+        unsigned int get_fd() const override;
+        void Init(void) override;
+        void onNotify(core::Message *message) override;
+        void Update(float dt) override;
+        void write_socket(std::string) override;
+        std::string read_socket() override;
+        void write_socket_size(const char *, size_t) override;
     };
+    }
 }
+
+#endif
 
 #endif //RTYPE_WINDOWSSOCKET_HPP
