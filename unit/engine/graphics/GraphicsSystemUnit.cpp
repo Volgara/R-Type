@@ -84,7 +84,7 @@ namespace engine {
 
             std::cout << "There are " << gc->getCurrentAnimation()->getFrames().size() << " frames" << std::endl;
             ASSERT_EQ(0, gc->getAnimations()[gc->getCurrentAnimationIndex()]->getCurrenFrameIndex());
-            //gc->update(1);
+            gc->update(1);
             ASSERT_EQ(1, gc->getAnimations()[gc->getCurrentAnimationIndex()]->getCurrenFrameIndex());
         }
 
@@ -132,37 +132,6 @@ namespace engine {
             ASSERT_EQ(5, gc->getCurrentAnimation()->getCurrenFrameIndex());
             gc->update(1);
             ASSERT_EQ(4, gc->getCurrentAnimation()->getCurrenFrameIndex());
-        }
-
-        TEST_F(GraphicsTests, checkCurrentFrameUpdateWhenOverflowNoLoopReverse) {
-            //By default current animation is 0
-
-            std::cout << "There are " << gc->getCurrentAnimation()->getFrames().size() << " frames" << std::endl;
-            gc->getCurrentAnimation()->setCurrentFrameIndex(17);
-            ASSERT_EQ(0, gc->getCurrentAnimation()->getCurrenFrameIndex());
-            gc->update(1);
-            ASSERT_EQ(0, gc->getCurrentAnimation()->getCurrenFrameIndex());
-        }
-
-        TEST_F(GraphicsTests, checkCurrentFrameUpdateWhenOverflowLoopReverse) {
-            //By default current animation is 0
-
-            std::cout << "There are " << gc->getCurrentAnimation()->getFrames().size() << " frames" << std::endl;
-            gc->getCurrentAnimation()->setCurrentFrameIndex(17);
-            ASSERT_EQ(0, gc->getCurrentAnimation()->getCurrenFrameIndex());
-            gc->update(1);
-            ASSERT_EQ(17, gc->getCurrentAnimation()->getCurrenFrameIndex());
-        }
-
-        TEST_F(GraphicsTests, checkCurrentFrameUpdateWhenOverflowPingpongReverse) {
-            //By default current animation is 0
-
-            std::cout << "There are " << gc->getCurrentAnimation()->getFrames().size() << " frames" << std::endl;
-            gc->getCurrentAnimation()->setCurrentFrameIndex(17);
-            gc->getCurrentAnimation()->setPingPong(true);
-            ASSERT_EQ(0, gc->getCurrentAnimation()->getCurrenFrameIndex());
-            gc->update(1);
-            ASSERT_EQ(1, gc->getCurrentAnimation()->getCurrenFrameIndex());
         }
 
         //TODO missing some tests, need cleanup
