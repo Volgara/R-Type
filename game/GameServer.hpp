@@ -6,14 +6,23 @@
 #define RTYPE_GAMESERVER_HPP
 
 #include "../server/Room.hpp"
-#include <core/Engine.hpp>
+#include <network/Socket.hpp>
+#include <sys/socket.h>
+#include <physics/PhysicsSystem.hpp>
+//#include "GameLogicSystem.hpp"
 
 namespace game {
     class GameServer {
+    private:
+        std::vector<RTypeServer::Player *> _players;
+
+        engine::Network::Socket *initSocketSytem();
     public:
-        GameServer();
+        GameServer(std::vector<RTypeServer::Player *> players);
 
         virtual ~GameServer();
+
+        void startGameServer();
     };
 }
 

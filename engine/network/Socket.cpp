@@ -50,8 +50,8 @@ int engine::Network::Socket::connect_socket(const std::string &ip, int port) {
     return (_socket->connect_socket(ip, port));
 }
 
-void engine::Network::Socket::blind_Socket() {
-    _socket->blind_Socket();
+void engine::Network::Socket::bind_Socket() {
+    _socket->bind_Socket();
 }
 
 void engine::Network::Socket::listen_Socket() {

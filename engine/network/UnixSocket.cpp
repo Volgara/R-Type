@@ -49,9 +49,10 @@ int engine::Network::UnixSocket::connect_socket(const std::string &ip, int port)
     serv_addr.sin_port = htons(port);
     if (connect(fd,(struct sockaddr *) &serv_addr,sizeof(serv_addr)) < 0)
         throw NetworkException("Connect error");
+    return (0);
 }
 
-void engine::Network::UnixSocket::blind_Socket() {
+void engine::Network::UnixSocket::bind_Socket() {
     if (bind(fd, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0) {
         throw NetworkException("Bind failed");
     }
@@ -66,7 +67,7 @@ void engine::Network::UnixSocket::listen_Socket() {
 }
 
 unsigned int engine::Network::UnixSocket::get_fd() const {
-    return fd;
+    return static_cast<unsigned int>(fd);
 }
 
 

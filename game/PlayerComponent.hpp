@@ -5,8 +5,7 @@
 #ifndef RTYPE_PLAYER_HPP
 #define RTYPE_PLAYER_HPP
 
-#include <core/Component.hpp>
-#include <core/GameObject.hpp>
+#include <core/Engine.hpp>
 #include <physics/RigidBodyComponent.hpp>
 #include "SpaceShip.hpp"
 

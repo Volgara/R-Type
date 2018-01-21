@@ -29,7 +29,7 @@ RTypeServer::Server::~Server() {
 void RTypeServer::Server::configure() {
     _socket = new engine::Network::Socket(engine::Network::SocketType::Tcp);
     _socket->init_socket(4242);
-    _socket->blind_Socket();
+    _socket->bind_Socket();
     _socket->listen_Socket();
     _nbrPlayer = 0;
     _gameManager = new GameManager();

@@ -208,7 +208,7 @@ add_executable(engine_physics_unit ${server_MODULES} ${physics_unit_SOURCE_FILES
 
 add_executable(engine_projectile_unit ${server_MODULES} ${projectile_unit_SOURCE_FILES})
 
-add_executable(game_unit ${server_MODULES} ${game_unit_SOURCE_FILES})
+add_executable(game_unit ${game_unit_SOURCE_FILES} ${server_SOURCE_FILES})
 
 add_executable(engine_graphics_unit ${client_MODULES} ${graphics_unit_SOURCE_FILES})
 
