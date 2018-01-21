@@ -45,7 +45,9 @@ void RTypeServer::Room::start(Player *p) {
     }
     std::cout << "All player are ready, code the game here" << std::endl;
     _gameStart = true;
-    engine::Network::Socket *udpSocket = new engine::Network::Socket(engine::Network::SocketType::Udp);
+    game::GameServer gameServer(this->_player);
+    gameServer.startGameServer();
+    /*engine::Network::Socket *udpSocket = new engine::Network::Socket(engine::Network::SocketType::Udp);
     udpSocket->init_socket(4242 + p->getId());
     udpSocket->bind_Socket();
     std::string initMessage;
@@ -53,7 +55,7 @@ void RTypeServer::Room::start(Player *p) {
     for (auto it : _player)
     {
         send(it->getFd(), initMessage.c_str(), initMessage.size() + 1, 0);
-    }
+    }*/
     std::cout << "message send" << std::endl;
 }
 

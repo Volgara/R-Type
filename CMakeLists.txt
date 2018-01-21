@@ -37,19 +37,21 @@ set(core_unit_SOURCE_FILES
         unit/engine/core/GameObjectManagerUnit.cpp)
 
 # Engine : Game
-set(game_SOURCE_FILES
-        game/GameLogicSystem.cpp
-        game/GameLogicSystem.hpp
+set(game_server_SOURCE_FILES
         game/GameLogicClientSystem.cpp
         game/GameLogicClientSystem.hpp
+        game/GameLogicSystem.cpp
+        game/GameLogicSystem.hpp
+        game/GameServer.hpp
+        game/GameServer.cpp)
+set(game_SOURCE_FILES
         game/PlayerComponent.cpp
         game/PlayerComponent.hpp
         game/UserType.hpp
         game/SpaceShip.hpp
-        game/SpaceShip.cpp
-        game/GameServer.hpp
-        game/GameServer.cpp)
+        game/SpaceShip.cpp)
 set(game_unit_SOURCE_FILES
+        ${game_server_SOURCE_FILES}
         unit/game/GamePlayerUnit.cpp)
 
 # Engine : Projectile
@@ -171,7 +173,7 @@ include_directories(engine)
 add_executable(client ${client_SOURCE_FILES})
 set_target_properties(client PROPERTIES COMPILE_DEFINITIONS GRAPHICS=1)
 # server
-add_executable(server ${server_SOURCE_FILES})
+add_executable(server ${server_SOURCE_FILES} ${game_SOURCE_FILES})
 
 #launcher
 add_executable(launcher ${launcher_SOURCE_FILES} ${client_MODULES})
@@ -209,7 +211,7 @@ add_executable(engine_physics_unit ${server_MODULES} ${physics_unit_SOURCE_FILES
 
 add_executable(engine_projectile_unit ${server_MODULES} ${projectile_unit_SOURCE_FILES})
 
-add_executable(game_unit ${game_unit_SOURCE_FILES} ${server_SOURCE_FILES})
+add_executable(game_unit ${game_unit_SOURCE_FILES} ${server_MODULES} ${file_server})
 
 add_executable(engine_graphics_unit ${client_MODULES} ${graphics_unit_SOURCE_FILES})
 

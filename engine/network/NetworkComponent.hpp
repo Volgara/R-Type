@@ -2,8 +2,8 @@
 // Created by macdoy on 20/01/18.
 //
 
-#ifndef RTYPE_NETWORKCOMPONENT_HPP
-#define RTYPE_NETWORKCOMPONENT_HPP
+#ifndef ENGINE_NETWORK_COMPONENT
+#define ENGINE_NETWORK_COMPONENT
 
 #include <core/Component.hpp>
 
@@ -44,4 +44,4 @@ namespace engine {
     }
 }
 
-#endif //RTYPE_NETWORKCOMPONENT_HPP
+#endif //ENGINE_NETWORK_COMPONENT

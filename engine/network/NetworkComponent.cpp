@@ -28,9 +28,7 @@ void engine::network::NetworkComponent::SendMessage(engine::core::Message *messa
     std::cout << "I get message in NetworkComponent : " << message->id << std::endl;
 }
 
-void engine::network::NetworkComponent::Update(float) {
-    return;
-}
+void engine::network::NetworkComponent::Update(float) {}
 
 void engine::network::NetworkComponent::Init() {
     _fd = -1;
@@ -40,9 +38,7 @@ void engine::network::NetworkComponent::Init() {
     _roomName = "";
 }
 
-void engine::network::NetworkComponent::ShutDown() {
-    return;
-}
+void engine::network::NetworkComponent::ShutDown() {}
 
 int engine::network::NetworkComponent::getFd() const {
     return _fd;
@@ -83,3 +79,4 @@ void engine::network::NetworkComponent::setRoomName(const std::string &m){
 void engine::network::NetworkComponent::setIsReady(const bool &b){
     isReady = b;
 }
+

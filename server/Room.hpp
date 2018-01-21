@@ -9,7 +9,7 @@
 #include <string>
 #include <vector>
 #include "Player.hpp"
-
+#include "../game/GameServer.hpp"
 
 namespace RTypeServer
 {
