@@ -85,7 +85,6 @@ void engine::Network::UnixSocket::Update(float) {
 
 void engine::Network::UnixSocket::write_socket(std::string data) {
     write(fd, data.c_str(), data.size() + 1);
-
 }
 
 std::string engine::Network::UnixSocket::read_socket() {
@@ -94,6 +93,10 @@ std::string engine::Network::UnixSocket::read_socket() {
     read(fd, data, 512);
     res = data;
     return(res);
+}
+
+void engine::Network::UnixSocket::write_socket_size(const char *data, size_t size) {
+    send(this->get_fd(), data, size, 0);
 }
 
 #endif // linux and apple

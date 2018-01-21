@@ -126,3 +126,7 @@ std::string engine::Network::Socket::read_socket() {
     return(_socket->read_socket());
 }
 
+void engine::Network::Socket::write_socket_size(const char *d, size_t size) {
+    _socket->write_socket_size(d, size);
+}
+

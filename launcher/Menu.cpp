@@ -7,6 +7,11 @@
 #include <iostream>
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Window/Event.hpp>
+#ifdef _WIN32
+
+#include <Windows.h>
+
+#endif
 #include "Menu.hpp"
 #include "Connection.hpp"
 #include "json.hpp"
@@ -77,7 +82,13 @@ void Menu::menuSelection(int index) {
             }
             break;
         case 1:
-            // play offline
+#ifdef _WIN32
+            ShellExecute(NULL, "open", "client.exe", NULL, NULL, SW_SHOWDEFAULT);
+#endif
+
+#if defined(linux) || defined(__APPLE__)
+        system("./client");
+#endif
         case 2:
             requestSceneSwitch("settings");
             break;
