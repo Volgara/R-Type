@@ -19,7 +19,6 @@ void game::GameLogicSystem::Update(float dt) {
 
 void game::GameLogicSystem::Init() {}
 
-
 void game::GameLogicSystem::onNotify(engine::core::Message message) {
     if (message.id == engine::core::MessageID::COLLISION) {
         auto *eg = engine::core::Engine::GetInstance();
