@@ -5,10 +5,10 @@
 #include <projectile/BulletSystem.hpp>
 
 #ifdef _WIN32
-#include <network/NetworkComponent.hpp>
+#include <WinSock2.h>
 #endif
 
-#include <WinSock2.h>
+#include <network/NetworkComponent.hpp>
 #include "GameServer.hpp"
 
 game::GameServer::GameServer(std::vector<RTypeServer::Player *> players) : _players(players) {}
