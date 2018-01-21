@@ -103,21 +103,19 @@ engine::core::Scene::GetComponent(engine::core::ComponentID type, engine::core::
  * Clean detached component
  */
 void engine::core::Scene::cleanUp() {
-    /*
-    for (auto it = components.begin(); it != components.end();) {
-        Component *component = *it;
-
-        RemoveComponent(component);
-
-        if (component->owner == static_cast<unsigned int>(-1)) {
-            // component detached
-            components.erase(it);
-            delete component;
-        } else {
-            it++;
+    Component *temp = nullptr;
+    std::remove_if(components.begin(), components.end(), [&temp](Component *component) {
+        if (component->ownerRef == nullptr) {
+            temp = component;
+            return true;
         }
+        return false;
+    });
+
+    if (temp != nullptr) {
+        RemoveComponent(temp);
+        delete(temp);
     }
-   */
 }
 
 engine::core::GameObject *engine::core::Scene::GetGameObject(engine::core::GameObjectID owner) {

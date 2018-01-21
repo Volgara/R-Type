@@ -12,12 +12,19 @@ engine::projectile::BulletSystem::~BulletSystem() {}
 void engine::projectile::BulletSystem::Update(float dt) {
     auto *eg = core::Engine::GetInstance();
 
-    for (auto &it : *eg->getScene()->GetComponents<BulletComponent>(core::ComponentID::PRO_BULLET)) {
-        if (it->ownerRef->pos.getY() < this->_height && it->ownerRef->pos.getY() > 0
-            && it->ownerRef->pos.getX() > 0 && it->ownerRef->pos.getX() < this->_width)
-            it->Update(dt);
-        else
-            eg->getScene()->RemoveGameObject(it->owner);
+    auto it = eg->getScene()->GetComponents<BulletComponent>(core::ComponentID::PRO_BULLET)->begin();
+    for (;it != eg->getScene()->GetComponents<BulletComponent>(core::ComponentID::PRO_BULLET)->end();) {
+        core::Component *component = *it;
+
+        if (component->ownerRef->pos.getY() < this->_height && component->ownerRef->pos.getY() > 0
+            && component->ownerRef->pos.getX() > 0 && component->ownerRef->pos.getX() < this->_width) {
+            component->Update(dt * 60);
+            ++it;
+        }
+        else {
+            eg->getScene()->RemoveGameObject(component->owner);
+            it = eg->getScene()->GetComponents<BulletComponent>(core::ComponentID::PRO_BULLET)->erase(it);
+        }
     }
     eg->getScene()->cleanUp();
 }

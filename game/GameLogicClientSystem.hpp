@@ -10,6 +10,7 @@
 #include <core/Engine.hpp>
 #include <core/GameObject.hpp>
 #include "PlayerComponent.hpp"
+#include <graphics/GraphicsComponent.hpp>
 #include <projectile/BulletComponent.hpp>
 #include "Message.hpp"
 
@@ -19,10 +20,13 @@ namespace game {
         float _currentDt;
         int _width;
         int _height;
+        int _shoot = 0;
     private:
         void playAction(engine::core::GameObject *, game::PlayerActionMessage::Action action);
 
         void move(engine::core::GameObject *, int x, int y);
+
+        void playerShoot(engine::core::GameObject *);
     public:
         GameLogicClientSystem(int, int);
 

@@ -49,7 +49,8 @@ void game::GameLogicClientSystem::playAction(engine::core::GameObject *source, P
                 vel.setX(-player->getSpeed());
                 break;
             case PlayerActionMessage::SHOOT:
-                break;
+                this->playerShoot(body->ownerRef);
+                return;
         }
         body->setVelocity(vel);
         body->Update(this->_currentDt * 60);
@@ -59,4 +60,33 @@ void game::GameLogicClientSystem::playAction(engine::core::GameObject *source, P
 void game::GameLogicClientSystem::move(engine::core::GameObject *source, int x, int y){
     source->pos.setX(x);
     source->pos.setY(y);
+}
+
+void game::GameLogicClientSystem::playerShoot(engine::core::GameObject *player) {
+    auto *eg = engine::core::Engine::GetInstance();
+
+    if (this->_shoot == 1)
+        return;
+    core::GameObject *game = eg->getScene()->CreateEmptyObject();
+    game->pos.setX(player->pos.getX());
+    game->pos.setY(player->pos.getY());
+    engine::projectile::BulletComponent *bullet1 = static_cast<engine::projectile::BulletComponent *>(eg->getScene()->CreateComponent(core::ComponentID::PRO_BULLET));
+    engine::physics::RigidBodyComponent *comp2 = static_cast<engine::physics::RigidBodyComponent *>(eg->getScene()->CreateComponent(core::ComponentID::PHY_RIGIDBODY));
+    game->attachComponent(bullet1);
+    game->attachComponent(comp2);
+    comp2->setVelocity(core::Vector2d(3, 0));
+    comp2->setSize(core::Vector2d(10, 10));
+    game->attachComponent(bullet1);
+    game->attachComponent(comp2);
+    comp2->Init();
+    bullet1->Init();
+    engine::graphics::GraphicsComponent *spriteComponent = static_cast<engine::graphics::GraphicsComponent *>(eg->getScene()->CreateComponent(engine::core::ComponentID::GRA_SPRITE));
+    engine::graphics::SpriteSheet shipSheet = engine::graphics::SpriteSheet("assets/ship.png", 192, 16, 6, 1);
+    engine::graphics::Animation *shipAnimIdle = new engine::graphics::Animation("idle", &shipSheet);
+    shipAnimIdle->addFrame(0, 0);
+    shipAnimIdle->addFrame(0, 1);
+    shipAnimIdle->addFrame(0, 2);
+    spriteComponent->addAnimation(shipAnimIdle);
+    game->attachComponent(spriteComponent);
+    this->_shoot = 1;
 }

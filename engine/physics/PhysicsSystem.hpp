@@ -25,6 +25,7 @@ namespace engine {
         private:
             int _debugNbCollision;
             int _debugCheck;
+            bool _debug;
 
         private:
             bool addCollision(RigidBodyComponent *, RigidBodyComponent *);

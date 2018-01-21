@@ -17,8 +17,10 @@ void engine::physics::PhysicsSystem::Update(float dt) {
     this->_debugNbCollision = 0;
     this->_debugCheck = 0;
     this->clearMap();
-    if (dt == -1)
+    if (dt == -1) {
+        this->_debug = true;
         this->createHasheMapDebug();
+    }
     else
         this->createHasheMap();
     for (auto &it : this->_listState) {
@@ -29,6 +31,7 @@ void engine::physics::PhysicsSystem::Update(float dt) {
 void engine::physics::PhysicsSystem::Init() {
     this->_debugNbCollision = 0;
     this->_debugCheck = 0;
+    this->_debug = false;
 }
 
 void engine::physics::PhysicsSystem::debugAddComponent(engine::physics::RigidBodyComponent *c) {
@@ -80,7 +83,8 @@ void engine::physics::PhysicsSystem::checkCellCollision(std::vector<RigidBodyCom
                     core::Collision2D msg;
                     msg.source = vec[i]->owner;
                     msg.target = vec[j]->owner;
-                    sendMsg(&msg);
+                    if (!this->_debug)
+                        sendMsg(&msg);
                     this->_debugNbCollision++;
                 }
             }

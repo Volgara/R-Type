@@ -37,7 +37,6 @@ namespace engine {
             comp->setVelocity(core::Vector2d(1, 3));
             comp->setSize(core::Vector2d(10, 10));
             comp->Init();
-            bullet2->Init();
             b->Update(1);
             ASSERT_EQ(13, game->pos.getY());
             ASSERT_EQ(11, game2->pos.getX());

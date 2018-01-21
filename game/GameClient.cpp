@@ -21,9 +21,9 @@ void onKeyPressed(sf::Event &event) {
 void game::GameClient::startGamePlayer() {
     auto *eg = engine::core::Engine::GetInstance();
     //engine::Network::Socket *udp = this->initSocketSystem();
-    engine::physics::PhysicsSystem *physicsSystem = new engine::physics::PhysicsSystem(800, 800);
-    game::GameLogicClientSystem *gameLogicClientSystem = new GameLogicClientSystem(800, 800);
-    engine::projectile::BulletSystem *bulletSystem = new engine::projectile::BulletSystem(800, 800);
+    engine::physics::PhysicsSystem *physicsSystem = new engine::physics::PhysicsSystem(800, 600);
+    game::GameLogicClientSystem *gameLogicClientSystem = new GameLogicClientSystem(800, 600);
+    engine::projectile::BulletSystem *bulletSystem = new engine::projectile::BulletSystem(800, 600);
     auto *input = new engine::input::InputSystem();
     auto *graphics =  new engine::graphics::GraphicSystem();
 
