@@ -89,7 +89,7 @@ int engine::Network::WindowsSocket::connect_socket(const std::string &ip, int po
     return(fd);
 }
 
-void engine::Network::WindowsSocket::blind_Socket() {
+void engine::Network::WindowsSocket::bind_Socket() {
     if (bind(fd, result->ai_addr, (int)result->ai_addrlen) == SOCKET_ERROR) {
         freeaddrinfo(result);
         closesocket(fd);

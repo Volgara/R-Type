@@ -14,7 +14,7 @@
 #include <ws2tcpip.h>
 #include <stdlib.h>
 #include <stdio.h>
-
+#include <sstream>
 
 #pragma comment (lib, "Ws2_32.lib")
 
@@ -33,7 +33,7 @@ namespace engine {
 
         void init_socket(int port) override;
         int connect_socket(const std::string &ip, int port) override;
-        void blind_Socket() override;
+        void bind_Socket() override;
         void listen_Socket() override;
         unsigned int get_fd() const override;
         void Init(void) override;
