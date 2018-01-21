@@ -14,6 +14,7 @@ void game::GameLogicClientSystem::Update(float dt) {
 void game::GameLogicClientSystem::Init() {}
 
 void game::GameLogicClientSystem::onNotify(engine::core::Message message) {
+    std::cout << "In notify" << std::endl;
     if (message.id == game::GameMessageID::PLAYER_ACTION) {
         auto *eg = engine::core::Engine::GetInstance();
         auto *movePlayer = static_cast<game::PlayerActionMessage *>(&message);

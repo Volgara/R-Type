@@ -32,7 +32,6 @@ void game::GameClient::startGamePlayer() {
     eg->addSystem("bullets", bulletSystem);
     eg->addSystem("graphics",graphics);
     eg->addSystem("input", input);
-
     eg->setScene(new core::Scene());
     this->createPlayer(eg->getScene(), input);
 

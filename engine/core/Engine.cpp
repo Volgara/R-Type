@@ -43,6 +43,7 @@ void engine::core::Engine::MainLoop(void) {
         if (elapsed >= 1.0f / 60) {
             _window.clear();
             Update(elapsed);
+            this->_messageBus->notify();
             _window.display();
             _clock.restart();
         }
