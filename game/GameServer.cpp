@@ -21,8 +21,8 @@ void game::GameServer::startGameServer() {
     eg->addSystem("physics", physicsSystem);
     eg->addSystem("gameLogic", gameLogicSystem);
     eg->addSystem("bullets", bulletSystem);
-    this->createPlayer(eg->getScene());
     eg->Init();
+    this->createPlayer(eg->getScene());
     eg->MainLoop();
     eg->Shutdown();
 }
