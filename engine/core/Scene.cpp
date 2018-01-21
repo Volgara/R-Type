@@ -114,7 +114,7 @@ void engine::core::Scene::cleanUp() {
 
     if (temp != nullptr) {
         RemoveComponent(temp);
-        delete(temp);
+        //delete(temp);
     }
 }
 
