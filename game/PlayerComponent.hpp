@@ -6,7 +6,7 @@
 # define GAME_PLAYER_COMPONENT_HPP
 
 #include <core/Engine.hpp>
-#include <projectile/BulletComponent.hpp>
+#include "../engine/core/Component.hpp"
 #include "SpaceShip.hpp"
 
 namespace game {
@@ -14,7 +14,7 @@ namespace game {
     public:
         PlayerComponent();
 
-        void SendMessage(engine::core::Message *message) override;
+        void SendMessage(engine::core::Message *message);
 
         void Update(float dt) override;
 

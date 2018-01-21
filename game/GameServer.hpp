@@ -7,7 +7,9 @@
 
 #include "../server/Room.hpp"
 #include <network/Socket.hpp>
+#if defined(linux) || defined(__APPLE__)
 #include <sys/socket.h>
+#endif
 #include <physics/PhysicsSystem.hpp>
 #include "GameLogicSystem.hpp"
 

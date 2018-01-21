@@ -10,6 +10,7 @@
 #ifndef GAME_GAMELOGICSYSTEM_HPP
 #define GAME_GAMELOGICSYSTEM_HPP
 
+#include <projectile/BulletComponent.hpp>
 #include "PlayerComponent.hpp"
 #include "Message.hpp"
 
