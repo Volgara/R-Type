@@ -83,9 +83,9 @@ namespace engine {
         class StateSendMessage : public State {
         private:
             core::MessageBus *m_bus;
-            core::Message *m_message;
+            core::MessageSourced *m_message;
         public:
-            explicit StateSendMessage(core::Message *message) : m_message(message) {
+            explicit StateSendMessage(core::MessageSourced *message) : m_message(message) {
                 m_bus = core::Engine::GetInstance()->getMessageBus();
             }
 
@@ -93,6 +93,7 @@ namespace engine {
 #ifdef DEBUG
       std::cout << "StateSendMessage: actor:" << actor->guid << " message_id: " << m_message->id << std::endl;
 #endif
+                m_message->m_ref = actor;
                 m_bus->sendMessage(*m_message);
             }
         };
