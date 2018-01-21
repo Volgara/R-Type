@@ -32,6 +32,7 @@ namespace engine {
             void Update(float dt) override;
             void write_socket(std::string) override;
             std::string read_socket() override;
+            void write_socket_size(const char *, size_t) override ;
         };
     }
 }

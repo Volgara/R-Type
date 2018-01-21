@@ -129,6 +129,10 @@ void engine::Network::WindowsSocket::write_socket(std::string data) {
     send(fd, data.c_str(), data.size() + 1, 0);
 }
 
+void write_socket_size(const char *data, size_t size){
+    send(fd, data, size, 0);
+}
+
 std::string engine::Network::WindowsSocket::read_socket() {
     std::string res;
     char data[512];
