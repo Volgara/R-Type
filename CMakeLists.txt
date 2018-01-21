@@ -173,7 +173,7 @@ include_directories(engine)
 add_executable(client ${client_SOURCE_FILES})
 set_target_properties(client PROPERTIES COMPILE_DEFINITIONS GRAPHICS=1)
 # server
-add_executable(server ${server_SOURCE_FILES} ${game_SOURCE_FILES})
+add_executable(server ${server_SOURCE_FILES} ${game_SOURCE_FILES} ${game_server_SOURCE_FILES})
 
 #launcher
 add_executable(launcher ${launcher_SOURCE_FILES} ${client_MODULES})
