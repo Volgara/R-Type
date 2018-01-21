@@ -19,6 +19,7 @@ namespace game {
         float _currentDt;
     private:
         void playAction(engine::core::GameObject *, game::PlayerActionMessage::Action action);
+
         void move(engine::core::GameObject *, int x, int y);
     public:
         GameLogicClientSystem();

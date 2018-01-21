@@ -37,6 +37,7 @@ set(core_unit_SOURCE_FILES
         unit/engine/core/GameObjectManagerUnit.cpp)
 
 # Engine : Game
+
 set(game_client_SOURCE_FILES
         game/GameLogicClientSystem.cpp
         game/GameLogicClientSystem.hpp)
@@ -56,7 +57,6 @@ set(game_SOURCE_FILES
         game/SpaceShip.cpp)
 
 set(game_unit_SOURCE_FILES
-        ${game_client_SOURCE_FILES}
         ${game_server_SOURCE_FILES}
         unit/game/GamePlayerUnit.cpp)
 
@@ -188,7 +188,7 @@ add_executable(client ${client_SOURCE_FILES})
 set_target_properties(client PROPERTIES COMPILE_DEFINITIONS GRAPHICS=1)
 
 # server
-add_executable(server ${server_SOURCE_FILES} ${game_SOURCE_FILES})
+add_executable(server ${server_SOURCE_FILES} ${game_SOURCE_FILES} ${game_server_SOURCE_FILES})
 
 #launcher
 add_executable(launcher ${launcher_SOURCE_FILES} ${client_MODULES})

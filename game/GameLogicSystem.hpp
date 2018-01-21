@@ -10,7 +10,6 @@
 #ifndef GAME_GAMELOGICSYSTEM_HPP
 #define GAME_GAMELOGICSYSTEM_HPP
 
-
 #include "PlayerComponent.hpp"
 #include "Message.hpp"
 
