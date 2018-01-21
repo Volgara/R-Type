@@ -19,7 +19,6 @@ void engine::input::InputSystem::Update(float dt) {
     auto *listIC = eg->getScene()->GetComponents<InputComponent>(core::ComponentID::INPUT_GENERATE);
 
     for (auto component : *listIC) {
-        std::cout << "in component" << std::endl;
         component->Update(dt);
     }
 

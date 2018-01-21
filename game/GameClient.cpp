@@ -59,11 +59,11 @@ void game::GameClient::createPlayer(engine::core::Scene *scene, engine::input::I
     input->addKeyCallback(onKeyPressed);
     rigidBodyComponent->setVelocity(engine::core::Vector2d(0, 0));
     rigidBodyComponent->setSize(playerComponent->getSize());
-    rigidBodyComponent->Init();
     player->attachComponent(playerComponent);
     player->attachComponent(rigidBodyComponent);
     player->attachComponent(spriteComponent);
     player->attachComponent(inputComponent);
+    rigidBodyComponent->Init();
 }
 
 engine::Network::Socket *game::GameClient::initSocketSystem() {

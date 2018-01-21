@@ -289,5 +289,5 @@ macro(resource_dirs dirs)
     endforeach ()
 endmacro()
 
-resource_dirs(client/assets)
+resource_dirs(game/assets)
 resource_dirs(launcher/assets)
