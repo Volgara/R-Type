@@ -12,9 +12,11 @@
 ServerList::ServerList(const std::string &name, sf::RenderWindow *win) : Scene(name, win) {
     this->canType = false;
 }
+
 ServerList::~ServerList() {
 
 }
+
 void ServerList::init() {
     if (!font.loadFromFile("assets/arial.ttf")) {
         std::cout << "Cannot load ARIAL font" << std::endl;
@@ -58,6 +60,12 @@ void ServerList::init() {
     InputText.setTexture(InputText_);
     InputText.setPosition(0, 532);
     Helper::centerElement(InputText, this->_win, true, false);
+
+    if (!selectedServer_.loadFromFile("assets/SelectedServer.png")) {
+        std::cout << "An error occurred." << std::endl;
+    }
+    selectedServer.setTexture(selectedServer_);
+    selectedServer.setPosition(0, 0);
 }
 
 void ServerList::update() {
@@ -80,35 +88,52 @@ void ServerList::update() {
         this->_win->draw(CreateServer);
     }
 
-    int       i = 0;
+    int i = 0;
     for (auto &room : this->graphicalRooms) {
         room->sprite.setPosition(0, 100 + (50 * i));
         Helper::centerElement(room->sprite, this->_win, true, false);
-        //this->_win->draw(room->sprite);
+        this->_win->draw(room->sprite);
 
-        room->text.setPosition(120, 100 + (50 * i));
-        room->text.setString(room->displayText.str());
-        this->_win->draw(room->text);
+        room->text_left.setPosition(120, 100 + (50 * i));
+        room->text_left.setString(room->name);
+
+        room->text_right.setPosition(670, 100 + (50 * i));
+        room->text_right.setString(std::to_string(room->nbPlayer));
+
+        this->_win->draw(room->text_left);
+        this->_win->draw(room->text_right);
+
+        if (Helper::isMouseHover(room->sprite, *this->_win)) {
+            selectedServer.setPosition(0, 100 + (50 * i));
+            Helper::centerElement(selectedServer, this->_win, true, false);
+            this->_win->draw(selectedServer);
+        }
 
         i++;
     }
 }
+
 void ServerList::onEvent(sf::Event &event) {
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-
-        if (Helper::isSpriteClicked(backButton, *this->_win))
-            this->requestSceneSwitch("menu");
-
-        if (Helper::isSpriteClicked(Cancel, *this->_win))
-            this->canType = false;
-        if (Helper::isSpriteClicked(CreateServer, *this->_win))
-            this->canType = true;
+    for (auto &room : this->graphicalRooms) {
+        if (Helper::isSpriteClicked(room->sprite, *this->_win)) {
+            _connection->createAndJoin(room->name);
+            this->requestSceneSwitch("lobby");
+        }
     }
+
+    if (Helper::isSpriteClicked(backButton, *this->_win))
+        this->requestSceneSwitch("menu");
+
+    if (Helper::isSpriteClicked(Cancel, *this->_win))
+        this->canType = false;
+    if (Helper::isSpriteClicked(CreateServer, *this->_win))
+        this->canType = true;
 
     // concat string on input
     if (this->canType && event.type == sf::Event::TextEntered &&
         ((event.text.unicode >= 65 && event.text.unicode <= 90) ||
-            (event.text.unicode >= 97 && event.text.unicode <= 122))) {
+         (event.text.unicode >= 97 && event.text.unicode <= 122) ||
+         (event.text.unicode >= 48 && event.text.unicode <= 57))) {
         std::cout << event.text.unicode << std::endl;
         this->currentTyped += static_cast<char>(event.text.unicode);
     }
@@ -130,7 +155,7 @@ void ServerList::onSwitch() {
     this->_connection->emptyRoomsFound();
     this->emptyGraphicalRoomsFound();
 
-    auto      vecRooms = Helper::explode(list, '|');
+    auto vecRooms = Helper::explode(list, '|');
     for (auto &r: vecRooms) {
 
         auto room = Helper::explode(r, ',');
@@ -145,6 +170,7 @@ void ServerList::onSwitch() {
         this->graphicalRooms.push_back(r);
     }
 }
+
 void ServerList::emptyGraphicalRoomsFound() {
     this->graphicalRooms.clear();
 }

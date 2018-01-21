@@ -15,7 +15,6 @@ namespace RType
 {
     class Room {
     private:
-        bool _gameStart;
         std::string _name;
         std::vector<Player *> _player;
     public:
@@ -23,8 +22,10 @@ namespace RType
         std::string getName() const;
         bool join(Player *);
         bool leave(Player *);
-        void start();
+        void start(Player *);
         int getNbrPlayer() const;
+        bool _gameStart;
+
     };
 }
 

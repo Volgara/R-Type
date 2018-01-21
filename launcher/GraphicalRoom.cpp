@@ -5,26 +5,25 @@
 
 #include <iostream>
 #include "GraphicalRoom.hpp"
+
 GraphicalRoom::GraphicalRoom(Room &room) {
     if (!font.loadFromFile("assets/arial.ttf")) {
         std::cout << "Cannot load ARIAL font" << std::endl;
     }
 
-    text.setFont(font);
-    text.setCharacterSize(24);
-    text.setFillColor(sf::Color::White);
+    text_left.setFont(font);
+    text_left.setCharacterSize(24);
+    text_left.setFillColor(sf::Color::White);
+
+    text_right.setFont(font);
+    text_right.setCharacterSize(24);
+    text_right.setFillColor(sf::Color::White);
+
     this->name = room.getName();
 
     this->nbPlayer = room.getNbPlayers();
 
-    std::string empty;
-    for (int i = static_cast<int>(room.getName().length()); i < 70; ++i) {
-        empty += " ";
-    }
-
-    this->displayText << room.getName() << empty << room.getNbPlayers();
-
-    if (!texture.loadFromFile("assets/Field.png")) { // TODO change resource
+    if (!texture.loadFromFile("assets/NotSelectedServer.png")) { // TODO change resource
         std::cout << "An error occurred." << std::endl;
     }
     sprite.setTexture(texture);

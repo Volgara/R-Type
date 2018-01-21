@@ -17,7 +17,7 @@ namespace engine {
         class ISocket  : public core::ASystem {
 
         protected:
-            unsigned int         fd;
+            int     fd;
             SocketType  _socketType;
 
         public:
@@ -25,7 +25,7 @@ namespace engine {
             virtual ~ISocket() {};
 
         public:
-            virtual void init_socket() = 0;
+            virtual void init_socket(int port) = 0;
             virtual int connect_socket(const std::string &ip, int port) = 0;
             virtual void blind_Socket() = 0;
             virtual void listen_Socket() = 0;

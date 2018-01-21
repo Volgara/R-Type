@@ -169,7 +169,8 @@ set_target_properties(client PROPERTIES COMPILE_DEFINITIONS GRAPHICS=1)
 add_executable(server ${server_SOURCE_FILES})
 
 #launcher
-add_executable(launcher ${launcher_SOURCE_FILES} ${network_SOURCE_FILES} ${core_SOURCE_FILES} ${physics_SOURCE_FILES})
+add_executable(launcher ${launcher_SOURCE_FILES} ${client_MODULES})
+set_target_properties(launcher PROPERTIES COMPILE_DEFINITIONS GRAPHICS=1)
 
 # init linkage variable
 set(SFML_STATIC_LIBRARIES False)

@@ -16,6 +16,8 @@ public:
     bool getRoomStatus() const;
     std::string getRoomName() const;
     void setRoom(std::string roomName);
+    void cleanRoom();
+    bool isReady;
 
 private:
     int _fd;

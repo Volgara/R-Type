@@ -23,7 +23,7 @@ engine::Network::Socket::Socket(engine::Network::SocketType type) {
     std::cout << "Running on linux" << std::endl;
     _socket = (ISocket *) new UnixSocket(type);
     poll_fd = (pollfd * )malloc(sizeof(struct pollfd) * 1);
-    poll_fd[0].fd = this->get_fd();
+    poll_fd[0].fd = (int)this->get_fd();
     poll_fd[0].events = POLLIN | POLLOUT;
 
 #endif
@@ -41,8 +41,8 @@ engine::Network::Socket::~Socket() {
 
 }
 
-void engine::Network::Socket::init_socket() {
-    _socket->init_socket();
+void engine::Network::Socket::init_socket(int p) {
+    _socket->init_socket(p);
 }
 
 int engine::Network::Socket::connect_socket(const std::string &ip, int port) {
@@ -71,19 +71,32 @@ void engine::Network::Socket::Init(void) {
 
 void engine::Network::Socket::onNotify(engine::core::Message message) {
     #if defined(linux) || defined(__APPLE__)
+    (void) message;
     char buffer[256];
     poll(poll_fd, 1, 500);
     if (poll_fd[0].revents & POLLIN)
     {
-        recv(this->get_fd(), buffer, 256, 0);
+        recv((int)this->get_fd(), buffer, 256, 0);
         //engine::core::Message msg();
 
     }
     #endif
+    #ifdef _Win32
+    struct pollfd *poll_fd;
+    char buffer[256];
+    poll_fd = (pollfd * )malloc(sizeof(struct pollfd) * 1);
+    poll_fd[0].fd = SOCKETFD;
+    poll_fd[0].events = POLLIN | POLLOUT;
+
+    poll(poll_fd, 1, 500);
+    if (poll_fd[0].revents & POLLIN)
+        recv(this->get_fd(), buffer, 256, 0);
+    #endif
 }
 
-void engine::Network::Socket::Update(float dt) {
 
+void engine::Network::Socket::Update(float dt) {
+    (void) dt;
 }
 
 void engine::Network::Socket::write_socket(std::string data) {

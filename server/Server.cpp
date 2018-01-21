@@ -28,7 +28,7 @@ RType::Server::~Server() {
 
 void RType::Server::configure() {
     _socket = new engine::Network::Socket(engine::Network::SocketType::Tcp);
-    _socket->init_socket();
+    _socket->init_socket(4242);
     _socket->blind_Socket();
     _socket->listen_Socket();
     _nbrPlayer = 0;
@@ -46,7 +46,7 @@ DWORD __stdcall startMethodInThread( LPVOID arg )
 }
 
 DWORD RType::Server::ThreadFunc() {
-    Player* player = _connectedUser.back();
+Player* player = _connectedUser.back();
     std::cout << "New player connected with id: " << player->getId() << std::endl;
     int a = 1;
     char buffer[256];
@@ -66,14 +66,24 @@ DWORD RType::Server::ThreadFunc() {
         if (strncmp(buffer, "list", 4) == 0)
             _gameManager->listRoom(player);
         else if (strncmp(buffer, "join", 4) == 0)
+        {
             if (!_gameManager->join(player, buffer))
             {
                 std::cout << "Failed to " << buffer << std::endl;
                 send(player->getFd(), "ko", 3, 0);
             }
-
-        else
-            send(player->getFd(), "ok", 3, 0);
+            else
+                send(player->getFd(), "ok", 3, 0);
+        }
+        else if (strncmp(buffer, "roominfo", 8) == 0){
+            _gameManager->inforoom(player);
+        }
+        else if (strncmp(buffer, "leave", 5) == 0){
+            _gameManager->leave(player);
+        }
+        else if (strncmp(buffer, "start", 5) == 0){
+            _gameManager->start(player);
+        }
     }
     return(1);
 }
@@ -111,18 +121,23 @@ void RType::Server::ThreadFunct() {
             _gameManager->listRoom(player);
         else if (strncmp(buffer, "join", 4) == 0)
         {
-            if (!_gameManager->join(player, buffer)) {
+            if (!_gameManager->join(player, buffer))
+            {
                 std::cout << "Failed to " << buffer << std::endl;
                 send(player->getFd(), "ko", 3, 0);
             }
+            else
+                send(player->getFd(), "ok", 3, 0);
         }
-        else if (strncmp(buffer, "roominfo", 4)) {
+        else if (strncmp(buffer, "roominfo", 8) == 0){
             _gameManager->inforoom(player);
-
         }
-        else
-            send(player->getFd(), "ok", 3, 0);
-
+        else if (strncmp(buffer, "leave", 5) == 0){
+            _gameManager->leave(player);
+        }
+        else if (strncmp(buffer, "start", 5) == 0){
+            _gameManager->start(player);
+        }
     }
 }
 #endif
