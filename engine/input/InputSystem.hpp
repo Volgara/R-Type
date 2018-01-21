@@ -27,11 +27,10 @@ namespace engine {
             typedef std::function<void(sf::Event &)> Callback;
         private:
             std::vector<Callback> m_callbacks;
-            std::vector<InputComponent *> m_components;
             sf::Event _event{};
 
         public:
-            void Update(float d) override;
+            void Update(float dt) override;
 
             void Init(void) override;
 

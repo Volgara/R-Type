@@ -92,6 +92,8 @@ namespace engine {
 #endif
 
             Scene *getScene();
+
+            void setScene(Scene *pScene);
         };
     }
 }

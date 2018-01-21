@@ -14,24 +14,36 @@
 
 namespace engine {
     namespace core {
-        enum MessageID {
-            COLLISION = 0,
-            SEND_BULLET
-        };
+        using MessageID = unsigned;
 
-        struct Message {
-            explicit Message(MessageID type) : id(type) {}
+        class GameObject;
+
+        class Message {
+        public:
             MessageID id;
+
+            explicit Message(MessageID type = 0) : id(type) {}
         };
 
-        struct Collision2D : public Message {
-            Collision2D() : Message(COLLISION) {}
+        class MessageSourced : public Message {
+        public:
+            GameObject *m_ref{};
+
+            explicit MessageSourced(MessageID type = 0) : Message(type) {};
+        };
+
+        class Collision2D : public Message {
+        public:
+            Collision2D() : Message(0) {}
+
             GameObjectID source{0};
             GameObjectID target{0};
         };
 
-        struct SendBullet : public Message {
-            SendBullet() : Message(SEND_BULLET) {}
+        class SendBullet : public Message {
+        public:
+            SendBullet() : Message(1) {}
+
             GameObjectID source{0};
             GameObjectID bullet{0};
         };

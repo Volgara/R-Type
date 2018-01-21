@@ -19,7 +19,7 @@ namespace engine {
             virtual ~MessageBus();
 
             void addReceiver(std::function<void (Message)> messageReceiver);
-            void sendMessage(Message message);
+            void sendMessage(Message &message);
             void notify();
 
         private:

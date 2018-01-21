@@ -37,6 +37,10 @@ void engine::input::InputSystem::onNotify(engine::core::Message) {
 
 }
 
+/**
+ * This method insert a callback call after an sf::Event was polled
+ * @param callback
+ */
 void engine::input::InputSystem::addKeyCallback(engine::input::InputSystem::Callback callback) {
     m_callbacks.push_back(callback);
 }

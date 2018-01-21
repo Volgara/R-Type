@@ -11,6 +11,8 @@
 #define RTYPE_COMMAND_HPP
 
 #include <core/GameObject.hpp>
+#include <core/Engine.hpp>
+#include <core/MessageBus.hpp>
 
 namespace engine {
     namespace input {
@@ -75,6 +77,23 @@ namespace engine {
         public:
             void execute(core::GameObject *actor) override {
                 std::cout << "state: execute: " << " - ID of game object: " << actor->guid << std::endl;
+            }
+        };
+
+        class StateSendMessage : public State {
+        private:
+            core::MessageBus *m_bus;
+            core::Message *m_message;
+        public:
+            explicit StateSendMessage(core::Message *message) : m_message(message) {
+                m_bus = core::Engine::GetInstance()->getMessageBus();
+            }
+
+            void execute(core::GameObject *actor) override {
+#ifdef DEBUG
+      std::cout << "StateSendMessage: actor:" << actor->guid << " message_id: " << m_message->id << std::endl;
+#endif
+                m_bus->sendMessage(*m_message);
             }
         };
     }

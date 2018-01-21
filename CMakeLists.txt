@@ -3,6 +3,8 @@ project(RType)
 
 set(CMAKE_CXX_STANDARD 14)
 
+set(CMAKE_CXX_FLAGS_DEBUG "-DDEBUG")
+
 include(GTest.cmake)
 
 # Engine

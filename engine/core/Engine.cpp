@@ -52,7 +52,6 @@ void engine::core::Engine::MainLoop(void) {
 
 void engine::core::Engine::Init(void) {
     this->_gameRunning = true;
-    this->_scene = new Scene();
 #ifdef GRAPHICS
     _window.create(sf::VideoMode(800, 600), "toto");
     _window.setMouseCursorVisible(true);
@@ -62,14 +61,6 @@ void engine::core::Engine::Init(void) {
         std::cout << "windows is closed" << std::endl;
         exit(EXIT_FAILURE);
     }
-
-    GameObject *object = _scene->CreateEmptyObject();
-    Component *spriteComponent = _scene->CreateComponent(GRA_SPRITE);
-    input::InputComponent *inputComponent = static_cast<input::InputComponent *>(_scene->CreateComponent(INPUT_GENERATE));
-    inputComponent->attachAction(sf::Keyboard::A, new input::ActionDebug());
-    inputComponent->attachState(sf::Keyboard::B, new input::StateDebug());
-    object->attachComponent(spriteComponent);
-    object->attachComponent(inputComponent);
 #endif
 
     for (auto sys : _systems) {
@@ -111,4 +102,8 @@ void engine::core::Engine::Shutdown(void) {
 
 engine::core::MessageBus *engine::core::Engine::getMessageBus() const {
     return _messageBus;
+}
+
+void engine::core::Engine::setScene(engine::core::Scene *pScene) {
+    _scene = pScene;
 }
