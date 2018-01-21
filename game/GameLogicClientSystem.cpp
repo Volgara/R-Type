@@ -21,6 +21,13 @@ void game::GameLogicClientSystem::onNotify(engine::core::Message message) {
         engine::core::GameObject *source = eg->getScene()->GetGameObject(movePlayer->source);
         this->movePlayer(source, movePlayer->direction);
     }
+    else if (message.id == engine::core::MessageID::MOVE) {
+        auto *eg = engine::core::Engine::GetInstance();
+        auto *move = static_cast<engine::core::Move *>(&message);
+
+        engine::core::GameObject *source = eg->getScene()->GetGameObject(move->source);
+        this->move(source, move->x, move->y);
+    }
 }
 
 void game::GameLogicClientSystem::movePlayer(engine::core::GameObject *source, engine::core::Direction dir) {
@@ -46,4 +53,9 @@ void game::GameLogicClientSystem::movePlayer(engine::core::GameObject *source, e
         body->setVelocity(vel);
         body->Update(this->_currentDt);
     }
+}
+
+void game::GameLogicClientSystem::move(engine::core::GameObject *source, int x, int y){
+    source->pos.setX(x);
+    source->pos.setY(y);
 }

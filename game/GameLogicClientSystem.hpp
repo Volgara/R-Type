@@ -17,6 +17,7 @@ namespace game {
         float _currentDt;
     private:
         void movePlayer(engine::core::GameObject *, engine::core::Direction dir);
+        void move(engine::core::GameObject *, int x, int y);
     public:
         GameLogicClientSystem();
 
