@@ -13,23 +13,18 @@
 #include "InputSystem.hpp"
 #include "InputComponent.hpp"
 
-void engine::input::InputSystem::Update(float) {
+void engine::input::InputSystem::Update(float dt) {
 
     auto *eg = engine::core::Engine::GetInstance();
     auto *listIC = eg->getScene()->GetComponents<InputComponent>(core::ComponentID::INPUT_GENERATE);
 
-    /*
     for (auto component : *listIC) {
-        component->sendEvent(_event);
+        component->Update(dt);
     }
-     */
 
     while (eg->getWindow().pollEvent(_event)) {
         for (auto callback : m_callbacks) {
             callback(_event);
-        }
-        for (auto component : *listIC) {
-            component->sendEvent(_event);
         }
     }
 }

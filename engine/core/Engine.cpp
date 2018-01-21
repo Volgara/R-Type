@@ -55,6 +55,8 @@ void engine::core::Engine::Init(void) {
     this->_scene = new Scene();
 #ifdef GRAPHICS
     _window.create(sf::VideoMode(800, 600), "toto");
+    _window.setMouseCursorVisible(true);
+    _window.setKeyRepeatEnabled(false);
 
     if (!_window.isOpen()) {
         std::cout << "windows is closed" << std::endl;

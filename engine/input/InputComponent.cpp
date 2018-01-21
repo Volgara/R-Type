@@ -23,7 +23,13 @@ void engine::input::InputComponent::SendMessage(engine::core::Message *message) 
 }
 
 void engine::input::InputComponent::Update(float dt) {
-
+    // TODO : make improvement with only one for
+    for (auto command : m_action_commands) {
+        command.second->do_execute(ownerRef, sf::Keyboard::isKeyPressed(command.first));
+    }
+    for (auto command : m_state_commands) {
+        command.second->do_execute(ownerRef, sf::Keyboard::isKeyPressed(command.first));
+    }
 }
 
 void engine::input::InputComponent::Init() {
