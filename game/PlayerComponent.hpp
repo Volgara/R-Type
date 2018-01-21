@@ -14,7 +14,7 @@ namespace game {
     public:
         PlayerComponent();
 
-        void SendMessage(engine::core::Message *message);
+        void SendMessage(engine::core::Message *message) override;
 
         void Update(float dt) override;
 
