@@ -28,7 +28,7 @@ void engine::network::NetworkComponent::SendMessage(engine::core::Message *messa
     std::cout << "I get message in NetworkComponent : " << message->id << std::endl;
 }
 
-void engine::network::NetworkComponent::Update(float dt) {
+void engine::network::NetworkComponent::Update(float) {
     return;
 }
 

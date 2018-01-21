@@ -17,7 +17,8 @@ namespace engine {
         enum MessageID {
             COLLISION = 0,
             SEND_BULLET,
-            MOVE_PLAYER
+            MOVE_PLAYER,
+            MOVE
         };
 
         enum Direction {
@@ -46,6 +47,13 @@ namespace engine {
             MovePlayer() : Message(MOVE_PLAYER) {}
             GameObjectID source{0};
             Direction  direction{};
+        };
+
+        struct Move : public Message {
+            Move() : Message(MOVE) {}
+            GameObjectID source{0};
+            int x{0};
+            int y{0};
         };
     }
 }

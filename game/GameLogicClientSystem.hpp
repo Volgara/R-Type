@@ -2,8 +2,8 @@
 // Created by macdoy on 21/01/18.
 //
 
-#ifndef RTYPE_GAMELOGICCLIENTSYSTEM_HPP
-#define RTYPE_GAMELOGICCLIENTSYSTEM_HPP
+#ifndef GAME_GAME_LOGIC_CLIENT_SYSTEM_HPP
+#define GAME_GAME_LOGIC_CLIENT_SYSTEM_HPP
 
 #include <core/ASystem.hpp>
 #include <core/Scene.hpp>
@@ -35,4 +35,4 @@ class GameLogicServerSystem {
 };
 
 
-#endif //RTYPE_GAMELOGICCLIENTSYSTEM_HPP
+#endif //GAME_GAME_LOGIC_CLIENT_SYSTEM_HPP

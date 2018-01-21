@@ -45,7 +45,7 @@ int engine::Network::UnixSocket::connect_socket(const std::string &ip, int port)
     }
     bzero((char *) &serv_addr, sizeof(serv_addr));
     serv_addr.sin_family = AF_INET;
-    bcopy((char *)server->h_addr, (char *)&serv_addr.sin_addr.s_addr, server->h_length);
+    bcopy((char *)server->h_addr, (char *)&serv_addr.sin_addr.s_addr, static_cast<size_t>(server->h_length));
     serv_addr.sin_port = htons(port);
     if (connect(fd,(struct sockaddr *) &serv_addr,sizeof(serv_addr)) < 0)
         throw NetworkException("Connect error");
@@ -75,11 +75,11 @@ void engine::Network::UnixSocket::Init(void) {
 
 }
 
-void engine::Network::UnixSocket::onNotify(engine::core::Message message) {
+void engine::Network::UnixSocket::onNotify(engine::core::Message) {
 
 }
 
-void engine::Network::UnixSocket::Update(float dt) {
+void engine::Network::UnixSocket::Update(float) {
 
 }
 

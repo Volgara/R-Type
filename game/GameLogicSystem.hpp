@@ -7,8 +7,8 @@
 //-----------------------------------------------------------------------------
 //
 
-#ifndef RTYPE_GAMELOGICSYSTEM_HPP
-#define RTYPE_GAMELOGICSYSTEM_HPP
+#ifndef GAME_GAMELOGICSYSTEM_HPP
+#define GAME_GAMELOGICSYSTEM_HPP
 
 
 #include "PlayerComponent.hpp"
@@ -38,4 +38,4 @@ namespace game {
 }
 
 
-#endif //RTYPE_GAMELOGICSYSTEM_HPP
+#endif //GAME_GAMELOGICSYSTEM_HPP

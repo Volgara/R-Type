@@ -29,6 +29,6 @@ int engine::projectile::BulletComponent::getDamage() const {
     return _damage;
 }
 
-void engine::projectile::BulletComponent::setDamage(int _damage) {
-    BulletComponent::_damage = _damage;
+void engine::projectile::BulletComponent::setDamage(int damage) {
+    BulletComponent::_damage = damage;
 }
