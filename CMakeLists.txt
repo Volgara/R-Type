@@ -149,10 +149,7 @@ set(server_MODULES
 set(client_SOURCE_FILES ${client_MODULES}
         client/main_client.cpp)
 
-# Software : Server
-set(server_SOURCE_FILES ${server_MODULES}
-        server/main_server.cpp
-        engine/network/networkException.hpp
+set(file_server engine/network/networkException.hpp
         server/GameManager.cpp
         server/GameManager.hpp
         server/Player.cpp
@@ -160,8 +157,12 @@ set(server_SOURCE_FILES ${server_MODULES}
         server/Room.cpp
         server/Room.hpp
         server/Server.cpp
-        server/Server.hpp
-        )
+        server/Server.hpp)
+
+# Software : Server
+set(server_SOURCE_FILES ${server_MODULES}
+        ${file_server}
+        server/main_server.cpp)
 
 # include dir
 include_directories(engine)
