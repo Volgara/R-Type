@@ -49,7 +49,7 @@ void game::GameLogicClientSystem::playAction(engine::core::GameObject *source, P
                 break;
         }
         body->setVelocity(vel);
-        body->Update(1);
+        body->Update(this->_currentDt * 60);
     }
 }
 

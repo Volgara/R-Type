@@ -36,8 +36,8 @@ void engine::physics::RigidBodyComponent::SendMessage(engine::core::Message *) {
 }
 
 void engine::physics::RigidBodyComponent::Update(float dt) {
-    this->ownerRef->pos.setX(static_cast<int>((this->ownerRef->pos.getX() + this->_velocity.getX()) * (dt * 10)));
-    this->ownerRef->pos.setY(static_cast<int>((this->ownerRef->pos.getY() + this->_velocity.getY()) * (dt * 10)));
+    this->ownerRef->pos.setX(static_cast<int>((this->ownerRef->pos.getX() + this->_velocity.getX()) * dt));
+    this->ownerRef->pos.setY(static_cast<int>((this->ownerRef->pos.getY() + this->_velocity.getY()) * dt));
 }
 
 void engine::physics::RigidBodyComponent::Init() {
