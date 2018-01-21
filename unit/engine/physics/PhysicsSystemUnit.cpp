@@ -27,13 +27,9 @@ namespace engine {
                 comp->Init();
                 physicsSystem->debugAddComponent(comp);
             }
-            std::cout << "Before update" << std::endl;
             physicsSystem->Update(-1);
-            std::cout << "After update" << std::endl;
             ASSERT_EQ(460, physicsSystem->get_debugNbColision());
-            std::cout << "Before update2" << std::endl;
             ASSERT_EQ(1155, physicsSystem->get_debugCheck());
-            std::cout << "Before update3" << std::endl;
         }
     }
 }
