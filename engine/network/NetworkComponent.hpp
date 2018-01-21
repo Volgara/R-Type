@@ -24,7 +24,7 @@ namespace engine {
             void setRoom(std::string roomName);
             void cleanRoom();
 
-            void SendMessage(engine::core::Message *message) override;
+            void SendMessage(engine::core::Message *message);
             void Update(float dt) override;
             void Init(void) override;
             void ShutDown(void) override;
