@@ -3,7 +3,7 @@ project(RType)
 
 set(CMAKE_CXX_STANDARD 14)
 
-set(CMAKE_CXX_FLAGS_DEBUG "-DDEBUG")
+#set(CMAKE_CXX_FLAGS_DEBUG "-DDEBUG")
 
 include(GTest.cmake)
 
@@ -205,7 +205,7 @@ find_package(Threads)
 find_package(SFML 2.4 COMPONENTS audio graphics window system) # find SFML
 
 # link libs
-set(SFML_INCLUDE_DIR /usr/local/SFML)
+#set(SFML_INCLUDE_DIR /usr/local/SFML)
 if (SFML_FOUND)
     message("SFML LIBS: " ${SFML_LIBRARIES})
     message("SFML INCLUDES: " ${SFML_INCLUDE_DIR})
