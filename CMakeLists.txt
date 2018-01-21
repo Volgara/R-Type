@@ -38,10 +38,6 @@ set(core_unit_SOURCE_FILES
 
 # Engine : Game
 
-set(game_client_SOURCE_FILES
-        game/GameLogicClientSystem.cpp
-        game/GameLogicClientSystem.hpp)
-
 set(game_server_SOURCE_FILES
         game/GameLogicSystem.cpp
         game/GameLogicSystem.hpp
@@ -59,6 +55,11 @@ set(game_SOURCE_FILES
 set(game_unit_SOURCE_FILES
         ${game_server_SOURCE_FILES}
         unit/game/GamePlayerUnit.cpp)
+
+set(game_client_SOURCE_FILES
+        ${game_SOURCE_FILE}
+        game/GameLogicClientSystem.cpp
+        game/GameLogicClientSystem.hpp)
 
 # Engine : Projectile
 set(projectile_SOURCE_FILES
@@ -184,7 +185,7 @@ set(server_SOURCE_FILES ${server_MODULES}
 include_directories(engine)
 
 # client
-add_executable(client ${client_SOURCE_FILES})
+add_executable(client ${client_SOURCE_FILES} ${game_client_SOURCE_FILES})
 set_target_properties(client PROPERTIES COMPILE_DEFINITIONS GRAPHICS=1)
 
 # server
