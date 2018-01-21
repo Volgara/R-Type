@@ -33,6 +33,7 @@ namespace engine {
             #if defined(linux) || defined(__APPLE__)
             struct pollfd *poll_fd;
             #endif
+            std::vector<const char *> _queue;
         };
     }
 }
