@@ -13,26 +13,7 @@
 #include <input/InputComponent.hpp>
 #include <graphics/GraphicsSystem.hpp>
 #include <iostream>
-
-/**
- * @brief Exemple Player Action Message command
- */
-class PlayerActionMessage : public engine::core::MessageSourced {
-public:
-    enum Action {
-        GO_UP = 0,
-        GO_DOWN,
-        GO_LEFT,
-        GO_RIGHT,
-        SHOOT
-    };
-private:
-    const Action m_action;
-public:
-    explicit PlayerActionMessage(Action action) : MessageSourced(10), m_action(action) {
-        m_ref = nullptr;
-    }
-};
+#include "../game/Message.hpp"
 
 void onKeyPressed(sf::Event &event) {
     if (event.KeyPressed && event.key.code == sf::Keyboard::Escape) {
@@ -58,11 +39,11 @@ int main(int argc, char *argv[]) {
     engine::core::GameObject *object = scene->CreateEmptyObject();
     engine::core::Component *spriteComponent = scene->CreateComponent(engine::core::GRA_SPRITE);
     auto *inputComponent = static_cast<engine::input::InputComponent *>(scene->CreateComponent(engine::core::INPUT_GENERATE));
-    inputComponent->attachState(sf::Keyboard::Z, new engine::input::StateSendMessage(new PlayerActionMessage(PlayerActionMessage::GO_UP)));
-    inputComponent->attachState(sf::Keyboard::Q, new engine::input::StateSendMessage(new PlayerActionMessage(PlayerActionMessage::GO_LEFT)));
-    inputComponent->attachState(sf::Keyboard::S, new engine::input::StateSendMessage(new PlayerActionMessage(PlayerActionMessage::GO_DOWN)));
-    inputComponent->attachState(sf::Keyboard::D, new engine::input::StateSendMessage(new PlayerActionMessage(PlayerActionMessage::GO_RIGHT)));
-    inputComponent->attachState(sf::Keyboard::Space, new engine::input::StateSendMessage(new PlayerActionMessage(PlayerActionMessage::SHOOT)));
+    inputComponent->attachState(sf::Keyboard::Z, new engine::input::StateSendMessage(new game::PlayerActionMessage(game::PlayerActionMessage::GO_UP)));
+    inputComponent->attachState(sf::Keyboard::Q, new engine::input::StateSendMessage(new game::PlayerActionMessage(game::PlayerActionMessage::GO_LEFT)));
+    inputComponent->attachState(sf::Keyboard::S, new engine::input::StateSendMessage(new game::PlayerActionMessage(game::PlayerActionMessage::GO_DOWN)));
+    inputComponent->attachState(sf::Keyboard::D, new engine::input::StateSendMessage(new game::PlayerActionMessage(game::PlayerActionMessage::GO_RIGHT)));
+    inputComponent->attachState(sf::Keyboard::Space, new engine::input::StateSendMessage(new game::PlayerActionMessage(game::PlayerActionMessage::SHOOT)));
     object->attachComponent(spriteComponent);
     object->attachComponent(inputComponent);
 

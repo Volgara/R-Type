@@ -19,26 +19,34 @@
 
 #include "GameManager.hpp"
 
-GameManager::GameManager() {
-    RType::Room *newRoom = new RType::Room("Room1");
+RTypeServer::GameManager::GameManager() {
+    RTypeServer::Room *newRoom = new RTypeServer::Room("Room1");
     _room.push_back(newRoom);
-    RType::Room *newRoom2 = new RType::Room("Room2");
+    RTypeServer::Room *newRoom2 = new RTypeServer::Room("Room2");
     _room.push_back(newRoom2);
-    RType::Room *newRoom3 = new RType::Room("cara#~#{#[#");
+    RTypeServer::Room *newRoom3 = new RTypeServer::Room("cara#~#{#[#");
     _room.push_back(newRoom3);
 }
 
-GameManager::~GameManager() {
+RTypeServer::GameManager::~GameManager() {
 
 }
 
-bool GameManager::join(Player *p, std::string roomname) {
+bool RTypeServer::GameManager::join(Player *p, std::string roomname) {
     if (p->getRoomStatus())
+    {
+        std::cout << "join error, player aleady in room" << std::endl;
         return (false);
+    }
+
 
     roomname.erase(0, 5);
     if (roomname.length() == 0)
+    {
+        std::cout << "join error, bad room name" << std::endl;
         return (false);
+    }
+
     for (auto it : _room)
     {
         if (strcmp(it->getName().c_str(), roomname.c_str()) == 0)
@@ -47,7 +55,7 @@ bool GameManager::join(Player *p, std::string roomname) {
             return(it->join(p));
         }
     }
-    RType::Room *newRoom = new RType::Room(roomname);
+    RTypeServer::Room *newRoom = new RTypeServer::Room(roomname);
     _room.push_back(newRoom);
     for (auto it : _room)
     {
@@ -57,53 +65,63 @@ bool GameManager::join(Player *p, std::string roomname) {
             return(it->join(p));
         }
     }
+    std::cout << "join failed, unknow error" << std::endl;
     return (false);
 }
 
-void GameManager::listRoom(Player *p) {
+void RTypeServer::GameManager::listRoom(Player *p) {
     std::string data = "";
     int a = 0;
     for (auto it : _room)
     {
-        if (a != 0)
-            data += "|";
-        data += it->getName();
-        data += ",";
-        data += std::to_string(it->getNbrPlayer());
-        std::cout << it->getName() << std::endl;
-        a += 1;
+        if (!it->_gameStart)
+        {
+            if (a != 0)
+                data += "|";
+            data += it->getName();
+            data += ",";
+            data += std::to_string(it->getNbrPlayer());
+            a += 1;
+        }
     }
     std::cout << "Data send: " << data << std::endl;
     send(p->getFd(), data.c_str(), data.size() + 1, 0);
 }
 
-bool GameManager::start(std::string roomName) {
+bool RTypeServer::GameManager::start(Player *p) {
     for (auto it : _room)
     {
-        if (strcmp(it->getName().c_str(), roomName.c_str()))
+        if (strcmp(it->getName().c_str(), p->getRoomName().c_str()) == 0)
         {
-            it->start();
+            it->start(p);
             return (true);
         }
-
     }
     return (false);
 }
 
-bool GameManager::leave(Player *p) {
+bool RTypeServer::GameManager::leave(Player *p) {
     if (p->getRoomStatus())
     {
         for (auto it : _room)
         {
             if (it->getName() == p->getRoomName())
+            {
                 return(it->leave(p));
+            }
         }
     }
+    send(p->getFd(), "Ko", 3, 0);
     return false;
 }
-void GameManager::inforoom(Player *p) {
+
+void RTypeServer::GameManager::inforoom(Player *p) {
     if (!p->getRoomStatus())
+    {
+        std::cout << "Error player not in a room" << std::endl;
         return;
+    }
+
     for (auto it : _room)
     {
         if (it->getName() == p->getRoomName())
@@ -114,6 +132,6 @@ void GameManager::inforoom(Player *p) {
             return;
         }
     }
-    std::cout << "No romm found"<< std::endl;
+    std::cout << "No room found"<< std::endl;
 }
 

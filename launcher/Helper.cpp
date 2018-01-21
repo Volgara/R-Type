@@ -33,14 +33,19 @@ void Helper::centerElement(sf::Sprite &element, const sf::RenderWindow *win, boo
 }
 
 bool Helper::isSpriteClicked(const sf::Sprite &sprite, const sf::RenderWindow &window) {
-    // transform the mouse position from window coordinates to world coordinates
-    sf::Vector2f mouse = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 
-    // retrieve the bounding box of the sprite
-    sf::FloatRect bounds = sprite.getGlobalBounds();
+        // transform the mouse position from window coordinates to world coordinates
+        sf::Vector2f mouse = window.mapPixelToCoords(sf::Mouse::getPosition(window));
 
-    // hit test
-    return bounds.contains(mouse);
+        // retrieve the bounding box of the sprite
+        sf::FloatRect bounds = sprite.getGlobalBounds();
+
+
+        // hit test
+        return bounds.contains(mouse);
+    }
+    return false;
 }
 
 bool Helper::isMouseHover(const sf::Sprite &sprite, const sf::RenderWindow &window) {

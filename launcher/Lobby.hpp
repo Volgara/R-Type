@@ -6,6 +6,7 @@
 #ifndef RTYPE_LOBBY_HPP
 #define RTYPE_LOBBY_HPP
 
+#include <SFML/Graphics/Sprite.hpp>
 #include "Lobby.hpp"
 #include "Scene.hpp"
 
@@ -19,6 +20,20 @@ class Lobby : public Scene {
   void update() override;
   void onEvent(sf::Event &event);
   void onSwitch() override;
+
+private:
+    sf::Font font;
+    sf::Text text;
+
+    sf::Texture ready_;
+    sf::Sprite ready;
+
+    sf::Texture refresh_;
+    sf::Sprite refresh;
+
+    sf::Texture back_;
+    sf::Sprite back;
+    bool inGame;
 };
 
 #endif //RTYPE_LOBBY_HPP

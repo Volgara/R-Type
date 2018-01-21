@@ -10,18 +10,19 @@
 #include "Player.hpp"
 #include "Room.hpp"
 
-
-class GameManager {
-    std::vector<RType::Room *> _room;
-public:
-    GameManager();
-    ~GameManager();
-    bool join(Player *, std::string);
-    void listRoom(Player *);
-    bool start(std::string roomName);
-    bool leave(Player *);
-    void inforoom(Player *);
-};
+namespace RTypeServer {
+    class GameManager {
+        std::vector<RTypeServer::Room *> _room;
+    public:
+        GameManager();
+        ~GameManager();
+        bool join(Player *, std::string);
+        void listRoom(Player *);
+        bool start(Player *);
+        bool leave(Player *);
+        void inforoom(Player *);
+    };
+}
 
 
 #endif //RTYPE_GAMEMANAGER_HPP

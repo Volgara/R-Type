@@ -34,12 +34,14 @@ class ServerList : public Scene {
   sf::Texture CreateServer_;
   sf::Texture Cancel_;
   sf::Texture InputText_;
+  sf::Texture selectedServer_;
 
   sf::Sprite backButton;
   sf::Sprite lobbyView;
   sf::Sprite CreateServer;
   sf::Sprite Cancel;
   sf::Sprite InputText;
+  sf::Sprite selectedServer;
 
   bool canType;
   std::string currentTyped;

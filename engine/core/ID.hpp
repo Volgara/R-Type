@@ -20,7 +20,8 @@ namespace engine {
             PHY_RIGIDBODY, // TODO : use RIGID Body
             PRO_BULLET,
             GAME_PLAYER,
-            INPUT_GENERATE
+            INPUT_GENERATE,
+            NET
         };
 
         typedef unsigned GameObjectID;

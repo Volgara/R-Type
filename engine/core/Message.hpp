@@ -16,6 +16,15 @@ namespace engine {
     namespace core {
         using MessageID = unsigned;
 
+        /**
+         * LAST enum member is a Helper
+         */
+        enum InternalMessageID : MessageID {
+            COLLISION,
+            BULLET,
+            LAST
+        };
+
         class GameObject;
 
         class Message {
@@ -34,7 +43,7 @@ namespace engine {
 
         class Collision2D : public Message {
         public:
-            Collision2D() : Message(0) {}
+            Collision2D() : Message(COLLISION) {}
 
             GameObjectID source{0};
             GameObjectID target{0};
@@ -42,10 +51,9 @@ namespace engine {
 
         class SendBullet : public Message {
         public:
-            SendBullet() : Message(1) {}
+            SendBullet() : Message(BULLET) {}
 
             GameObjectID source{0};
-            GameObjectID bullet{0};
         };
     }
 }

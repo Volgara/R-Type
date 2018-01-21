@@ -7,18 +7,24 @@
 //-----------------------------------------------------------------------------
 //
 
-#ifndef RTYPE_GAMELOGICSYSTEM_HPP
-#define RTYPE_GAMELOGICSYSTEM_HPP
+#ifndef GAME_GAMELOGICSYSTEM_HPP
+#define GAME_GAMELOGICSYSTEM_HPP
 
 
-#include <core/ASystem.hpp>
-#include <core/Scene.hpp>
+#include "PlayerComponent.hpp"
+#include "Message.hpp"
 
 namespace game {
     class GameLogicSystem : public engine::core::ASystem {
         private:
             int _height;
             int _width;
+            float _currentDt;
+            std::map<game::PlayerActionMessage::Action, engine::core::Vector2d> _map;
+        private:
+            void checkColision(engine::core::GameObject *, engine::core::GameObject *);
+            void addDamageToPlayer(game::PlayerComponent *, engine::projectile::BulletComponent *);
+            void playAction(engine::core::GameObject *, game::PlayerActionMessage::Action action);
         public:
             GameLogicSystem(int _height, int _width);
 
@@ -33,4 +39,4 @@ namespace game {
 }
 
 
-#endif //RTYPE_GAMELOGICSYSTEM_HPP
+#endif //GAME_GAMELOGICSYSTEM_HPP

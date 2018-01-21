@@ -14,7 +14,7 @@
 #include <network/Socket.hpp>
 
 
-namespace RType{
+namespace RTypeServer {
     class Server{
     private:
         engine::Network::Socket *_socket;

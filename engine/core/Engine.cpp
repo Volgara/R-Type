@@ -47,6 +47,14 @@ void engine::core::Engine::MainLoop(void) {
             _clock.restart();
         }
     }
+#else
+    int elapsed = 0;
+    while (_gameRunning) {
+        if (elapsed % 10000 == 0) {
+            Update(1);
+        }
+        elapsed++;
+    }
 #endif
 }
 

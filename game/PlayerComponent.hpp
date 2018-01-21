@@ -2,12 +2,11 @@
 // Created by Hamza Hammouche on 20/01/2018.
 //
 
-#ifndef RTYPE_PLAYER_HPP
-#define RTYPE_PLAYER_HPP
+#ifndef GAME_PLAYER_COMPONENT_HPP
+# define GAME_PLAYER_COMPONENT_HPP
 
-#include <core/Component.hpp>
-#include <core/GameObject.hpp>
-#include <physics/RigidBodyComponent.hpp>
+#include <core/Engine.hpp>
+#include <projectile/BulletComponent.hpp>
 #include "SpaceShip.hpp"
 
 namespace game {
@@ -26,4 +25,4 @@ namespace game {
 }
 
 
-#endif //RTYPE_PLAYER_HPP
+#endif //GAME_PLAYER_COMPONENT_HPP

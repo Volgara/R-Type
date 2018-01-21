@@ -44,6 +44,8 @@ namespace engine {
 
             Component *GetComponent(ComponentID type, GameObjectID owner);
 
+            GameObject *GetGameObject(GameObjectID);
+
             void cleanUp();
         };
 

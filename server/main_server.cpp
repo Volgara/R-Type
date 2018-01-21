@@ -3,7 +3,7 @@
 
 int main()
 {
-    RType::Server *serv = new RType::Server();
+    RTypeServer::Server *serv = new RTypeServer::Server();
 
     serv->configure();
     serv->run();

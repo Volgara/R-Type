@@ -5,14 +5,14 @@
 
 #include "Window.hpp"
 
-RType::Engine::Window::Window(unsigned int width, unsigned int height, std::string title) : sf::RenderWindow(
+RTypeServer::Engine::Window::Window(unsigned int width, unsigned int height, std::string title) : sf::RenderWindow(
         sf::VideoMode(width, height),
         title) {
 
 }
 
-RType::Engine::Window::~Window() {
+RTypeServer::Engine::Window::~Window() {
 
 }
 
-RType::Engine::Window::Window() {}
+RTypeServer::Engine::Window::Window() {}

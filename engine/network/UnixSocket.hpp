@@ -22,9 +22,9 @@ namespace engine {
 
             ~UnixSocket() override;
 
-            void init_socket() override;
+            void init_socket(int port) override;
             int connect_socket(const std::string &ip, int port) override;
-            void blind_Socket() override;
+            void bind_Socket() override;
             void listen_Socket() override;
             unsigned int get_fd() const override;
             void Init(void) override;

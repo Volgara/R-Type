@@ -4,7 +4,7 @@
 
 #include "SpaceShip.hpp"
 
-game::SpaceShip::SpaceShip(int _life, int _damage, int _shield) : _life(_life), _damage(_damage), _shield(_shield) {}
+game::SpaceShip::SpaceShip(int _life, int _damage, int speed, const engine::core::Vector2d &size) : _life(_life), _damage(_damage), _speed(speed), _size(size) {}
 
 int game::SpaceShip::getLife() const {
     return _life;
@@ -14,10 +14,14 @@ int game::SpaceShip::getDamage() const {
     return _damage;
 }
 
-int game::SpaceShip::getShield() const {
-    return _shield;
+const engine::core::Vector2d &game::SpaceShip::getSize() const {
+    return _size;
 }
 
 void game::SpaceShip::takeDamage(int damage) {
-    this->_life -= damage - this->_shield;
+    this->_life -= damage;
+}
+
+int game::SpaceShip::getSpeed() const {
+    return _speed;
 }

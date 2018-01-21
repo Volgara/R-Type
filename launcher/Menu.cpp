@@ -48,17 +48,16 @@ void Menu::onEvent(sf::Event &event) {
     if (Helper::isMouseHover(button4, *this->_win))
         this->selectedButtonIndex = 3;
 
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-        if (Helper::isSpriteClicked(button1, *this->_win))
-            menuSelection(0);
-        if (Helper::isSpriteClicked(button2, *this->_win))
-            menuSelection(1);
-        if (Helper::isSpriteClicked(button3, *this->_win))
-            menuSelection(2);
-        if (Helper::isSpriteClicked(button4, *this->_win))
-            menuSelection(3);
-    }
+    if (Helper::isSpriteClicked(button1, *this->_win))
+        menuSelection(0);
+    if (Helper::isSpriteClicked(button2, *this->_win))
+        menuSelection(1);
+    if (Helper::isSpriteClicked(button3, *this->_win))
+        menuSelection(2);
+    if (Helper::isSpriteClicked(button4, *this->_win))
+        menuSelection(3);
 }
+
 void Menu::menuSelection(int index) {
     std::stringstream ss;
     switch (index) {
@@ -157,6 +156,7 @@ void Menu::update() {
 
     this->_win->draw(text);
 }
+
 void Menu::centerText(sf::Text &text) {
     sf::FloatRect textRect;
 
@@ -165,6 +165,7 @@ void Menu::centerText(sf::Text &text) {
     text.setOrigin(textRect.left + textRect.width / 2.0f,
                    textRect.top + textRect.height / 2.0f);
 }
+
 void Menu::onSwitch() {
 
 }
