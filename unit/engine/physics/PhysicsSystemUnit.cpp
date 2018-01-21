@@ -31,14 +31,5 @@ namespace engine {
             ASSERT_EQ(460, physicsSystem->get_debugNbColision());
             ASSERT_EQ(1155, physicsSystem->get_debugCheck());
         }
-        TEST(MessageBusTest, SimpleMessage) {
-            PhysicsSystem *physicsSystem = new PhysicsSystem(800, 600);
-            auto *ge = engine::core::Engine::GetInstance();
-
-            ge->addSystem("physics", physicsSystem);
-            ge->Init();
-            ge->getScene()->CreateComponent(core::ComponentID::PHY_RIGIDBODY);
-            ASSERT_EQ(0, physicsSystem->get_debugNbColision());
-        }
     }
 }
