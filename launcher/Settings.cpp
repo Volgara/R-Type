@@ -5,7 +5,7 @@
 
 #include "Settings.hpp"
 
-Settings::Settings(std::string name, sf::RenderWindow *win) : Scene(name, win)  {
+Settings::Settings(const std::string &name, sf::RenderWindow *win) : Scene(name, win)  {
 
 }
 Settings::~Settings() {
@@ -19,5 +19,8 @@ void Settings::update() {
 
 }
 void Settings::onEvent(sf::Event &event) {
+
+}
+void Settings::onSwitch() {
 
 }

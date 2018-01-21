@@ -9,7 +9,7 @@
 
 #include <SFML/Graphics/RenderWindow.hpp>
 
-namespace RType {
+namespace RTypeServer {
     namespace Engine {
         class Window : public sf::RenderWindow {
         public:

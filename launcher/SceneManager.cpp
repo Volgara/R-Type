@@ -6,7 +6,7 @@
 #include <iostream>
 #include "SceneManager.hpp"
 SceneManager::SceneManager() {
-    this->_currentScene = 0;
+    this->_currentScene = -1;
 }
 
 SceneManager::~SceneManager() {
@@ -15,10 +15,15 @@ SceneManager::~SceneManager() {
 
 void SceneManager::addScene(Scene *scene) {
     scene->init();
+    scene->setConnection(this->connection);
     this->_scenes.push_back(scene);
 }
 
 Scene *SceneManager::getCurrentScene() {
+    if (this->_currentScene == -1) {
+        std::cout << "No active scene!" << std::endl;
+        return nullptr;
+    }
     return _scenes[this->_currentScene];
 }
 
@@ -51,10 +56,12 @@ int SceneManager::findSceneIndex(const std::string &search) {
     return -1;
 }
 void SceneManager::switchScene(const std::string &scene) {
-    int i = this->findSceneIndex(scene);
+    int i    = this->findSceneIndex(scene);
+    Scene *s = this->findScene(scene);
     if (i != -1)
     {
         this->_currentScene = i;
+        s->onSwitch();
         std::cout << "Current scene switch to " << this->_currentScene << " (" << this->_scenes[this->_currentScene]->getName() << ")" << std::endl;
     }
     else

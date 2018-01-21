@@ -16,13 +16,14 @@
 
 class Menu : public Scene {
  public:
-  Menu(std::string name, sf::RenderWindow *win);
+  Menu(const std::string &name, sf::RenderWindow *win);
   virtual ~Menu();
 
  public:
   void init() override;
   void update() override;
   void onEvent(sf::Event &event) override;
+  void onSwitch() override;
 
  private:
   void centerText(sf::Text &text);
@@ -37,7 +38,7 @@ class Menu : public Scene {
   sf::Font       font;
   sf::Text       text;
 
-  Connection mm;
+  void menuSelection(int);
 };
 
 #endif //RTYPE_MENU_HPP

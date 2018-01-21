@@ -9,7 +9,8 @@
 
 #include <iostream>
 #include "Engine.hpp"
-#include "GameObject.hpp"
+#include "Component.hpp"
+#include <input/InputComponent.hpp>
 
 /**
  * Get's system with ID
@@ -42,39 +43,33 @@ void engine::core::Engine::MainLoop(void) {
         if (elapsed >= 1.0f / 60) {
             _window.clear();
             Update(elapsed);
+            this->_messageBus->notify();
             _window.display();
             _clock.restart();
         }
-
-        sf::Event event;
-        while (_window.pollEvent(event)) {
-            switch (event.type) {
-                case sf::Event::Closed:
-                    this->Shutdown();
-                    exit(0); // TODO maybe it's not the behaviour wanted, added for simpler tests
-                case sf::Event::KeyPressed:
-                default:
-                    break;
-            }
+    }
+#else
+    int elapsed = 0;
+    while (_gameRunning) {
+        if (elapsed % 10000 == 0) {
+            Update(1);
         }
+        elapsed++;
     }
 #endif
 }
 
 void engine::core::Engine::Init(void) {
     this->_gameRunning = true;
-    this->_scene = new Scene();
 #ifdef GRAPHICS
     _window.create(sf::VideoMode(800, 600), "toto");
+    _window.setMouseCursorVisible(true);
+    _window.setKeyRepeatEnabled(false);
 
     if (!_window.isOpen()) {
         std::cout << "windows is closed" << std::endl;
         exit(EXIT_FAILURE);
     }
-
-    auto *object = _scene->CreateEmptyObject();
-    auto *spriteComponent = _scene->CreateComponent(GRA_SPRITE);
-    object->AddComponent(spriteComponent);
 #endif
 
     for (auto sys : _systems) {
@@ -108,6 +103,7 @@ bool engine::core::Engine::isRunning() const {
 }
 
 void engine::core::Engine::Shutdown(void) {
+    _gameRunning = false;
 #ifdef GRAPHICS
     _window.close();
 #endif
@@ -115,4 +111,8 @@ void engine::core::Engine::Shutdown(void) {
 
 engine::core::MessageBus *engine::core::Engine::getMessageBus() const {
     return _messageBus;
+}
+
+void engine::core::Engine::setScene(engine::core::Scene *pScene) {
+    _scene = pScene;
 }

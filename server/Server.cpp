@@ -18,18 +18,18 @@
 // #pragma comment (lib, "Mswsock.lib")
 
 
-RType::Server::Server() {
+RTypeServer::Server::Server() {
 
 }
 
-RType::Server::~Server() {
+RTypeServer::Server::~Server() {
     delete _socket;
 }
 
-void RType::Server::configure() {
+void RTypeServer::Server::configure() {
     _socket = new engine::Network::Socket(engine::Network::SocketType::Tcp);
-    _socket->init_socket();
-    _socket->blind_Socket();
+    _socket->init_socket(4242);
+    _socket->bind_Socket();
     _socket->listen_Socket();
     _nbrPlayer = 0;
     _gameManager = new GameManager();
@@ -40,13 +40,13 @@ DWORD __stdcall startMethodInThread( LPVOID arg )
 {
     if(!arg)
         return 0;
-    RType::Server *yc_ptr = (RType::Server*)arg;
+    RTypeServer::Server *yc_ptr = (RTypeServer::Server*)arg;
     yc_ptr->ThreadFunc();
     return 1;
 }
 
-DWORD RType::Server::ThreadFunc() {
-    Player* player = _connectedUser.back();
+DWORD RTypeServer::Server::ThreadFunc() {
+Player* player = _connectedUser.back();
     std::cout << "New player connected with id: " << player->getId() << std::endl;
     int a = 1;
     char buffer[256];
@@ -66,14 +66,24 @@ DWORD RType::Server::ThreadFunc() {
         if (strncmp(buffer, "list", 4) == 0)
             _gameManager->listRoom(player);
         else if (strncmp(buffer, "join", 4) == 0)
+        {
             if (!_gameManager->join(player, buffer))
             {
                 std::cout << "Failed to " << buffer << std::endl;
                 send(player->getFd(), "ko", 3, 0);
             }
-
-        else
-            send(player->getFd(), "ok", 3, 0);
+            else
+                send(player->getFd(), "ok", 3, 0);
+        }
+        else if (strncmp(buffer, "roominfo", 8) == 0){
+            _gameManager->inforoom(player);
+        }
+        else if (strncmp(buffer, "leave", 5) == 0){
+            _gameManager->leave(player);
+        }
+        else if (strncmp(buffer, "start", 5) == 0){
+            _gameManager->start(player);
+        }
     }
     return(1);
 }
@@ -84,12 +94,12 @@ void threadLinux(void *data)
 {
     if(!data)
         return;
-    RType::Server *yc_ptr = (RType::Server*)data;
+    RTypeServer::Server *yc_ptr = (RTypeServer::Server*)data;
     yc_ptr->ThreadFunct();
     return;
 }
 
-void RType::Server::ThreadFunct() {
+void RTypeServer::Server::ThreadFunct() {
     Player* player = _connectedUser.back();
     std::cout << "New player connected with id: " << player->getId() << std::endl;
     int a = 1;
@@ -110,20 +120,29 @@ void RType::Server::ThreadFunct() {
         if (strncmp(buffer, "list", 4) == 0)
             _gameManager->listRoom(player);
         else if (strncmp(buffer, "join", 4) == 0)
+        {
             if (!_gameManager->join(player, buffer))
             {
                 std::cout << "Failed to " << buffer << std::endl;
                 send(player->getFd(), "ko", 3, 0);
             }
-
-        else
-            send(player->getFd(), "ok", 3, 0);
-
+            else
+                send(player->getFd(), "ok", 3, 0);
+        }
+        else if (strncmp(buffer, "roominfo", 8) == 0){
+            _gameManager->inforoom(player);
+        }
+        else if (strncmp(buffer, "leave", 5) == 0){
+            _gameManager->leave(player);
+        }
+        else if (strncmp(buffer, "start", 5) == 0){
+            _gameManager->start(player);
+        }
     }
 }
 #endif
 
-void RType::Server::run() {
+void RTypeServer::Server::run() {
     int fd;
     Player *newPlayer;
 

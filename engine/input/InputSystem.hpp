@@ -11,30 +11,35 @@
 #define RTYPE_INPUTSYSTEM_HPP
 
 #ifdef GRAPHICS
+
 #include <functional>
 #include <SFML/Window/Event.hpp>
-#include "ASystem.hpp"
+#include <core/Message.hpp>
+#include <core/ASystem.hpp>
 
 namespace engine {
-    namespace core {
-        class InputSystem : public ASystem {
+    namespace input {
+
+        class InputComponent;
+
+        class InputSystem : public core::ASystem {
         public:
             typedef std::function<void(sf::Event &)> Callback;
         private:
+            std::vector<Callback> m_callbacks;
             sf::Event _event{};
-            std::map<sf::Event::EventType, Callback> _callbacks;
 
         public:
-            void Update(float d) override;
+            void Update(float dt) override;
 
             void Init(void) override;
 
             ~InputSystem() override = default;
 
-            void addEventListener(sf::Event::EventType type, Callback fct);
+            void addKeyCallback(Callback callback);
 
         protected:
-            void onNotify(Message message) override;
+            void onNotify(core::Message *message) override;
         };
     }
 }

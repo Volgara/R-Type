@@ -19,7 +19,7 @@ engine::Network::UnixSocket::~UnixSocket() {
 
 }
 
-void engine::Network::UnixSocket::init_socket() {
+void engine::Network::UnixSocket::init_socket(int port) {
     if (_socketType == Tcp)
         fd = socket(AF_INET, SOCK_STREAM, 0);
     else if (_socketType == Udp)
@@ -29,11 +29,10 @@ void engine::Network::UnixSocket::init_socket() {
     }
     serv_addr.sin_family = AF_INET;
     serv_addr.sin_addr.s_addr = INADDR_ANY;
-    serv_addr.sin_port = htons(4242);
+    serv_addr.sin_port = htons(port);
 }
 
 int engine::Network::UnixSocket::connect_socket(const std::string &ip, int port) {
-    struct sockaddr_in serv_addr;
     struct hostent *server;
 
     if (_socketType == Tcp)
@@ -46,13 +45,14 @@ int engine::Network::UnixSocket::connect_socket(const std::string &ip, int port)
     }
     bzero((char *) &serv_addr, sizeof(serv_addr));
     serv_addr.sin_family = AF_INET;
-    bcopy((char *)server->h_addr, (char *)&serv_addr.sin_addr.s_addr, server->h_length);
+    bcopy((char *)server->h_addr, (char *)&serv_addr.sin_addr.s_addr, static_cast<size_t>(server->h_length));
     serv_addr.sin_port = htons(port);
     if (connect(fd,(struct sockaddr *) &serv_addr,sizeof(serv_addr)) < 0)
         throw NetworkException("Connect error");
+    return (0);
 }
 
-void engine::Network::UnixSocket::blind_Socket() {
+void engine::Network::UnixSocket::bind_Socket() {
     if (bind(fd, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0) {
         throw NetworkException("Bind failed");
     }
@@ -67,7 +67,7 @@ void engine::Network::UnixSocket::listen_Socket() {
 }
 
 unsigned int engine::Network::UnixSocket::get_fd() const {
-    return fd;
+    return static_cast<unsigned int>(fd);
 }
 
 
@@ -75,11 +75,11 @@ void engine::Network::UnixSocket::Init(void) {
 
 }
 
-void engine::Network::UnixSocket::onNotify(engine::core::Message message) {
+void engine::Network::UnixSocket::onNotify(engine::core::Message *) {
 
 }
 
-void engine::Network::UnixSocket::Update(float dt) {
+void engine::Network::UnixSocket::Update(float) {
 
 }
 

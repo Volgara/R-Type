@@ -21,9 +21,12 @@ engine::Network::WindowsSocket::~WindowsSocket() {
 
 }
 
-void engine::Network::WindowsSocket::init_socket() {
+void engine::Network::WindowsSocket::init_socket(int port) {
     if (WSAStartup(MAKEWORD(2,2), &wsaData) != 0)
+    {
         throw NetworkException("WSAStartup failed");
+    }
+
 
     // init socket
     ZeroMemory(&local, sizeof(local));
@@ -36,11 +39,18 @@ void engine::Network::WindowsSocket::init_socket() {
     local.ai_flags = AI_PASSIVE;
 
     // Resolve the server address and port
-    if (getaddrinfo(NULL, "4242", &local, &result) != 0)
+    if (getaddrinfo(NULL, std::to_string(port).c_str(), &local, &result) != 0)
+    {
         throw NetworkException("getaddrinfo failed");
+    }
+
 
     // Create socket
-    fd = socket(result->ai_family, result->ai_socktype, result->ai_protocol);
+
+    if (_socketType == Tcp)
+          fd = socket(result->ai_family, result->ai_socktype, result->ai_protocol);
+    else if (_socketType == Udp)
+        fd = socket(AF_INET , SOCK_DGRAM , 0 );
     if (fd  == INVALID_SOCKET) {
         freeaddrinfo(result);
         WSACleanup();
@@ -79,7 +89,7 @@ int engine::Network::WindowsSocket::connect_socket(const std::string &ip, int po
     return(fd);
 }
 
-void engine::Network::WindowsSocket::blind_Socket() {
+void engine::Network::WindowsSocket::bind_Socket() {
     if (bind(fd, result->ai_addr, (int)result->ai_addrlen) == SOCKET_ERROR) {
         freeaddrinfo(result);
         closesocket(fd);
@@ -107,7 +117,7 @@ void engine::Network::WindowsSocket::Init(void) {
 
 }
 
-void engine::Network::WindowsSocket::onNotify(engine::core::Message message) {
+void engine::Network::WindowsSocket::onNotify(engine::core::Message *) {
 
 }
 

@@ -5,7 +5,7 @@
 #include <core/GameObject.hpp>
 #include "RigidBodyComponent.hpp"
 
-engine::physics::RigidBodyComponent::RigidBodyComponent() : Component(engine::core::PHY_RIGIDBODY) {
+engine::physics::RigidBodyComponent::RigidBodyComponent() : Component(engine::core::PHY_RIGIDBODY), _box(nullptr) {
     this->_size = core::Vector2d(0, 0);
 }
 
@@ -32,8 +32,7 @@ void engine::physics::RigidBodyComponent::setSize(const engine::core::Vector2d &
     this->_size.setX(size.getX());
 }
 
-void engine::physics::RigidBodyComponent::SendMessage(engine::core::Message *message) {
-    std::cout << "I get message in RigidBodyComponent : " << message->id << std::endl;
+void engine::physics::RigidBodyComponent::SendMessage(engine::core::Message *) {
 }
 
 void engine::physics::RigidBodyComponent::Update(float dt) {
@@ -41,7 +40,7 @@ void engine::physics::RigidBodyComponent::Update(float dt) {
     this->ownerRef->pos.setY(static_cast<int>((this->ownerRef->pos.getY() + this->_velocity.getY()) * dt));
 }
 
-void engine::physics::RigidBodyComponent::Init(void) {
+void engine::physics::RigidBodyComponent::Init() {
     this->_box = new Box(&this->ownerRef->pos, &this->_size);
 }
 

@@ -25,7 +25,7 @@ namespace engine {
             void Update(float dt) override;
 
         protected:
-            void onNotify(core::Message message) override;
+            void onNotify(core::Message *message) override;
         };
     }
 }

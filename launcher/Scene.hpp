@@ -9,10 +9,11 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Event.hpp>
 #include "Scene.hpp"
+#include "Connection.hpp"
 
 class Scene {
  public:
-  Scene(std::string name, sf::RenderWindow *win);
+  Scene(const std::string &name, sf::RenderWindow *win);
   virtual ~Scene();
 
   void setRequestSwitch(const std::string &string);
@@ -20,6 +21,7 @@ class Scene {
   virtual void init() = 0;
   virtual void update() = 0;
   virtual void onEvent(sf::Event &event) = 0;
+  virtual void onSwitch() = 0;
 
  public:
   const std::string &getName() const;
@@ -31,9 +33,12 @@ class Scene {
  protected:
   std::string      _name;
   sf::RenderWindow *_win;
+  Connection  *_connection;
+ public:
+  void setConnection(Connection *_connection);
 
  private:
-  std::string      _requestSwitch;
+  std::string _requestSwitch;
 };
 
 #endif //RTYPE_SCENE_HPP

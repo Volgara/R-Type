@@ -24,6 +24,7 @@ class SceneManager {
   Scene *findScene(const std::string &search);
   int findSceneIndex(const std::string &search);
   void switchScene(const std::string &basic_string);
+  Connection *connection;
 };
 
 #endif //RTYPE_SCENEMANAGER_HPP

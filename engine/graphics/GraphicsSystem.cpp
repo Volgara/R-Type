@@ -19,7 +19,7 @@
  * Init all texture
  */
 void engine::graphics::GraphicSystem::Init(void) {
-    auto *eg = engine::core::Engine::GetInstance();
+/*    auto *eg = engine::core::Engine::GetInstance();
 
     //engine::graphics::SpriteSheet shipSheet = engine::graphics::SpriteSheet("assets/ship.png", 192, 16, 6, 1);
     engine::graphics::SpriteSheet shipSheet = engine::graphics::SpriteSheet("assets/mummy.png", 185, 225, 5, 5);
@@ -66,8 +66,8 @@ void engine::graphics::GraphicSystem::Init(void) {
 
     mommy->setCurrentFrameIndex(10);
     mommy->setLoop(true);
-/*    mommy->setPingPong(false);
-    mommy->setReverse(false);*/
+*//*    mommy->setPingPong(false);
+    mommy->setReverse(false);*//*
     mommy->setSpeed(10);
 
     for (auto &sprite : *eg->getScene()->GetComponents<GraphicsComponent>(core::ComponentID::GRA_SPRITE)) {
@@ -77,7 +77,7 @@ void engine::graphics::GraphicSystem::Init(void) {
         sprite->addAnimation(mommy);
 
         sprite->play("mommy");
-    }
+    }*/
 }
 
 void engine::graphics::GraphicSystem::Update(float dt) {
@@ -87,10 +87,6 @@ void engine::graphics::GraphicSystem::Update(float dt) {
         eg->getWindow().draw(gc->getDrawable());
 
         gc->update(dt);
-
-        //update position, should be in the game logic
-        gc->getDrawable().setPosition(static_cast<float>(gc->getDrawable().getPosition().x + 0.1),
-                                      gc->getDrawable().getPosition().y);
     }
 }
 
@@ -98,10 +94,10 @@ engine::graphics::GraphicSystem::GraphicSystem() {
 
 }
 
-void engine::graphics::GraphicSystem::onNotify(engine::core::Message msg) {
+void engine::graphics::GraphicSystem::onNotify(engine::core::Message *msg) {
     auto      *eg = engine::core::Engine::GetInstance();
     for (auto sprite : *eg->getScene()->GetComponents<GraphicsComponent>(core::ComponentID::GRA_SPRITE)) {
-        sprite->SendMessage(&msg);
+        sprite->SendMessage(msg);
     }
 }
 
