@@ -30,7 +30,8 @@ void game::GameLogicClientSystem::onNotify(engine::core::Message *message) {
 }
 
 void game::GameLogicClientSystem::playAction(engine::core::GameObject *source, PlayerActionMessage::Action action) {
-    if (source->HasComponent(engine::core::ComponentID::PHY_RIGIDBODY)) {
+    if (source->HasComponent(engine::core::ComponentID::PHY_RIGIDBODY) &&
+            source->HasComponent(engine::core::ComponentID::GAME_PLAYER)) {
         auto *body = static_cast<engine::physics::RigidBodyComponent *>(source->GetComponent(engine::core::ComponentID::PHY_RIGIDBODY));
         auto *player = static_cast<game::PlayerComponent *>(source->GetComponent(engine::core::ComponentID::GAME_PLAYER));
         engine::core::Vector2d vel(0, 0);
@@ -46,6 +47,8 @@ void game::GameLogicClientSystem::playAction(engine::core::GameObject *source, P
                 break;
             case game::PlayerActionMessage::Action::GO_LEFT:
                 vel.setX(-player->getSpeed());
+                break;
+            case PlayerActionMessage::SHOOT:
                 break;
         }
         body->setVelocity(vel);
