@@ -82,7 +82,6 @@ engine::core::GameObject *engine::core::Scene::CreateEmptyObject(void) {
 void engine::core::Scene::RemoveGameObject(engine::core::GameObject *o) {
     // TODO : make improvement object management
     auto *go = objectsMap[o->guid];
-    assert(o->guid == go->guid);
     go->detachComponents();
     objectsMap.erase(go->guid);
     delete(go);
@@ -104,6 +103,7 @@ engine::core::Scene::GetComponent(engine::core::ComponentID type, engine::core::
  * Clean detached component
  */
 void engine::core::Scene::cleanUp() {
+    /*
     for (auto it = components.begin(); it != components.end();) {
         Component *component = *it;
 
@@ -117,6 +117,7 @@ void engine::core::Scene::cleanUp() {
             it++;
         }
     }
+   */
 }
 
 engine::core::GameObject *engine::core::Scene::GetGameObject(engine::core::GameObjectID owner) {

@@ -10,7 +10,7 @@
 #ifndef RTYPE_ID_HPP
 #define RTYPE_ID_HPP
 
-#define EComponentID_NUMBER 5
+#define EComponentID_NUMBER 6
 
 namespace engine {
     namespace core {
