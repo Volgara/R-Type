@@ -17,7 +17,7 @@ class Settings : public Scene {
  public:
   void init() override;
   void update() override;
-  void onEvent(sf::Event &event);
+  void onEvent(sf::Event &event) override;
   void onSwitch() override;
 };
 

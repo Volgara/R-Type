@@ -25,7 +25,7 @@ namespace engine {
             LAST
         };
 
-        class GameObject;
+        struct GameObject;
 
         class Message {
         public:

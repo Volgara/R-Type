@@ -47,9 +47,14 @@ void game::GameClient::createPlayer(engine::core::Scene *scene, engine::input::I
     player->pos.setX(pos.getX());
     player->pos.setY(pos.getY());
     pos.setY(pos.getY() + 10);
+    engine::graphics::GraphicsComponent *spriteComponent = static_cast<engine::graphics::GraphicsComponent *>(scene->CreateComponent(engine::core::ComponentID::GRA_SPRITE));
     PlayerComponent *playerComponent = static_cast<PlayerComponent *>(scene->CreateComponent(engine::core::ComponentID::GAME_PLAYER));
     engine::physics::RigidBodyComponent *rigidBodyComponent = static_cast<engine::physics::RigidBodyComponent *>(scene->CreateComponent(engine::core::ComponentID::PHY_RIGIDBODY));
-    engine::core::Component *spriteComponent = scene->CreateComponent(engine::core::GRA_SPRITE);
+
+    engine::graphics::SpriteSheet shipSheet = engine::graphics::SpriteSheet("assets/ship.png", 192, 16, 6, 1);
+    engine::graphics::Animation *shipAnimIdle = new engine::graphics::Animation("idle", &shipSheet);
+    shipAnimIdle->addFrame(0, 2);
+    spriteComponent->addAnimation(shipAnimIdle);
     auto *inputComponent = static_cast<engine::input::InputComponent *>(scene->CreateComponent(engine::core::INPUT_GENERATE));
     inputComponent->attachState(sf::Keyboard::Z, new engine::input::StateSendMessage(new game::PlayerActionMessage(game::PlayerActionMessage::GO_UP)));
     inputComponent->attachState(sf::Keyboard::Q, new engine::input::StateSendMessage(new game::PlayerActionMessage(game::PlayerActionMessage::GO_LEFT)));

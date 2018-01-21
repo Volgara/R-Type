@@ -13,6 +13,7 @@
 #include <input/InputComponent.hpp>
 #include <graphics/GraphicsSystem.hpp>
 #include <physics/PhysicsSystem.hpp>
+#include "graphics/GraphicsComponent.hpp"
 #include "Message.hpp"
 #include "GameLogicClientSystem.hpp"
 

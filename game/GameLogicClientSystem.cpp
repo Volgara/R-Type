@@ -15,7 +15,6 @@ void game::GameLogicClientSystem::Init() {}
 
 void game::GameLogicClientSystem::onNotify(engine::core::Message *message) {
     if (message->id == game::GameMessageID::PLAYER_ACTION) {
-        auto *eg = engine::core::Engine::GetInstance();
         auto *movePlayer = static_cast<game::PlayerActionMessage *>(message);
 
         engine::core::GameObject *source = movePlayer->m_ref;
@@ -50,7 +49,7 @@ void game::GameLogicClientSystem::playAction(engine::core::GameObject *source, P
                 break;
         }
         body->setVelocity(vel);
-        body->Update(this->_currentDt);
+        body->Update(1);
     }
 }
 

@@ -87,10 +87,6 @@ void engine::graphics::GraphicSystem::Update(float dt) {
         eg->getWindow().draw(gc->getDrawable());
 
         gc->update(dt);
-
-        //update position, should be in the game logic
-        gc->getDrawable().setPosition(static_cast<float>(gc->getDrawable().getPosition().x + 0.1),
-                                      gc->getDrawable().getPosition().y);
     }
 }
 

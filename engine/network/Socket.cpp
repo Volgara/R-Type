@@ -33,7 +33,7 @@ engine::Network::Socket::Socket(engine::Network::SocketType type) {
     std::cout << "Runnin on Macos" << std::endl;
     _socket = (ISocket *) new UnixSocket(type);
     poll_fd = (pollfd * )malloc(sizeof(struct pollfd) * 1);
-    poll_fd[0].fd = this->get_fd();
+    poll_fd[0].fd = static_cast<int>(this->get_fd());
     poll_fd[0].events = POLLIN | POLLOUT;
 #endif
 }
@@ -62,7 +62,7 @@ unsigned int engine::Network::Socket::get_fd() const {
     return (_socket->get_fd());
 }
 
-void engine::Network::Socket::send_data(char *data) {
+void engine::Network::Socket::send_data(char *) {
 //    send(_socket->fd, data, 512, 0);
 }
 
