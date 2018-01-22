@@ -48,6 +48,10 @@ engine::Network::Socket *game::GameServer::initSocketSystem() {
         send(it->getFd(), initMessage.c_str(), initMessage.size() + 1, 0);
     }
 
+    char buff[256];
+    std::cout << "BEFORE RECV" << std::endl;
+    recv(udp->get_fd(), buff, 256, 0);
+    std::cout << "DATA RECV"<< buff << std::endl;
     return (udp);
 }
 

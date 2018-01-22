@@ -4,6 +4,7 @@
 
 #include <projectile/BulletSystem.hpp>
 #include <utility>
+#include <sys/socket.h>
 #include "GameClient.hpp"
 
 game::GameClient::GameClient(int port, std::string ip) : _port(port), _ip(std::move(ip)) {}
@@ -78,5 +79,7 @@ engine::Network::Socket *game::GameClient::initSocketSystem() {
     std::cout << "Ip: " << this->_ip << std::endl;
     sok->connect_socket("127.0.0.1", this->_port);;
     std::cout << "SOCKET FD: " << sok->get_fd();
+    send(sok->get_fd(), "hello", 6, 0);
+    std::cout << "AFTER SEND OK" << std::endl;
     return sok;
 }
