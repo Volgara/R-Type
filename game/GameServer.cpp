@@ -9,6 +9,8 @@
 #endif
 
 #include <network/NetworkComponent.hpp>
+#include <sys/poll.h>
+#include <cstring>
 #include "GameServer.hpp"
 
 game::GameServer::GameServer(std::vector<RTypeServer::Player *> players) : _players(players) {}
@@ -35,6 +37,30 @@ void game::GameServer::startGameServer() {
     eg->Shutdown();
 }
 
+std::string recvnblock(int fd)
+{
+#if defined(linux) || defined(__APPLE__)
+    std::cout << "recvnbock called" << std::endl;
+    std::string res = "";
+    struct pollfd *poll_fd;
+    poll_fd = (pollfd * )malloc(sizeof(struct pollfd) * 1);
+    poll_fd[0].fd = fd;
+    poll_fd[0].events = POLLIN | POLLOUT;
+    char buffer[256];
+    poll(poll_fd, 1, 500);
+    if (poll_fd[0].revents & POLLIN)
+    {
+        recv(fd, buffer, 256, 0);
+        res = buffer;
+        free(poll_fd);
+        return (res);
+    }
+    free(poll_fd);
+    return (res);
+#endif
+}
+
+
 engine::Network::Socket *game::GameServer::initSocketSystem() {
     engine::Network::Socket *udp = new engine::Network::Socket(engine::Network::SocketType::Udp);
 
@@ -48,10 +74,14 @@ engine::Network::Socket *game::GameServer::initSocketSystem() {
         send(it->getFd(), initMessage.c_str(), initMessage.size() + 1, 0);
     }
 
-    char buff[256];
     std::cout << "BEFORE RECV" << std::endl;
-    recv(udp->get_fd(), buff, 256, 0);
-    std::cout << "DATA RECV"<< buff << std::endl;
+    std::string res;
+    res = recvnblock(udp->get_fd());
+    while (strcmp(res.c_str(), "") == 0)
+    {
+        res = recvnblock(udp->get_fd());
+    }
+    std::cout << "DATA RECV"<< res << std::endl;
     return (udp);
 }
 
@@ -78,4 +108,3 @@ void game::GameServer::createPlayer(engine::core::Scene *scene) {
         rigidBodyComponent->Init();
     }
 }
-
