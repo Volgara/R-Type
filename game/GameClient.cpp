@@ -3,9 +3,10 @@
 //
 
 #include <projectile/BulletSystem.hpp>
+#include <utility>
 #include "GameClient.hpp"
 
-game::GameClient::GameClient(int port, std::string ip) : _port(_port), _ip(_ip) {}
+game::GameClient::GameClient(int port, std::string ip) : _port(port), _ip(std::move(ip)) {}
 
 game::GameClient::~GameClient() {
 
@@ -75,5 +76,7 @@ engine::Network::Socket *game::GameClient::initSocketSystem() {
     auto *sok = new engine::Network::Socket(engine::Network::Udp);
 
     sok->connect_socket(this->_ip, this->_port);;
+    if (sok->get_fd() > 0)
+        std::cout << "In init 3" << std::endl;
     return sok;
 }
