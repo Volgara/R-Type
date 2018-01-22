@@ -3,9 +3,10 @@
 //
 
 #include <projectile/BulletSystem.hpp>
+#include <utility>
 #include "GameClient.hpp"
 
-game::GameClient::GameClient(int port, std::string ip) : _port(_port), _ip(_ip) {}
+game::GameClient::GameClient(int port, std::string ip) : _port(port), _ip(std::move(ip)) {}
 
 game::GameClient::~GameClient() {
 
