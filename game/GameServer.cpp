@@ -39,6 +39,7 @@ engine::Network::Socket *game::GameServer::initSocketSystem() {
     engine::Network::Socket *udp = new engine::Network::Socket(engine::Network::SocketType::Udp);
 
     RTypeServer::Player *p = this->_players[0];
+
     udp->init_socket(4243 + p->getId());
     udp->bind_Socket();
     std::string initMessage;
@@ -46,6 +47,24 @@ engine::Network::Socket *game::GameServer::initSocketSystem() {
     for (auto it : this->_players) {
         send(it->getFd(), initMessage.c_str(), initMessage.size() + 1, 0);
     }
+
+
+    std::vector<int> fd_client;
+    int new_client;
+
+    while (fd_client.size() > _players.size())
+    {
+        std::cout << "Waiting for player to be connected to udp socket" << std::endl;
+        new_client = accept(udp->get_fd(), NULL, NULL);
+        if (new_client > 0)
+            fd_client.push_back(new_client);
+        else
+            std::cout << "Error in connection" << std::endl;
+    }
+
+
+
+
     return (udp);
 }
 
