@@ -21,10 +21,12 @@ namespace game {
     class GameClient {
     private:
         engine::Network::Socket *initSocketSystem();
+        std::string _ip;
+        int _port;
 
         void createPlayer(engine::core::Scene *, engine::input::InputSystem *);
     public:
-        GameClient();
+        GameClient(int port, std::string ip);
 
         virtual ~GameClient();
 

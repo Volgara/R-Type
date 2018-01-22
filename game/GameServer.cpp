@@ -66,10 +66,10 @@ void game::GameServer::createPlayer(engine::core::Scene *scene) {
         networkComponent->setRoomName(it->getRoomName());
         rigidBodyComponent->setVelocity(engine::core::Vector2d(0, 0));
         rigidBodyComponent->setSize(playerComponent->getSize());
-        rigidBodyComponent->Init();
         player->attachComponent(playerComponent);
         player->attachComponent(networkComponent);
         player->attachComponent(rigidBodyComponent);
+        rigidBodyComponent->Init();
     }
 }
 

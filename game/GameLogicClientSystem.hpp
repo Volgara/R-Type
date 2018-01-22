@@ -40,9 +40,5 @@ namespace game {
     };
 }
 
-class GameLogicServerSystem {
-
-};
-
 
 #endif //GAME_GAME_LOGIC_CLIENT_SYSTEM_HPP

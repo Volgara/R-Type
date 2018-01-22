@@ -74,6 +74,7 @@ void engine::Network::Socket::onNotify(engine::core::Message *message) {
     std::stringstream Buffer(std::iostream::in | std::iostream::out);
     char null = '\0';
 
+    std::cout << "In notify user" << std::endl;
     Buffer.write((char*)message, sizeof(message));
     Buffer.write(&null, 1);
     _queue.push_back(Buffer.str().c_str());
@@ -93,6 +94,7 @@ void engine::Network::Socket::Update(float dt) {
     }
     else if (_queue.size() > 0 && poll_fd[0].revents & POLLOUT)
     {
+        std::cout << "In queue" << std::endl;
         const char *data = _queue.front();
         _queue.erase (_queue.begin());
         send((int)this->get_fd(), data, strlen(data), 0);

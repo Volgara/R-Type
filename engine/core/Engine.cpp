@@ -27,8 +27,10 @@ engine::core::ASystem *engine::core::Engine::getSystem(const std::string &system
  */
 void engine::core::Engine::Update(float dt) {
     // listen for events on the window
+    int i = 0;
     for (auto system : _systems) {
         system.second->Update(dt);
+        i++;
     }
 }
 
@@ -51,9 +53,8 @@ void engine::core::Engine::MainLoop(void) {
 #else
     int elapsed = 0;
     while (_gameRunning) {
-        if (elapsed % 10000 == 0) {
+        if (elapsed % 10000 == 0)
             Update(1);
-        }
         elapsed++;
     }
 #endif

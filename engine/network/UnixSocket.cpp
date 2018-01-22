@@ -84,6 +84,7 @@ void engine::Network::UnixSocket::Update(float) {
 }
 
 void engine::Network::UnixSocket::write_socket(std::string data) {
+    std::cout << "In write user" << std::endl;
     write(fd, data.c_str(), data.size() + 1);
 }
 

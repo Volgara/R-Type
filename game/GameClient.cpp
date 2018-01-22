@@ -5,7 +5,7 @@
 #include <projectile/BulletSystem.hpp>
 #include "GameClient.hpp"
 
-game::GameClient::GameClient() {}
+game::GameClient::GameClient(int port, std::string ip) : _port(_port), _ip(_ip) {}
 
 game::GameClient::~GameClient() {
 
@@ -20,7 +20,6 @@ void onKeyPressed(sf::Event &event) {
 
 void game::GameClient::startGamePlayer() {
     auto *eg = engine::core::Engine::GetInstance();
-    //engine::Network::Socket *udp = this->initSocketSystem();
     engine::physics::PhysicsSystem *physicsSystem = new engine::physics::PhysicsSystem(800, 600);
     game::GameLogicClientSystem *gameLogicClientSystem = new GameLogicClientSystem(800, 600);
     engine::projectile::BulletSystem *bulletSystem = new engine::projectile::BulletSystem(800, 600);
@@ -28,6 +27,7 @@ void game::GameClient::startGamePlayer() {
     auto *graphics =  new engine::graphics::GraphicSystem();
 
     eg->addSystem("physics", physicsSystem);
+    eg->addSystem("network", this->initSocketSystem());
     eg->addSystem("gameLogic", gameLogicClientSystem);
     eg->addSystem("bullets", bulletSystem);
     eg->addSystem("graphics",graphics);
@@ -72,5 +72,8 @@ void game::GameClient::createPlayer(engine::core::Scene *scene, engine::input::I
 }
 
 engine::Network::Socket *game::GameClient::initSocketSystem() {
-    return nullptr;
+    auto *sok = new engine::Network::Socket(engine::Network::Udp);
+
+    sok->connect_socket(this->_ip, this->_port);;
+    return sok;
 }
