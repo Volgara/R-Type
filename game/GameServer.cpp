@@ -48,23 +48,6 @@ engine::Network::Socket *game::GameServer::initSocketSystem() {
         send(it->getFd(), initMessage.c_str(), initMessage.size() + 1, 0);
     }
 
-
-    std::vector<int> fd_client;
-    int new_client;
-
-    while (fd_client.size() > _players.size())
-    {
-        std::cout << "Waiting for player to be connected to udp socket" << std::endl;
-        new_client = accept(udp->get_fd(), NULL, NULL);
-        if (new_client > 0)
-            fd_client.push_back(new_client);
-        else
-            std::cout << "Error in connection" << std::endl;
-    }
-
-
-
-
     return (udp);
 }
 

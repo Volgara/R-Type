@@ -74,6 +74,8 @@ void game::GameClient::createPlayer(engine::core::Scene *scene, engine::input::I
 engine::Network::Socket *game::GameClient::initSocketSystem() {
     auto *sok = new engine::Network::Socket(engine::Network::Udp);
 
-    sok->connect_socket(this->_ip, this->_port);;
+    std::cout << "Ip: " << this->_ip << std::endl;
+    sok->connect_socket("127.0.0.1", this->_port);;
+    std::cout << "SOCKET FD: " << sok->get_fd();
     return sok;
 }

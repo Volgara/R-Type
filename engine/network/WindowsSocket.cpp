@@ -66,7 +66,10 @@ int engine::Network::WindowsSocket::connect_socket(const std::string &ip, int po
 
     ZeroMemory( &hints, sizeof(hints) );
     hints.ai_family = AF_UNSPEC;
-    hints.ai_socktype = SOCK_STREAM;
+    if (_socketType == Tcp)
+        hints.ai_socktype = SOCK_STREAM;
+    else if (_socketType == Udp)
+        hints.ai_socktype = SOCK_DGRAM;
     hints.ai_protocol = IPPROTO_TCP;
 
     int iResult = getaddrinfo(ip.c_str(), std::to_string(port).c_str(), &hints, &result);

@@ -38,7 +38,7 @@ int engine::Network::UnixSocket::connect_socket(const std::string &ip, int port)
     if (_socketType == Tcp)
         fd = socket(AF_INET, SOCK_STREAM, 0);
     else
-        throw NetworkException("UDP connect not implemented yet");
+        fd =  socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
     server = gethostbyname(ip.c_str());
     if (server == NULL) {
         throw NetworkException("No host found");
