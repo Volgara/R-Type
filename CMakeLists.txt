@@ -42,7 +42,9 @@ set(game_server_SOURCE_FILES
         game/GameLogicSystem.cpp
         game/GameLogicSystem.hpp
         game/GameServer.hpp
-        game/GameServer.cpp)
+        game/GameServer.cpp
+        game/ServerCreatePlayer.cpp
+        game/ServerCreatePlayer.hpp)
 
 set(game_SOURCE_FILES
         game/PlayerComponent.cpp
@@ -61,7 +63,9 @@ set(game_client_SOURCE_FILES
         game/GameLogicClientSystem.cpp
         game/GameLogicClientSystem.hpp
         game/GameClient.hpp
-        game/GameClient.cpp)
+        game/GameClient.cpp
+        game/ClientCreatePlayer.cpp
+        game/ClientCreatePlayer.hpp)
 
 # Engine : Projectile
 set(projectile_SOURCE_FILES
